@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/title"
+        android:text="提示标题"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/title_content"
+        android:text="提示内容"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_height="37dp">
+
+        <Button
+            android:id="@+id/left_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="取消"
+            android:background="@drawable/dialog_btn"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            />
+        <Button
+            android:id="@+id/right_btn"
+            android:layout_width="0dp"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:background="@drawable/dialog_btn"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+

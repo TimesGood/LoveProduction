@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.activity.PlanNoScanActivity">
+    <include layout="@layout/title_include"/>
+    <include layout="@layout/find_include"/>
+    <com.aige.loveproduction.customui.viewgroup.SuperSwipeRefreshLayout
+        android:id="@+id/super_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/plan_no_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+    </com.aige.loveproduction.customui.viewgroup.SuperSwipeRefreshLayout>
+    <include layout="@layout/loading_layout" android:visibility="gone"/>
+</LinearLayout>

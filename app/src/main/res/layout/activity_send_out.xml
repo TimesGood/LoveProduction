@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.SendOutActivity"
+    android:orientation="vertical"
+    android:background="@color/background">
+    <include layout="@layout/title_include"/>
+    <include layout="@layout/find_include"/>
+    <LinearLayout
+        android:id="@+id/linear_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+        <include layout="@layout/recyclerview_title_include"/>
+        <include layout="@layout/storage_item"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/storage_item"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.aige.loveproduction.customui.viewgroup.DampNestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"
+                android:id="@+id/damp_to">
+                <include layout="@layout/recyclerview_data_include"/>
+            </com.aige.loveproduction.customui.viewgroup.DampNestedScrollView>
+            <TextView
+                android:id="@+id/button_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:background="@drawable/shape_while"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <include layout="@layout/loading_layout" android:visibility="gone"/>
+</LinearLayout>

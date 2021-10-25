@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey">
+    <TextView
+        android:id="@+id/solution_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:background="@color/white"
+        android:text="方案" />
+    <TextView
+        android:id="@+id/package_count"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginEnd="1dp"
+        android:background="@color/white"
+        android:text="总包数" />
+    <TextView
+        android:id="@+id/storage_ok"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginEnd="1dp"
+        android:background="@color/white"
+        android:text="已入" />
+    <TextView
+        android:id="@+id/storage_no"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:layout_marginEnd="1dp"
+        android:background="@color/white"
+        android:text="未入" />
+    <TextView
+        android:id="@+id/bin_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center"
+        android:layout_marginEnd="1dp"
+        android:background="@color/white"
+        android:text="库位" />
+
+</LinearLayout>

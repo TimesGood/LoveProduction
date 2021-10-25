@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#ff8c00"
+        android:endColor="#FFFFFF"
+        android:angle="270" />
+    <stroke
+        android:width="2dp"
+        android:color="#dcdcdc" />
+    <corners
+        android:radius="2dp" />
+    <padding
+        android:left="10dp"
+        android:top="10dp"
+        android:right="10dp"
+        android:bottom="10dp" />
+</shape>
+<!--
+gradient中startColor属性为开始的颜色，
+endColor为渐变结束的颜色，下面的angle是角度。
+接下来是stroke可以理解为边缘，corners为拐角这里radius属性为半径，
+最后是相对位置属性padding。-->

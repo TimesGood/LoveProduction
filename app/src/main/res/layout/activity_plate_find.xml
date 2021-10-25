@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.activity.PlateFindActivity">
+
+    <include layout="@layout/title_include" />
+    <include
+        layout="@layout/find_include"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/toolbar_title" />
+
+    <LinearLayout
+        android:id="@+id/linear_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/find_layout"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/recyclerview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:background="@drawable/shape_while_grey_stroke">
+            <TextView
+                android:id="@+id/barcode_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="条码："
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/barcode"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_toEndOf="@+id/barcode_refer"/>
+
+            <TextView
+                android:id="@+id/plate_name_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="板件名称："
+                android:textColor="@color/black"
+                android:layout_below="@+id/barcode_refer"/>
+
+            <TextView
+                android:id="@+id/plate_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_alignBottom="@+id/plate_name_refer"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@+id/plate_name_refer"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/material_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.1"
+                android:layout_toEndOf="@+id/plate_name"
+                android:layout_alignBottom="@+id/plate_name"
+                android:text="材质："
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/material"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_alignBottom="@+id/material_refer"
+                android:layout_toEndOf="@+id/material_refer"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/matname_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.1"
+                android:layout_below="@+id/material_refer"
+                android:layout_marginTop="10dp"
+                android:text="颜色："
+                android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/matname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_alignBottom="@+id/matname_refer"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@+id/matname_refer"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/size_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.1"
+                android:layout_below="@+id/plate_name"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/matname"
+                android:text="尺寸："
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_alignBottom="@+id/size_refer"
+                android:layout_toEndOf="@+id/size_refer"
+                android:textColor="@color/black" />
+
+        </RelativeLayout>
+        <include layout="@layout/plate_item"
+            android:id="@+id/plate_item"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/plate_find_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_while" />
+    </LinearLayout>
+    <include
+        layout="@layout/loading_layout"
+        android:visibility="gone"/>
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/work_scan_record"-->
+<!--        android:icon="@drawable/record_img"-->
+<!--        android:title="@null"-->
+<!--        app:showAsAction="ifRoom"/>-->
+    <item
+        android:id="@+id/work_scan_event_more"
+        android:icon="@drawable/even_more"
+        android:title="@null"
+        app:showAsAction="always"/>
+
+</menu>

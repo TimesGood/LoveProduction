@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.SendOutVerifyActivity"
+    android:orientation="vertical"
+    android:background="@color/grey">
+    <include layout="@layout/title_include"/>
+    <include layout="@layout/find_include"/>
+    <LinearLayout
+        android:id="@+id/linear_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+        <include layout="@layout/recyclerview_title_include"/>
+        <include layout="@layout/send_verify_item"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/storage_item"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"/>
+        <com.aige.loveproduction.customui.viewgroup.DampNestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/recyclerview_data_include"/>
+        </com.aige.loveproduction.customui.viewgroup.DampNestedScrollView>
+    </LinearLayout>
+    <include layout="@layout/loading_layout" android:visibility="gone"/>
+
+</LinearLayout>

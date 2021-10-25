@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.WebActivity"
+    android:orientation="vertical">
+    <include layout="@layout/title_include"/>
+    <Button
+        android:id="@+id/browser_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="浏览器"
+        android:background="@drawable/button_shape_selector"
+        android:layout_margin="5dp"/>
+    <Button
+        android:id="@+id/file_selection_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="文件选择"
+        android:background="@drawable/button_shape_selector"
+        android:layout_margin="5dp"/>
+</LinearLayout>

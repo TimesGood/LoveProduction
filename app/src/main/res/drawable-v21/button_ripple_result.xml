@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--无边框水波纹-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@android:color/darker_gray">
+    <item>
+        <shape android:shape="rectangle">
+<!--            默认颜色-->
+            <solid android:color="@color/white"/>
+        </shape>
+    </item>
+
+</ripple>
