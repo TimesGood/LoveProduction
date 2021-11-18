@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -24,6 +25,7 @@ import com.aige.loveproduction.action.ActivityAction;
 import com.aige.loveproduction.action.ClickAction;
 import com.aige.loveproduction.action.KeyboardAction;
 import com.aige.loveproduction.action.TitleBarAction;
+import com.aige.loveproduction.premission.Permission;
 import com.aige.loveproduction.util.SoundUtils;
 
 import autodispose2.AutoDispose;
@@ -39,6 +41,8 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
     protected SoundUtils soundUtils;
     private Toolbar toolbar;
     private Toast toast;
+    protected Permission permission;
+    protected BaseAnimation mAnimation;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,7 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
         mPresenter.onAttach((V) this);
         //初始化Activity
         initActivity();
+
     }
 
     /**
@@ -66,6 +71,7 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
      */
     public void initToolbar() {
         toolbar = findViewById(R.id.toolbar_title);
+        if(toolbar == null) return;
         hideTitle();
         setCenterTitle("居中标题");
         toolbar.setBackground(ContextCompat.getDrawable(this,R.color.blue));
@@ -105,6 +111,14 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
         soundUtils = new SoundUtils(this,SoundUtils.MEDIA_SOUND);
         soundUtils.putSound(0,R.raw.ok);
         soundUtils.putSound(1,R.raw.no);
+        if(permission == null) {
+            permission = new Permission(this);
+        }
+        if(mAnimation == null) {
+            mAnimation = new BaseAnimation();
+        }
+        //相机
+        //ZXingLibrary.initDisplayOpinion(this);
     }
 
     /**
@@ -150,6 +164,9 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.onDetach();
+        }
+        if(permission != null) {
+            permission = null;
         }
     }
     /**

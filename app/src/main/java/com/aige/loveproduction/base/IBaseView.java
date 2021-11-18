@@ -12,9 +12,11 @@ public interface IBaseView {
 
     void hideLoading();
 
-    void onError(String message);
+    default void onError(String message) {}
 
-    default void onError(String method,String message){}
+    default void showLoading(String method) {}
+    default void hideLoading(String method) {}
+    default void onError(String method,String message) {}
 
     <T> AutoDisposeConverter<T> bindAutoDispose();
 

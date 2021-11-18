@@ -1,5 +1,6 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+//buildscript里是gradle脚本执行所需依赖，分别是对应的maven库和插件
 buildscript {
+    //依赖库，选择使用的是哪个依赖库，自上而下查找，当导包如果第一个库找不到相应的依赖时就继续往下查找直到找到为止
     repositories {
         //阿里云maven仓库镜像
         maven{
@@ -7,24 +8,25 @@ buildscript {
         }
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
-
+//allprojects里是项目本身需要的依赖，比如我现在要依赖我自己maven库
+//一般repositories同上
 allprojects {
     repositories {
+        //阿里云maven仓库镜像
+        maven{
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
-
+//删除文件的任务
+//type 类型
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

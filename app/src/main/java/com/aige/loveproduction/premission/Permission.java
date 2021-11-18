@@ -1,150 +1,235 @@
 package com.aige.loveproduction.premission;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
+
+import androidx.core.content.ContextCompat;
+
+
+import com.aige.loveproduction.mvp.ui.dialogin.MessageDialog;
+import com.aige.loveproduction.util.IntentUtils;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 权限申请实体类
+ * 权限申请
  */
-public final class Permission {
+public class Permission {
+    private List<String> mList;
+    private Activity mActivity;
 
-    private Permission() {}
-
-    /** 外部存储权限（特殊权限，需要 Android 11 及以上） */
-    public static final String MANAGE_EXTERNAL_STORAGE = "android.permission.MANAGE_EXTERNAL_STORAGE";
-
-    /** 安装应用权限（特殊权限，需要 Android 8.0 及以上） */
-    public static final String REQUEST_INSTALL_PACKAGES = "android.permission.REQUEST_INSTALL_PACKAGES";
-
-    /** 通知栏权限（特殊权限，需要 Android 6.0 及以上，注意此权限不需要在清单文件中注册也能申请） */
-    public static final String NOTIFICATION_SERVICE = "android.permission.NOTIFICATION_SERVICE";
-
-    /** 悬浮窗权限（特殊权限，需要 Android 6.0 及以上） */
-    public static final String SYSTEM_ALERT_WINDOW = "android.permission.SYSTEM_ALERT_WINDOW";
-
-    /** 系统设置权限（特殊权限，需要 Android 6.0 及以上） */
-    public static final String WRITE_SETTINGS = "android.permission.WRITE_SETTINGS";
+    public Permission(Activity activity) {
+        this.mList = new ArrayList<>();
+        mActivity = activity;
+    }
 
     /**
-     * 读取外部存储
-     *
-     * @deprecated         在 Android 11 已经过时，请使用 {@link Permission#MANAGE_EXTERNAL_STORAGE}
+     * 获取权限
      */
-    @Deprecated
-    public static final String READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
+    public void applyPermission(String[] permission,ApplyListener applyListener){
+        ApplyListener mApplyListener = applyListener;
+        String[] notApplyPermission = getNotApplyPermission(permission);
+        String[] refuse = getRefuse(permission);
+        if(notApplyPermission.length == 0) {
+            mApplyListener.applySuccess();
+        }else if(refuse.length != 0){
+            new MessageDialog.Builder(mActivity)
+                        .setTitle("开启权限")
+                        .setMessage("权限未开启，请手动授予" + getPermissionHint(mList))
+                        .setConfirm("去开启")
+                        .setListener(dialog -> IntentUtils.gotoPermission(mActivity))
+                        .show();
+        }else{
+            mApplyListener.apply(notApplyPermission);
+        }
+    }
+    //获取未授权的权限
+    public String[] getNotApplyPermission(String[] permission) {
+        mList.clear();
+        for (String p:permission) {
+            if(!(ContextCompat.checkSelfPermission(mActivity, p) == PackageManager.PERMISSION_GRANTED)) mList.add(p);
+        }
+        return mList.toArray(new String[]{});
+    }
+    //获取被拒绝的权限
+    public String[] getRefuse(String[] permission) {
+        mList.clear();
+        for (String p : permission) {
+            if(mActivity.shouldShowRequestPermissionRationale(p)) mList.add(p);
+        }
+        return mList.toArray(new String[]{});
+    }
+    //权限获取回调
+    public interface ApplyListener {
+        void apply(String[] permission);
+        void applySuccess();
+    }
 
     /**
-     * 写入外部存储
-     *
-     * @deprecated         在 Android 11 已经过时，请使用 {@link Permission#MANAGE_EXTERNAL_STORAGE}
+     * 获取权限失败时得到相应权限的消息
+     * @param permissions 权限组
+     * @return 消息
      */
-    @Deprecated
-    public static final String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
+    public String getPermissionHint(List<String> permissions) {
+        if (permissions == null || permissions.isEmpty()) {
+            return "获取权限失败，请手动授予权限";
+        }
 
-    /** 读取日历 */
-    public static final String READ_CALENDAR = "android.permission.READ_CALENDAR";
-    /** 修改日历 */
-    public static final String WRITE_CALENDAR = "android.permission.WRITE_CALENDAR";
+        List<String> hints = new ArrayList<>();
+        for (String permission : permissions) {
+            switch (permission) {
+                case Permissions.READ_EXTERNAL_STORAGE:
+                case Permissions.WRITE_EXTERNAL_STORAGE:
+                case Permissions.MANAGE_EXTERNAL_STORAGE: {
+                    String hint = "存储权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.CAMERA: {
+                    String hint = "相机权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.RECORD_AUDIO: {
+                    String hint = "麦克风权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.ACCESS_FINE_LOCATION:
+                case Permissions.ACCESS_COARSE_LOCATION:
+                case Permissions.ACCESS_BACKGROUND_LOCATION: {
+                    String hint;
+                    if (!permissions.contains(Permissions.ACCESS_FINE_LOCATION) &&
+                            !permissions.contains(Permissions.ACCESS_COARSE_LOCATION)) {
+                        hint = "后台定位权限";
+                    } else {
+                        hint = "定位权限";
+                    }
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.READ_PHONE_STATE:
+                case Permissions.CALL_PHONE:
+                case Permissions.ADD_VOICEMAIL:
+                case Permissions.USE_SIP:
+                case Permissions.READ_PHONE_NUMBERS:
+                case Permissions.ANSWER_PHONE_CALLS: {
+                    String hint = "电话权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.GET_ACCOUNTS:
+                case Permissions.READ_CONTACTS:
+                case Permissions.WRITE_CONTACTS: {
+                    String hint = "通讯录权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.READ_CALENDAR:
+                case Permissions.WRITE_CALENDAR: {
+                    String hint = "日历权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.READ_CALL_LOG:
+                case Permissions.WRITE_CALL_LOG:
+                case Permissions.PROCESS_OUTGOING_CALLS: {
+                    String hint = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ?
+                            "通话记录权限" : "电话权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.BODY_SENSORS: {
+                    String hint = "身体传感权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.ACTIVITY_RECOGNITION: {
+                    String hint = "健身运动权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.SEND_SMS:
+                case Permissions.RECEIVE_SMS:
+                case Permissions.READ_SMS:
+                case Permissions.RECEIVE_WAP_PUSH:
+                case Permissions.RECEIVE_MMS: {
+                    String hint = "短信权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.REQUEST_INSTALL_PACKAGES: {
+                    String hint = "安装应用权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.NOTIFICATION_SERVICE: {
+                    String hint = "通知栏权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.SYSTEM_ALERT_WINDOW: {
+                    String hint = "悬浮窗权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                case Permissions.WRITE_SETTINGS: {
+                    String hint = "系统设置权限";
+                    if (!hints.contains(hint)) {
+                        hints.add(hint);
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
 
-    /** 相机权限 */
-    public static final String CAMERA = "android.permission.CAMERA";
-
-    /** 读取联系人 */
-    public static final String READ_CONTACTS = "android.permission.READ_CONTACTS";
-    /** 修改联系人 */
-    public static final String WRITE_CONTACTS = "android.permission.WRITE_CONTACTS";
-    /** 访问账户列表 */
-    public static final String GET_ACCOUNTS = "android.permission.GET_ACCOUNTS";
-
-    /** 获取精确位置 */
-    public static final String ACCESS_FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION";
-    /** 获取粗略位置 */
-    public static final String ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION";
-    /** 在后台获取位置（需要 Android 10.0 及以上） */
-    public static final String ACCESS_BACKGROUND_LOCATION = "android.permission.ACCESS_BACKGROUND_LOCATION";
-
-    /** 读取照片中的地理位置（需要 Android 10.0 及以上）*/
-    public static final String ACCESS_MEDIA_LOCATION = "android.permission.ACCESS_MEDIA_LOCATION";
-
-    /** 录音权限 */
-    public static final String RECORD_AUDIO = "android.permission.RECORD_AUDIO";
-
-    /** 读取电话状态 */
-    public static final String READ_PHONE_STATE = "android.permission.READ_PHONE_STATE";
-    /** 拨打电话 */
-    public static final String CALL_PHONE = "android.permission.CALL_PHONE";
-    /** 读取通话记录 */
-    public static final String READ_CALL_LOG = "android.permission.READ_CALL_LOG";
-    /** 修改通话记录 */
-    public static final String WRITE_CALL_LOG = "android.permission.WRITE_CALL_LOG";
-    /** 添加语音邮件 */
-    public static final String ADD_VOICEMAIL = "com.android.voicemail.permission.ADD_VOICEMAIL";
-    /** 使用SIP视频 */
-    public static final String USE_SIP = "android.permission.USE_SIP";
-    /**
-     * 处理拨出电话
-     *
-     * @deprecated         在 Android 10 已经过时，请见：https://developer.android.google.cn/reference/android/Manifest.permission?hl=zh_cn#PROCESS_OUTGOING_CALLS
-     */
-    public static final String PROCESS_OUTGOING_CALLS = "android.permission.PROCESS_OUTGOING_CALLS";
-    /**
-     * 接听电话（需要 Android 8.0 及以上，Android 8.0 以下可以采用模拟耳机按键事件来实现接听电话，这种方式不需要权限）
-     */
-    public static final String ANSWER_PHONE_CALLS = "android.permission.ANSWER_PHONE_CALLS";
-    /** 读取手机号码（需要 Android 8.0 及以上） */
-    public static final String READ_PHONE_NUMBERS = "android.permission.READ_PHONE_NUMBERS";
-
-    /** 使用传感器 */
-    public static final String BODY_SENSORS = "android.permission.BODY_SENSORS";
-    /** 获取活动步数（需要 Android 10.0 及以上） */
-    public static final String ACTIVITY_RECOGNITION = "android.permission.ACTIVITY_RECOGNITION";
-
-    /** 发送短信 */
-    public static final String SEND_SMS = "android.permission.SEND_SMS";
-    /** 接收短信 */
-    public static final String RECEIVE_SMS = "android.permission.RECEIVE_SMS";
-    /** 读取短信 */
-    public static final String READ_SMS = "android.permission.READ_SMS";
-    /** 接收 WAP 推送消息 */
-    public static final String RECEIVE_WAP_PUSH = "android.permission.RECEIVE_WAP_PUSH";
-    /** 接收彩信 */
-    public static final String RECEIVE_MMS = "android.permission.RECEIVE_MMS";
-
-    /** 允许呼叫应用继续在另一个应用中启动的呼叫（需要 Android 9.0 及以上） */
-    public static final String ACCEPT_HANDOVER = "android.permission.ACCEPT_HANDOVER";
-
-    /**
-     * 权限组
-     */
-    public static final class Group {
-
-        /**
-         * 存储权限
-         *
-         * @deprecated         在 Android 11 已经过时，请使用 {@link Permission#MANAGE_EXTERNAL_STORAGE} 权限
-         */
-        @Deprecated
-        public static final String[] STORAGE = new String[]{
-                Permission.READ_EXTERNAL_STORAGE,
-                Permission.WRITE_EXTERNAL_STORAGE};
-
-        /** 位置权限 */
-        public static final String[] LOCATION = new String[]{
-                Permission.ACCESS_FINE_LOCATION,
-                Permission.ACCESS_COARSE_LOCATION,
-                Permission.ACCESS_BACKGROUND_LOCATION};
-
-        /** 日历权限 */
-        public static final String[] CALENDAR = new String[]{
-                Permission.READ_CALENDAR,
-                Permission.WRITE_CALENDAR};
-
-        /** 联系人权限 */
-        public static final String[] CONTACTS = new String[]{
-                Permission.READ_CONTACTS,
-                Permission.WRITE_CONTACTS,
-                Permission.GET_ACCOUNTS};
-
-        /** 传感器权限 */
-        public static final String[] SENSORS = new String[] {
-                Permission.BODY_SENSORS,
-                Permission.ACTIVITY_RECOGNITION};
+        if (!hints.isEmpty()) {
+            StringBuilder builder = new StringBuilder();
+            for (String text : hints) {
+                if (builder.length() == 0) {
+                    builder.append(text);
+                } else {
+                    builder.append("、")
+                            .append(text);
+                }
+            }
+            builder.append(" ");
+            return builder.toString();
+        }
+        return "";
     }
 }

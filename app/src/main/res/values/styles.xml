@@ -99,4 +99,16 @@
         <item name="android:colorForeground">@color/grey2</item>
     </style>
 
+    <!-- 底部导航栏字体样式 -->
+    <style name="BottomTabTextStyle" >
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:popupBackground">@color/red</item>
+    </style>
+
 </resources>

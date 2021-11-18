@@ -1,5 +1,6 @@
 package com.aige.loveproduction.action;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.listener.OnTitleBarListener;
@@ -21,7 +23,6 @@ public interface TitleBarAction extends OnTitleBarListener {
 
     @Nullable
     Toolbar getTitleBar();
-    
     /**
      * 左项被点击
      *
@@ -80,8 +81,11 @@ public interface TitleBarAction extends OnTitleBarListener {
      */
     default void setCenterTitle(CharSequence title) {
         if (getTitleBar() != null && getTitleBar().getChildCount() > 0) {
-            TextView textView = (TextView) getTitleBar().getChildAt(0);
-            textView.setText(title);
+            for(int i = 0; i < getTitleBar().getChildCount(); i++) {
+                if(getTitleBar().getChildAt(i) instanceof TextView) {
+                    ((TextView) getTitleBar().getChildAt(i)).setText(title);
+                }
+            }
         }
     }
 

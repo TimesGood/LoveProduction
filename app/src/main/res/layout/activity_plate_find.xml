@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".ui.activity.PlateFindActivity">
+    tools:context=".mvp.ui.activity.PlateFindActivity">
 
-    <include layout="@layout/title_include" />
-    <include
-        layout="@layout/find_include"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/toolbar_title" />
+        android:layout_height="wrap_content"
+        android:background="@color/background">
 
-    <LinearLayout
-        android:id="@+id/linear_body"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/find_layout"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:orientation="vertical">
+        <include
+            layout="@layout/title_include"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <include
+            layout="@layout/find_include"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/toolbar_title" />
+
         <RelativeLayout
             android:id="@+id/recyclerview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/shape_while_grey_stroke"
             android:orientation="horizontal"
-            android:padding="5dp"
-            android:background="@drawable/shape_while_grey_stroke">
+            android:padding="5dp">
+
             <TextView
                 android:id="@+id/barcode_refer"
                 android:layout_width="wrap_content"
@@ -41,18 +45,18 @@
                 android:id="@+id/barcode"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_toEndOf="@+id/barcode_refer"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_toEndOf="@+id/barcode_refer"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/plate_name_refer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/barcode_refer"
                 android:text="板件名称："
-                android:textColor="@color/black"
-                android:layout_below="@+id/barcode_refer"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/plate_name"
@@ -69,8 +73,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="0.1"
-                android:layout_toEndOf="@+id/plate_name"
                 android:layout_alignBottom="@+id/plate_name"
+                android:layout_toEndOf="@+id/plate_name"
                 android:text="材质："
                 android:textColor="@color/black" />
 
@@ -92,6 +96,7 @@
                 android:layout_marginTop="10dp"
                 android:text="颜色："
                 android:textColor="@color/black" />
+
             <TextView
                 android:id="@+id/matname"
                 android:layout_width="wrap_content"
@@ -111,7 +116,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/matname"
                 android:text="尺寸："
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/size"
@@ -123,19 +128,31 @@
                 android:textColor="@color/black" />
 
         </RelativeLayout>
-        <include layout="@layout/plate_item"
+
+        <include
             android:id="@+id/plate_item"
+            layout="@layout/plate_item"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginBottom="1dp"/>
+            android:layout_marginBottom="1dp" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/plate_find_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_while" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_while"
+            />
+
+    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+
     <include
         layout="@layout/loading_layout"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

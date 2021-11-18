@@ -6,4 +6,9 @@
             <enum name="landscape" value="2" />
         </attr>
     </declare-styleable>
+    <string-array name="spinner">
+        <item>请选择</item>
+        <item>颗粒板</item>
+        <item>颗粒门</item>
+    </string-array>
 </resources>

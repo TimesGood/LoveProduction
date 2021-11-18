@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context=".ui.activity.ExamineActivity">
+    tools:context=".mvp.ui.activity.ExamineActivity">
     <include layout="@layout/title_include"/>
-    <com.aige.loveproduction.customui.viewgroup.DampNestedScrollView
+    <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -81,7 +81,7 @@
                     />
             </RelativeLayout>
         </LinearLayout>
-    </com.aige.loveproduction.customui.viewgroup.DampNestedScrollView>
+    </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
 
 
 </LinearLayout>

@@ -1,7 +1,7 @@
 package com.aige.loveproduction.net;
 
 
-import com.aige.loveproduction.bean.BaseBean;
+import com.aige.loveproduction.base.BaseBean;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -17,7 +17,7 @@ import retrofit2.HttpException;
 public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     @Override
     public void onSubscribe(@NonNull Disposable d) {
-        onStart();
+        onStart(d);
     }
     @Override
     public void onNext(@NonNull BaseBean<T> response) {
@@ -46,7 +46,7 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
         onNormalEnd();
     }
 
-    public abstract void onStart();
+    public abstract void onStart(Disposable d);
     public abstract void onSuccess(T response);
     public abstract void onError(String message);
     public abstract void onNormalEnd();

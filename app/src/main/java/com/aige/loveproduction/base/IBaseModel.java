@@ -1,6 +1,5 @@
 package com.aige.loveproduction.base;
 
-import com.aige.loveproduction.model.FactorySettingModel;
 import com.aige.loveproduction.net.APIService;
 import com.aige.loveproduction.net.RetrofitClient;
 

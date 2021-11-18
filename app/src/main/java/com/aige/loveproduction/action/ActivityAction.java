@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 
+import androidx.fragment.app.Fragment;
+
+import com.aige.loveproduction.mvp.ui.activity.QrCodeActivity;
+import com.google.zxing.integration.android.IntentIntegrator;
+
 /**
  * Activity相关意图
  */
@@ -58,4 +63,32 @@ public interface ActivityAction {
         getContext().startActivity(intent);
     }
 
+    default void startActivityForResult(Class<? extends Activity> clazz,int requestCode) {
+        startActivityForResult(new Intent(getContext(),clazz),requestCode);
+    }
+    default void startActivityForResult(Intent intent,int requestCode) {
+        if(getContext() instanceof Activity) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+        getActivity().startActivityForResult(intent,requestCode);
+    }
+    /**
+     * 在Fragment调用扫描二维码
+     */
+    default void startFragmentCapture(Fragment fragment) {
+        IntentIntegrator.forSupportFragment(fragment)
+                .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码
+                .setCameraId(0)// 选择摄像头,可使用前置或者后置
+                .setBeepEnabled(true)// 是否开启声音,扫完码之后会"哔"的一声
+                .setCaptureActivity(QrCodeActivity.class)//自定义扫码界面
+                .initiateScan();// 初始化扫码
+    }
+    default void startActivityCapture() {
+        new IntentIntegrator(getActivity())
+                .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码
+                .setCameraId(0)// 选择摄像头,可使用前置或者后置
+                .setBeepEnabled(true)// 是否开启声音,扫完码之后会"哔"的一声
+                .setCaptureActivity(QrCodeActivity.class)//自定义扫码界面
+                .initiateScan();// 初始化扫码
+    }
 }

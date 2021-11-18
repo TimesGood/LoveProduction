@@ -106,8 +106,10 @@ public abstract class AppAdapter<T> extends BaseAdapter<BaseAdapter<?>.ViewHolde
         if (mDataSet == null) {
             mDataSet = new ArrayList<>();
         }
+        //这里只是更新原始数据
         mDataSet.set(position, item);
-        notifyItemChanged(position);
+        //在新加了头部标签之后，更新位置也会有偏差
+        notifyItemChanged(position+mPositionOffset);
     }
 
     /**
@@ -132,7 +134,7 @@ public abstract class AppAdapter<T> extends BaseAdapter<BaseAdapter<?>.ViewHolde
             mDataSet.add(item);
             position = mDataSet.size() - 1;
         }
-        notifyItemInserted(position);
+        notifyItemInserted(position+mPositionOffset);
     }
 
     /**
@@ -147,7 +149,7 @@ public abstract class AppAdapter<T> extends BaseAdapter<BaseAdapter<?>.ViewHolde
 
     public void removeItem(@IntRange(from = 0) int position) {
         mDataSet.remove(position);
-        notifyItemRemoved(position);
+        notifyItemRemoved(position+mPositionOffset);
     }
 
     /**

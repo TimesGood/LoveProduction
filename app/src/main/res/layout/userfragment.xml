@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.aige.loveproduction.customui.viewgroup.DampNestedScrollView
+    <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -109,6 +109,38 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/special_shaped_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="1dp"
+                android:background="@drawable/button_ripple_result">
+
+                <ImageView
+                    android:id="@+id/special_shaped_image"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/examine_image" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/special_shaped_image"
+                    android:text="异形工序设置"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/about_us"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -185,6 +217,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/layout_test"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -195,7 +228,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
-                    android:text="内置浏览器"
+                    android:text="测试"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:gravity="center"/>
@@ -209,6 +242,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-    </com.aige.loveproduction.customui.viewgroup.DampNestedScrollView>
+    </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
 
 </RelativeLayout>

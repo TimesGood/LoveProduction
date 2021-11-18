@@ -17,7 +17,8 @@ import com.aige.loveproduction.action.ResourcesAction;
 import org.jetbrains.annotations.NotNull;
 
 /**
- *    desc   : RecyclerView 适配器基类
+ * RecyclerView.Adapter基类
+ * 重写RecyclerView.Adapter，对其进行一些封装
  */
 public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder>
         extends RecyclerView.Adapter<VH> implements ResourcesAction {
@@ -39,7 +40,7 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder>
     private SparseArray<OnChildLongClickListener> mChildLongClickListeners;
 
     /** ViewHolder 位置偏移值 */
-    private int mPositionOffset = 0;
+    protected int mPositionOffset = 0;
 
     public BaseAdapter(Context context) {
         mContext = context;
@@ -50,8 +51,8 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder>
 
     /**
      * 绑定holder
-     * @param holder
-     * @param position
+     * @param holder 数据绑定内部类
+     * @param position 条目索引
      */
     @Override
     public final void onBindViewHolder(@NonNull VH holder, int position) {
@@ -194,7 +195,6 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder>
 
     /**
      * 绑定RecyclerView
-     * @param recyclerView
      */
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -210,7 +210,6 @@ public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder>
 
     /**
      * 解绑，防止内存泄漏
-     * @param recyclerView
      */
     @Override
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {

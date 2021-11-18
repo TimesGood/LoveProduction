@@ -6,9 +6,9 @@
     android:orientation="vertical"
     android:background="@color/background"
     android:id="@+id/textLa"
-    tools:context=".ui.activity.FactorySettingsActivity">
+    tools:context=".mvp.ui.activity.FactorySettingsActivity">
     <include layout="@layout/title_include"/>
-    <com.aige.loveproduction.customui.viewgroup.DampNestedScrollView
+    <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
         android:id="@+id/layout_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,13 +53,13 @@
                         android:layout_toEndOf="@+id/machine_img"/>
                 </RelativeLayout>
 
-                <com.aige.loveproduction.customui.LineWrapRadioGroup
+                <com.aige.loveproduction.mvp.ui.customui.viewgroup.LineWrapRadioGroup
                     android:orientation="horizontal"
                     android:id="@+id/machineRadio"
                     android:layout_gravity="top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                </com.aige.loveproduction.customui.LineWrapRadioGroup>
+                </com.aige.loveproduction.mvp.ui.customui.viewgroup.LineWrapRadioGroup>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/workgroup_lay"
@@ -95,13 +95,13 @@
                         android:layout_toEndOf="@+id/workgroup_img"/>
                 </RelativeLayout>
 
-                <com.aige.loveproduction.customui.LineWrapRadioGroup
+                <com.aige.loveproduction.mvp.ui.customui.viewgroup.LineWrapRadioGroup
                     android:orientation="vertical"
                     android:id="@+id/workgroupRadio"
                     android:layout_gravity="top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                </com.aige.loveproduction.customui.LineWrapRadioGroup>
+                </com.aige.loveproduction.mvp.ui.customui.viewgroup.LineWrapRadioGroup>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/handler_lay"
@@ -147,6 +147,6 @@
                 </GridLayout>
             </LinearLayout>
         </LinearLayout>
-    </com.aige.loveproduction.customui.viewgroup.DampNestedScrollView>
+    </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
     <include layout="@layout/loading_layout" android:visibility="gone"/>
 </LinearLayout>

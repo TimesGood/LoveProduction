@@ -12,7 +12,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.aige.loveproduction.R;
-import com.aige.loveproduction.customui.StatusLayout;
+import com.aige.loveproduction.mvp.ui.customui.StatusLayout;
 
 /**
 
@@ -26,13 +26,17 @@ public interface StatusAction {
     StatusLayout getStatusLayout();
 
     /**
-     * 显示加载中
+     * 显示默认加载中
      */
-    default void showLoading() {
-        showLoading(R.raw.loading);
+    default void showLoadings() {
+        showLoadings(R.raw.loading);
     }
 
-    default void showLoading(@RawRes int id) {
+    /**
+     * 显示自定义加载中
+     * @param id json动画资源
+     */
+    default void showLoadings(@RawRes int id) {
         StatusLayout layout = getStatusLayout();
         layout.show();
         layout.setAnimResource(id);

@@ -4,6 +4,7 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
 import retrofit2.HttpException;
 
 
@@ -25,7 +26,13 @@ public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> im
         this.mModel = bindModel();
         mDisposable = new CompositeDisposable();
     }
-
+    //注册绑定
+    public void setDisposable(Disposable disposable) {
+        mDisposable.add(disposable);
+    }
+    public void dispose() {
+        if(!mDisposable.isDisposed()) mDisposable.dispose();
+    }
     /**
      * View是否已经绑定
      */

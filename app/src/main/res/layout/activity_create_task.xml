@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.ui.activity.CreateTaskActivity">
+    <include layout="@layout/title_include"/>
+    <include layout="@layout/find_include"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/qr_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="识别二维码："
+            android:gravity="center_vertical"
+            android:layout_marginTop="3dp"/>
+        <EditText
+            android:id="@+id/qr_edit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@+id/qr_text"
+            android:layout_alignBottom="@id/qr_text"
+            android:background="@drawable/shape_while_grey_stroke" />
+        <TextView
+            android:id="@+id/qr_type_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="二维码类型："
+            android:gravity="center_vertical"
+            android:layout_below="@+id/qr_text"
+            android:layout_alignEnd="@+id/qr_text"
+            android:layout_marginTop="3dp"/>
+        <EditText
+            android:id="@+id/qr_type_edit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@+id/qr_type_text"
+            android:layout_alignBottom="@id/qr_type_text"
+            android:background="@drawable/shape_while_grey_stroke" />
+        <TextView
+            android:id="@+id/order_num_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="订单数量："
+            android:gravity="center_vertical"
+            android:layout_below="@+id/qr_type_edit"
+            android:layout_alignEnd="@+id/qr_text"
+            android:layout_marginTop="3dp"/>
+        <EditText
+            android:id="@+id/order_num_edit"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@+id/order_num_text"
+            android:layout_alignBottom="@id/order_num_text"
+            android:background="@drawable/shape_while_grey_stroke" />
+        <TextView
+            android:id="@+id/print_type_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="打印类型："
+            android:gravity="center_vertical"
+            android:layout_below="@+id/order_num_text"
+            android:layout_alignEnd="@+id/qr_text"
+            android:layout_marginTop="3dp"/>
+        <Spinner
+            android:id="@+id/print_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@+id/print_type_text"
+            android:layout_alignBottom="@id/print_type_text"
+            android:background="@drawable/shape_while_grey_stroke" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

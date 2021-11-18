@@ -2,6 +2,7 @@ package com.aige.loveproduction.bean;
 
 public class ScanCodeBean {
     private String wono;
+    private String batchno;
     private String orderId;
     private String saoMiaoCount;
     private String planNo;
@@ -17,6 +18,14 @@ public class ScanCodeBean {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getBatchno() {
+        return batchno;
+    }
+
+    public void setBatchno(String batchno) {
+        this.batchno = batchno;
     }
 
     public String getOrderId() {
@@ -84,8 +93,9 @@ public class ScanCodeBean {
 
     @Override
     public String toString() {
-        return "ScanCode{" +
+        return "ScanCodeBean{" +
                 "wono='" + wono + '\'' +
+                ", batchno='" + batchno + '\'' +
                 ", orderId='" + orderId + '\'' +
                 ", saoMiaoCount='" + saoMiaoCount + '\'' +
                 ", planNo='" + planNo + '\'' +
@@ -93,7 +103,7 @@ public class ScanCodeBean {
                 ", totalCnt='" + totalCnt + '\'' +
                 ", totalArea='" + totalArea + '\'' +
                 ", message='" + message + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

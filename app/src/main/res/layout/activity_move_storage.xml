@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MoveStorageActivity"
+    android:background="@color/grey"
     android:orientation="vertical"
-    android:background="@color/grey">
-    <include layout="@layout/title_include"/>
-    <include layout="@layout/find_include"/>
-    <LinearLayout
-        android:id="@+id/linear_body"
+    tools:context=".mvp.ui.activity.MoveStorageActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
-        <include layout="@layout/recyclerview_title_include"/>
-        <include layout="@layout/storage_item"
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <include layout="@layout/title_include"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_scrollFlags="scroll|enterAlways"/>
+
+        <include layout="@layout/find_include" />
+
+        <include layout="@layout/recyclerview_title_include" />
+
+        <include
+            android:id="@+id/storage_item"
+            layout="@layout/storage_item"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/storage_item"
             android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"/>
-        <com.aige.loveproduction.customui.viewgroup.DampNestedScrollView
+            android:layout_marginBottom="1dp" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+            android:id="@+id/damp_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <include layout="@layout/recyclerview_data_include"/>
-        </com.aige.loveproduction.customui.viewgroup.DampNestedScrollView>
-    </LinearLayout>
-    <include layout="@layout/loading_layout" android:visibility="gone"/>
-</LinearLayout>
+
+            <include layout="@layout/recyclerview_data_include" />
+        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+
+    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+
+    <include
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

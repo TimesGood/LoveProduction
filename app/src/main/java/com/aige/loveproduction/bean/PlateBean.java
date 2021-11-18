@@ -11,7 +11,10 @@ public class PlateBean {
     private float fleng;
     private float fwidth;
     private int thk;
+    private String info1;
     private int status = 200;
+
+
 
     public int getStatus() {
         return status;
@@ -101,6 +104,14 @@ public class PlateBean {
         this.thk = thk;
     }
 
+    public String getInfo1() {
+        return info1;
+    }
+
+    public void setInfo1(String info1) {
+        this.info1 = info1;
+    }
+
     @Override
     public String toString() {
         return "PlateBean{" +
@@ -114,6 +125,7 @@ public class PlateBean {
                 ", fleng=" + fleng +
                 ", fwidth=" + fwidth +
                 ", thk=" + thk +
+                ", info1='" + info1 + '\'' +
                 ", status=" + status +
                 '}';
     }

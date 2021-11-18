@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.activity.SplashActivity"
+    tools:context=".mvp.ui.activity.SplashActivity"
     android:orientation="horizontal">
     <RelativeLayout
         android:layout_width="match_parent"

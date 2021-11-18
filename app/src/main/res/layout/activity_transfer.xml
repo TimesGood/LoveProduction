@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".ui.activity.TransferActivity"
-    android:background="@color/background">
-    <include layout="@layout/title_include"/>
-    <include layout="@layout/find_include"/>
-    <com.aige.loveproduction.customui.viewgroup.SuperSwipeRefreshLayout
-        android:id="@+id/super_swipe"
+    tools:context=".mvp.ui.activity.TransferActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/background">
+
+        <include
+            layout="@layout/title_include"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <include layout="@layout/find_include" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/plan_no_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </androidx.recyclerview.widget.RecyclerView>
-    </com.aige.loveproduction.customui.viewgroup.SuperSwipeRefreshLayout>
-    <include layout="@layout/loading_layout" android:visibility="gone"/>
+            android:layout_height="match_parent"
+            />
 
-</LinearLayout>
+    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+
+    <include
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

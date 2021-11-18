@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@drawable/shape_while_radius"
+    android:background="@drawable/layer_shade"
     android:id="@+id/find_layout"
     android:padding="5dp">
     <ImageView
@@ -10,18 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/camera_img"
-        android:background="@drawable/ripple_button_blue_radius"
+        android:background="@drawable/ripple_button_blue"
         android:layout_weight="0.7"
-        android:padding="7dp"/>
+        android:padding="7dp" />
     <EditText
         android:id="@+id/find_edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
-        android:hint="单行输入"
-        android:background="@drawable/shape_white_edit_radius"
+        android:background="@drawable/shape_while"
         android:gravity="center_vertical"
+        android:nextFocusDown="@id/find_edit"
+        android:imeOptions="actionDone"
         android:padding="8dp"
+        android:hint="单行输入"
+        android:textSize="16sp"
         android:textColor="#000"
         android:textColorHint="#a3a3a3"/>
     <ImageView
@@ -29,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.65"
-        android:background="@drawable/ripple_button_blue_radius"
+        android:background="@drawable/ripple_button_blue"
         android:src="@drawable/find_img"
         android:padding="7dp"/>
 

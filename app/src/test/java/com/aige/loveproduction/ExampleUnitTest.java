@@ -12,7 +12,8 @@ import org.junit.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        String s = "/storage/emulated/0/TbsReaderTemp/A5521100005G01.xls";
+        float f = 12.002541f;
+        String s = f+"";
         System.out.println(s.substring(s.lastIndexOf(".") + 1));
 
 

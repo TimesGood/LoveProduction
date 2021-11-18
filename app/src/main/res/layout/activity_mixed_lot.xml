@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".mvp.ui.activity.MixedLotActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+      <androidx.appcompat.widget.Toolbar
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:id="@+id/toolbar_title"
+          app:theme="@style/ToolbarTheme">
+          <TextView
+              android:id="@+id/toolbar_text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:textSize="20sp"
+              android:textColor="@color/white"/>
+          <Spinner
+              android:id="@+id/spinner"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="end"
+              android:padding="0dp"
+              android:dropDownWidth="wrap_content"
+              android:backgroundTint="@color/white"/>
+
+      </androidx.appcompat.widget.Toolbar>
+      <include layout="@layout/find_include" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loading">
+        <include layout="@layout/recyclerview_data_include"/>
+    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+
+    <include
+        layout="@layout/loading_layout"
+        android:visibility="gone" />
+
+</LinearLayout>

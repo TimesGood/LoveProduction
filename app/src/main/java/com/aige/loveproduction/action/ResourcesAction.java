@@ -24,8 +24,8 @@ public interface ResourcesAction {
 
     /**
      * 根据id获取String资源
-     * @param id
-     * @return
+     * @param id 字符串资源id
+     * @return  字符串资源
      */
     default String getString(@StringRes int id) {
         return getContext().getString(id);
@@ -37,8 +37,8 @@ public interface ResourcesAction {
 
     /**
      * 根据id获取Drawable文件
-     * @param id
-     * @return
+     * @param id Drawable资源id
+     * @return Drawable资源
      */
     default Drawable getDrawable(@DrawableRes int id) {
         return ContextCompat.getDrawable(getContext(), id);
@@ -46,8 +46,8 @@ public interface ResourcesAction {
 
     /**
      * 根据id获取Color资源
-     * @param id
-     * @return
+     * @param id Color资源id
+     * @return Color资源
      */
     @ColorInt
     default int getColor(@ColorRes int id) {

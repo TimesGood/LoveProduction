@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <View
         android:layout_width="wrap_content"
@@ -14,15 +15,15 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/iv_status_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         tools:src="@drawable/status_empty_ic" />
 
-    <com.aige.loveproduction.customui.SmartTextView
+    <com.aige.loveproduction.mvp.ui.customui.view.SmartTextView
         android:id="@+id/iv_status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
