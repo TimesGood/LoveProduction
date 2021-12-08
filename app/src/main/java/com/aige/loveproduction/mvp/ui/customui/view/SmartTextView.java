@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
+/**
+ * 自定义TextView，当文本为空时，自动隐藏该组件
+ */
 public final class SmartTextView extends AppCompatTextView {
 
     public SmartTextView(Context context) {

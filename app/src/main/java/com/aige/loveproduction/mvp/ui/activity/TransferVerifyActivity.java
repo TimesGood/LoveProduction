@@ -2,13 +2,12 @@ package com.aige.loveproduction.mvp.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -20,31 +19,27 @@ import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.TransportAdapter;
 import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseActivity;
-import com.aige.loveproduction.base.BaseAnimation;
 import com.aige.loveproduction.bean.TransportBean;
 import com.aige.loveproduction.mvp.contract.TransferVerifyContract;
 import com.aige.loveproduction.mvp.presenter.TransferVerifyPresenter;
 import com.aige.loveproduction.mvp.ui.customui.StatusLayout;
+import com.aige.loveproduction.mvp.ui.customui.view.RecycleViewDivider;
 import com.aige.loveproduction.mvp.ui.dialogin.MessageDialog;
 import com.aige.loveproduction.premission.Permission;
 import com.aige.loveproduction.util.IntentUtils;
-import com.aige.loveproduction.util.SharedPreferencesUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter, TransferVerifyContract.View>
         implements TransferVerifyContract.View , StatusAction {
 
     private TextView find_edit;
-    private RelativeLayout loading_layout;
     private WrapRecyclerView recyclerview_data;
     private GridLayout grid_item;
     private TransportAdapter adapter;
-    private TextView orderId_text,plan_text,not_pack,not_transfer;
+    private TextView orderId_text,plan_text,not_pack,not_transfer,status_text;
     @Override
     protected TransferVerifyPresenter createPresenter() {
         return new TransferVerifyPresenter();
@@ -64,15 +59,15 @@ public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter
     @Override
     public void initView() {
         setOnClickListener(R.id.image_camera,R.id.find_img);
-        loading_layout = findViewById(R.id.loading_layout);
         find_edit = findViewById(R.id.find_edit);
         recyclerview_data = findViewById(R.id.recyclerview_data);
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         orderId_text = findViewById(R.id.orderId_text);
         plan_text = findViewById(R.id.plan_text);
         not_pack = findViewById(R.id.not_pack);
         not_transfer = findViewById(R.id.not_transfer);
         grid_item = findViewById(R.id.grid_item);
-
+        status_text = findViewById(R.id.status_text);
         find_edit.setHint("直接扫描、或输入包装码");
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener((v, actionId, event) -> {
@@ -107,6 +102,7 @@ public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter
         soundUtils.playSound(1,0);
         showToast(message);
         recyclerview_data.setAdapter(null);
+        showEmpty();
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
@@ -177,28 +173,53 @@ public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter
         return findViewById(R.id.loading);
     }
 
+    private int count = 0;
     @Override
     public void onGetTransport(TransportBean bean) {
         if(bean == null) return;
         TransportBean.TransportBeans transportBeans = bean.getList().get(0);
-        orderId_text.setText(transportBeans.getPackageCode().substring(0,13));
+        String packageCode = transportBeans.getPackageCode();
+        if(packageCode.length() > 9) {
+            orderId_text.setText(packageCode.substring(0,packageCode.length()-9));
+        }else {
+            orderId_text.setText(packageCode);
+        }
         plan_text.setText(transportBeans.getType());
-        not_pack.setText(bean.getWeiBaoNumber());
-        not_transfer.setText(bean.getNotTransport());
+        not_pack.setText(String.valueOf(bean.getWeiBaoNumber()));
+
+        if(confirmStatus(bean)) {
+            status_text.setText("已提交");
+        }else{
+            status_text.setText("未提交");
+        }
+        not_transfer.setText(String.valueOf(bean.getList().size()-bean.getNotTransport()));
         adapter = new TransportAdapter(this);
+        adapter.setType(1);
         adapter.setData(bean.getList());
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerview_data.setLayoutManager(manager);
         recyclerview_data.setAdapter(adapter);
-        recyclerview_data.addHeaderView(R.layout.transfer_item);
-        if(bean.getNotTransport().equals("0")) {
+        LinearLayout footerView = (LinearLayout) LayoutInflater.from(getContext()).inflate(R.layout.transfer_item, recyclerview_data, false);
+        ((TextView)footerView.findViewById(R.id.packageDate)).setText("提交日期");
+        recyclerview_data.addHeaderView(footerView);
+        if(bean.getNotTransport() == 0) {
             showToast("包装已全部扫描，可转运");
             soundUtils.playSound(0,0);
         }else{
             showToast("有未扫描的包装，不可转运");
             soundUtils.playSound(1,0);
         }
-
+    }
+    private boolean confirmStatus(TransportBean bean) {
+        boolean flag = false;
+        count = 0;
+        for (TransportBean.TransportBeans beans : bean.getList()) {
+            if(!(beans.getConfirmDate() == null || "".equals(beans.getConfirmDate()))) {
+                flag = true;
+                count++;
+            }
+        }
+        return flag;
     }
 }

@@ -18,9 +18,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aige.loveproduction.R;
+import com.aige.loveproduction.adapter.UserCenterAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
+import com.aige.loveproduction.base.BaseAdapter;
+import com.aige.loveproduction.bean.HomeBean;
+import com.aige.loveproduction.bean.UserCenterBean;
 import com.aige.loveproduction.manager.ActivityManager;
+import com.aige.loveproduction.mvp.ui.activity.AboutActivity;
 import com.aige.loveproduction.mvp.ui.activity.FactorySettingsActivity;
 import com.aige.loveproduction.mvp.ui.activity.ExamineActivity;
 import com.aige.loveproduction.mvp.ui.activity.LoginActivity;
@@ -30,18 +38,22 @@ import com.aige.loveproduction.util.SharedPreferencesUtils;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
  * 个人中心界面
  */
-public class UserFragment extends Fragment implements View.OnClickListener{
+public class UserFragment extends Fragment implements View.OnClickListener, BaseAdapter.OnItemClickListener {
     private View view;
-
     private Activity activity;
-    private RelativeLayout settings,logout,layout_test,about_us,examine_layout,special_shaped_layout;
-    private TextView textUser,tv_version;
+    private RelativeLayout logout;
+    private TextView textUser;
     private ImageView image_user;
+    private WrapRecyclerView recyclerview_data;
+    private UserCenterAdapter adapter;
 
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
@@ -57,124 +69,100 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.userfragment,container,false);
         initView();
         return view;
     }
+    //id与资源id二维数组
+    private final int[][] ids = new int[][]{
+            {
+                0,1,2,3,
+            },
+            {
+                R.drawable.setting_image,R.drawable.examine_image,R.drawable.examine_image,R.drawable.about_image
+            },
+    };
+    private final String[] text = new String[]{
+            "工厂设置","检验混单","异形工序设置","关于我们",
+    };
     //初始化
     private void initView() {
         textUser = view.findViewById(R.id.textUser);
-        settings = view.findViewById(R.id.settings);//工厂设置
         logout = view.findViewById(R.id.logout);
-        layout_test = view.findViewById(R.id.layout_test);
         image_user = view.findViewById(R.id.image_user);
-        tv_version = view.findViewById(R.id.tv_version);
-        about_us = view.findViewById(R.id.about_us);
-        examine_layout = view.findViewById(R.id.examine_layout);
-        special_shaped_layout = view.findViewById(R.id.special_shaped_layout);
+        recyclerview_data = view.findViewById(R.id.recyclerview_data);
 
-        setLoginParams(readLoginStatus());//设置登录用户名
-        view.setVisibility(View.VISIBLE);
-        //工厂设置
-        settings.setOnClickListener(this);
-        //检验混单
-        examine_layout.setOnClickListener(this);
-        //测试界面
-        layout_test.setOnClickListener(this);
-        //layout_test.setVisibility(View.GONE);
-        //退出登录
         logout.setOnClickListener(this);
         image_user.setOnClickListener(this);
-        special_shaped_layout.setOnClickListener(this);
-
-        try {
-            PackageInfo info = activity.getPackageManager().getPackageInfo(activity.getPackageName(),0);//获取程序包信息，获取程序包有时获取不到，所以要异常处理，
-            tv_version.setText("V"+info.versionName);//设置控件显示的文本，versionName是版本号
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            tv_version.setText("V");//获取不到程序包信息时，直接显示V
-        }
-
-        about_us.setOnClickListener(this);
+        textUser.setText(SharedPreferencesUtils.getValue(activity,"loginInfo","userName"));
+        setSelectItem();
     }
-    public void setLoginParams(boolean isLogin) {
-        if(isLogin) {
-            textUser.setText(SharedPreferencesUtils.readLoginUserName(activity));
-        }else {
-            textUser.setText("点击头像登录");
+    //设置选项列表
+    private void setSelectItem() {
+        adapter = new UserCenterAdapter(activity);
+        List<UserCenterBean> list = new ArrayList<>();
+        for(int i = 0;i < ids[0].length;i++) {
+            UserCenterBean bean = new UserCenterBean();
+            bean.setId(ids[0][i]);
+            bean.setLeft_img_id(ids[1][i]);
+            bean.setRight_img_id(R.drawable.right_arrow);
+            bean.setSelect_text(text[i]);
+            list.add(bean);
         }
+        adapter.setOnItemClickListener(this);
+        adapter.setData(list);
+        LinearLayoutManager manager = new LinearLayoutManager(activity);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerview_data.setLayoutManager(manager);
+        recyclerview_data.setAdapter(adapter);
     }
-
     //查看登录状态
-    private boolean readLoginStatus() {
-        SharedPreferences sp = activity.getSharedPreferences("loginInfo", MODE_PRIVATE);
-        boolean isLogin = sp.getBoolean("isLogin",false);//查到则返回true否则false
-        return isLogin;
+    private boolean getLoginStatus() {
+        return SharedPreferencesUtils.getBoolean(activity,"loginInfo","isLogin");
     }
-    //修改登录状态
-    private void updateStatus() {
-        SharedPreferences sp = activity.getSharedPreferences("loginInfo", MODE_PRIVATE);
-        SharedPreferences.Editor edit = sp.edit();
-        edit.putBoolean("isLogin",false);
-        edit.commit();
-    }
-
+    //点击事件
     @Override
     public void onClick(View v) {
-        Intent intent = null;
-        switch (v.getId()) {
-            case R.id.settings:
-                //查看登录状态
-                if(readLoginStatus()) {
-                    intent = new Intent(activity, FactorySettingsActivity.class);
-                    activity.startActivityForResult(intent,1);
-                }else {
-                    intent = new Intent(activity,LoginActivity.class);
-                    activity.startActivityForResult(intent,1);
-                    activity.finish();
-                    Toast.makeText(activity,"您还未登录，请先登录！",Toast.LENGTH_SHORT).show();
-                }
+        Intent intent;
+        int id = v.getId();
+        if(id == R.id.logout) {
+            SharedPreferencesUtils.saveSetting(activity,"loginInfo","isLogin",false);
+            intent = new Intent(activity,LoginActivity.class);
+            activity.startActivityForResult(intent,1);
+            ActivityManager.getInstance().finishAllActivities(LoginActivity.class);
+        }else if(id == R.id.image_user) {
+            if(getLoginStatus()) {
+                Toast.makeText(activity,"切换账号请先退出当前账号",Toast.LENGTH_SHORT).show();
+            }else{
+                intent = new Intent(activity,LoginActivity.class);
+                activity.startActivityForResult(intent,1);
+                ActivityManager.getInstance().finishAllActivities(LoginActivity.class);
+            }
+        }
+    }
+    //列表点击事件
+    @Override
+    public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+        if (!getLoginStatus()) {
+            Toast.makeText(activity,"请登录账号进行操作",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent;
+        switch (itemView.getId()) {
+            case 0:
+                intent = new Intent(activity, FactorySettingsActivity.class);
+                activity.startActivity(intent);
                 break;
-            case R.id.examine_layout:
-                if(readLoginStatus()) {
-                    intent = new Intent(activity, ExamineActivity.class);
-                    activity.startActivity(intent);
-                }else {
-                    intent = new Intent(activity,LoginActivity.class);
-                    activity.startActivityForResult(intent,1);
-                    activity.finish();
-                    Toast.makeText(activity,"您还未登录，请先登录！",Toast.LENGTH_SHORT).show();
-                }
+            case 1:
+                intent = new Intent(activity, ExamineActivity.class);
+                activity.startActivity(intent);
                 break;
-            case R.id.logout:
-                if(readLoginStatus()) {
-                    updateStatus();
-                    intent = new Intent(activity,LoginActivity.class);
-                    activity.startActivityForResult(intent,1);
-                    ActivityManager.getInstance().finishAllActivities(LoginActivity.class);
-                } else {
-                    Toast.makeText(activity,"您还未登录！",Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.image_user:
-                if(SharedPreferencesUtils.getBoolean(activity,"loginInfo","isLogin")) {
-                    Toast.makeText(activity,"切换账号请先退出当前账号",Toast.LENGTH_SHORT).show();
-                }else{
-                    intent = new Intent(activity,LoginActivity.class);
-                    activity.startActivity(intent);
-                    activity.finish();
-                }
-                break;
-            case R.id.about_us:
-                break;
-            case R.id.special_shaped_layout:
+            case 2:
                 intent = new Intent(activity, SSSettingActivity.class);
                 activity.startActivity(intent);
                 break;
-                //测试界面
-            case R.id.layout_test:
-                intent = new Intent(activity, TransfersActivity.class);
+            case 3:
+                intent = new Intent(activity, AboutActivity.class);
                 activity.startActivity(intent);
                 break;
         }

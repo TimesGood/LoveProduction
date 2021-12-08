@@ -44,14 +44,12 @@ import java.util.Date;
 
 public class TransfersActivity extends BaseActivity<TransfersPresenter, TransfersContract.View> implements TransfersContract.View , StatusAction , AnimAction {
     private TextView find_edit;
-    private RelativeLayout loading_layout;
-    //private RecyclerView recyclerview_data;
     private WrapRecyclerView recyclerview_data;
     private GridLayout grid_item;
     private TransportAdapter adapter;
     private String transport_temp = "";
     private String input_temp;
-    private TextView orderId_text,plan_text,not_pack,not_transfer;
+    private TextView orderId_text,plan_text,not_pack,not_transfer,status_text;
 
 
     @Override
@@ -97,7 +95,6 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
     @Override
     public void initView() {
         setOnClickListener(R.id.image_camera,R.id.find_img);
-        loading_layout = findViewById(R.id.loading_layout);
         find_edit = findViewById(R.id.find_edit);
         recyclerview_data = findViewById(R.id.recyclerview_data);
         grid_item = findViewById(R.id.grid_item);
@@ -105,6 +102,7 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
         plan_text = findViewById(R.id.plan_text);
         not_pack = findViewById(R.id.not_pack);
         not_transfer = findViewById(R.id.not_transfer);
+        status_text = findViewById(R.id.status_text);
         find_edit.setHint("直接扫描、或输入包装码");
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener((v, actionId, event) -> {
@@ -119,7 +117,7 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
         });
         grid_item.setVisibility(View.GONE);
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
     }
 
     @Override
@@ -139,7 +137,7 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
     public void onError(String method, String message) {
         soundUtils.playSound(1,0);
         if(method.equals("getTransportVerification")) {
-            soundUtils.playSound(1,0);
+            showEmpty();
             showToast(message);
             recyclerview_data.setAdapter(null);
             transport_temp = "";
@@ -213,15 +211,8 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
                 return;
             }
             input_temp = input;
-            if(transport_temp.length() > 16
-                    && transport_temp.substring(0,transport_temp.length()-5)
-                    .equals(input.substring(0,input.length()-5))) {
-                String userName = SharedPreferencesUtils.getValue(this, "loginInfo", "userName");
-                mPresenter.transportScan(input,userName);
-            }else {
-                mPresenter.getTransportVerification(input);
-            }
-
+            String userName = SharedPreferencesUtils.getValue(this, "loginInfo", "userName");
+            mPresenter.transportScan(input_temp,userName);
         }else if(request == 1) {
             mPresenter.transportSubmit(input);
         }
@@ -238,32 +229,49 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
         beanList = bean;
         TransportBean.TransportBeans transportBeans = bean.getList().get(0);
         transport_temp = transportBeans.getPackageCode();
-        orderId_text.setText(transport_temp.substring(0,13));
+        if(transport_temp.length() > 9) {
+            orderId_text.setText(transport_temp.substring(0,transport_temp.length()-9));
+        }else {
+            orderId_text.setText(transport_temp);
+        }
+
         plan_text.setText(transportBeans.getType());
-        not_pack.setText(bean.getWeiBaoNumber());
-        not_transfer.setText(bean.getNotTransport());
+        not_pack.setText(String.valueOf(bean.getWeiBaoNumber()));
+        not_transfer.setText(String.valueOf(bean.getNotTransport()));
+        if(confirmStatus(bean)) {
+            status_text.setText("已提交");
+        }else{
+            status_text.setText("未提交");
+        }
         adapter = new TransportAdapter(this);
         adapter.setData(bean.getList());
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerview_data.setLayoutManager(manager);
         recyclerview_data.setAdapter(adapter);
-
         recyclerview_data.addHeaderView(R.layout.transfer_item);
-        requestReady(0,input_temp);
+    }
+    private boolean confirmStatus(TransportBean bean) {
+        for (TransportBean.TransportBeans beans : bean.getList()) {
+            if(!(beans.getConfirmDate() == null || "".equals(beans.getConfirmDate()))) return true;
+        }
+        return false;
     }
 
     @Override
     public void onScanSuccess(BaseBean bean) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String format1 = format.format(new Date().getTime());
-        TransportBean.TransportBeans beans = new TransportBean.TransportBeans();
-        beans.setPackageCode(input_temp);
-        beans.setTransportDate(format1);
-        int position = getPosition(input_temp);
-        if(position == -1) return;
-        adapter.setItem(position,beans);
-        soundUtils.playSound(0,0);
+        if(bean.getCode() == 0) {
+            soundUtils.playSound(0,0);
+        }else {
+            soundUtils.playSound(1,0);
+            showToast(bean.getMsg());
+        }
+        if("获取包装失败。".equals(bean.getMsg())) {
+            showEmpty();
+            return;
+        }
+        //扫描不管成功还是失败，都执行获取列表
+        mPresenter.getTransportVerification(input_temp);
     }
     private int getPosition(String packageCode){
         for(int i = 0; i < beanList.getList().size(); i++) {
@@ -275,5 +283,6 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
     public void onSubmitSuccess(BaseBean bean) {
         soundUtils.playSound(0,0);
         showToast("提交成功");
+        mPresenter.getTransportVerification(input_temp);
     }
 }

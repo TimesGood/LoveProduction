@@ -13,8 +13,10 @@
     <color name="grey">#E6E6E6</color>
     <color name="background">#EEEEEE</color>
     <color name="grey2">#AAAAAA</color>
+    <color name="item_line">#808080</color>
     <color name="yellow">#FFCC00</color>
     <color name="black5">#0D000000</color>
+    <color name="black2">#555555</color>
     <color name="red">#FF3300</color>
     <color name="draw_brown">#855814</color>
     <color name="draw_green">#00FF00</color>

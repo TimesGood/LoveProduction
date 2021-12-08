@@ -116,17 +116,4 @@ public class FactorySettingPresenter extends BasePresenter<FactorySettingContrac
 
     }
 
-    //@Override
-//    private void analysisThrowable(Throwable e,String methodName) {
-//        if(e instanceof SocketTimeoutException) {
-//            mView.onError(methodName, "获取工作组超时");
-//        }else if(e instanceof HttpException) {
-//            HttpException exception = (HttpException) e;
-//            if(exception.code() == 500) mView.onError("找不到数据");
-//        }else if(e instanceof ConnectException){
-//            mView.onError(methodName,"请连接网络重试");
-//        }else{
-//            mView.onError(methodName,e.getMessage());
-//        }
-//    }
 }

@@ -3,16 +3,7 @@ package com.aige.loveproduction.bean;
 public class MessageBean {
     private String message;
     private String wono;
-    private int status = 200;
 
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getMessage() {
         return message;
@@ -34,8 +25,7 @@ public class MessageBean {
     public String toString() {
         return "Message{" +
                 "message='" + message + '\'' +
-                ", wono='" + wono + '\'' +
-                ", status=" + status +
+                ", wono='" + wono +
                 '}';
     }
 }

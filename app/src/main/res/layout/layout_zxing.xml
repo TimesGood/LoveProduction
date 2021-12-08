@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="20dp"
-        android:text="请对准二维码开始扫描"
+        android:text="@string/identify_qr_hint"
         android:textColor="#fff" />
 
 </merge>

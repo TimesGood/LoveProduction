@@ -14,7 +14,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="方案" />
+        android:textColor="@color/black"
+        android:text="@string/solution_name" />
     <TextView
         android:id="@+id/package_count"
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="总包数" />
+        android:textColor="@color/black"
+        android:text="@string/package_count" />
     <TextView
         android:id="@+id/not_pack"
         android:layout_width="match_parent"
@@ -32,7 +34,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="未包" />
+        android:textColor="@color/black"
+        android:text="@string/not_pack_" />
     <TextView
         android:id="@+id/not_in_storage"
         android:layout_width="match_parent"
@@ -41,7 +44,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="未入" />
+        android:textColor="@color/black"
+        android:text="@string/storage_no" />
     <TextView
         android:id="@+id/not_out_storage"
         android:layout_width="match_parent"
@@ -50,7 +54,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="未出" />
+        android:textColor="@color/black"
+        android:text="@string/not_storage_out" />
     <TextView
         android:id="@+id/not_send"
         android:layout_width="match_parent"
@@ -59,7 +64,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="未发" />
+        android:textColor="@color/black"
+        android:text="@string/not_send" />
     <TextView
         android:id="@+id/bin_name"
         android:layout_width="match_parent"
@@ -68,5 +74,6 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="库位" />
+        android:textColor="@color/black"
+        android:text="@string/bin_name" />
 </LinearLayout>

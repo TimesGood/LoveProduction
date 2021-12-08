@@ -12,6 +12,8 @@ import com.aige.loveproduction.mvp.ui.dialogin.MessageDialog;
 import com.aige.loveproduction.util.IntentUtils;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +21,8 @@ import java.util.List;
  * 权限申请
  */
 public class Permission {
-    private List<String> mList;
-    private Activity mActivity;
+    private final List<String> mList;
+    private final Activity mActivity;
 
     public Permission(Activity activity) {
         this.mList = new ArrayList<>();
@@ -28,14 +30,15 @@ public class Permission {
     }
 
     /**
-     * 获取权限
+     * 获取权限，如果权限中有未授权的权限，回调apply返回未授权的权限，
+     * 在该方法中执行requestPermissions(String[] permission, requestCode);
+     * 如果有被拒绝的权限，将提示跳转到对应的手机权限获取设置界面
      */
-    public void applyPermission(String[] permission,ApplyListener applyListener){
-        ApplyListener mApplyListener = applyListener;
+    public void applyPermission(String[] permission,@NotNull ApplyListener applyListener){
         String[] notApplyPermission = getNotApplyPermission(permission);
         String[] refuse = getRefuse(permission);
         if(notApplyPermission.length == 0) {
-            mApplyListener.applySuccess();
+            applyListener.applySuccess();
         }else if(refuse.length != 0){
             new MessageDialog.Builder(mActivity)
                         .setTitle("开启权限")
@@ -44,10 +47,12 @@ public class Permission {
                         .setListener(dialog -> IntentUtils.gotoPermission(mActivity))
                         .show();
         }else{
-            mApplyListener.apply(notApplyPermission);
+            applyListener.apply(notApplyPermission);
         }
     }
-    //获取未授权的权限
+    /**
+     * 获取未授权的权限
+     */
     public String[] getNotApplyPermission(String[] permission) {
         mList.clear();
         for (String p:permission) {
@@ -55,7 +60,10 @@ public class Permission {
         }
         return mList.toArray(new String[]{});
     }
-    //获取被拒绝的权限
+
+    /**
+     * 获取被拒绝的权限
+     */
     public String[] getRefuse(String[] permission) {
         mList.clear();
         for (String p : permission) {
@@ -63,7 +71,10 @@ public class Permission {
         }
         return mList.toArray(new String[]{});
     }
-    //权限获取回调
+
+    /**
+     * 权限获取回调
+     */
     public interface ApplyListener {
         void apply(String[] permission);
         void applySuccess();

@@ -4,15 +4,6 @@ public class HandlerBean {
     private String id;
     private String employeeName;
     private String user_Id;
-    private int status = 200;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getId() {
         return id;
@@ -43,8 +34,7 @@ public class HandlerBean {
         return "Handler{" +
                 "id='" + id + '\'' +
                 ", employeeName='" + employeeName + '\'' +
-                ", user_Id='" + user_Id + '\'' +
-                ", status='" + status + '\'' +
+                ", user_Id='" + user_Id +
                 '}';
     }
 }

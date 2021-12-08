@@ -33,10 +33,9 @@ public class RecycleViewDivider extends RecyclerView.ItemDecoration {
      */
     public RecycleViewDivider(Context context, int orientation) {
         if (orientation != LinearLayoutManager.VERTICAL && orientation != LinearLayoutManager.HORIZONTAL) {
-            throw new IllegalArgumentException("请输入正确的参数！");
+            throw new IllegalArgumentException("请输入正确的水平方向！");
         }
         mOrientation = orientation;
-
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();

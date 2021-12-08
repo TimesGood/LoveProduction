@@ -74,7 +74,7 @@ public class PlanNoMessageBean {
                 ", wono='" + wono + '\'' +
                 ", totalCnt=" + totalCnt +
                 ", totalArea=" + totalArea +
-                ", planNo='" + planNo + '\'' +
+                ", planNo='" + planNo +
                 '}';
     }
 }

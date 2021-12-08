@@ -1,6 +1,7 @@
 package com.aige.loveproduction.adapter;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class TransportAdapter extends AppAdapter<TransportBean.TransportBeans>{
+    private int Type = 0;
     public TransportAdapter(@NonNull @NotNull Context context) {
         super(context);
     }
@@ -37,9 +39,18 @@ public class TransportAdapter extends AppAdapter<TransportBean.TransportBeans>{
 
         @Override
         public void onBindView(int position) {
-            packageCode.setText(getItem(position).getPackageCode());
-            packageDate.setText(getItem(position).getTransportDate());
+            String packageCodeStr = getItem(position).getPackageCode();
+            packageCode.setText(packageCodeStr == null ? null : packageCodeStr.substring(packageCodeStr.length()-5));
+            if(Type == 0) {
+                packageDate.setText(getItem(position).getTransportDate());
+            }else if(Type == 1) {
+                packageDate.setText(getItem(position).getConfirmDate());
+            }
+
 
         }
+    }
+    public void setType(int type) {
+        Type = type;
     }
 }

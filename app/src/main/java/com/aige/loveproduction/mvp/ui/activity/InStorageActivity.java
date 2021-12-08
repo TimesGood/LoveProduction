@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.StorageAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.BinFindBean;
 import com.aige.loveproduction.bean.StorageBean;
@@ -50,9 +51,8 @@ public class InStorageActivity extends BaseActivity<InStoragePresenter,InStorage
     private EditText find_edit;
     private ImageView image_camera,find_img;
     private StorageAdapter adapter;
-    private RecyclerView recyclerview_data;
+    private WrapRecyclerView recyclerview_data;
     private LinearLayout recyclerview_title,storage_item;
-    private RelativeLayout loading_layout;
     private DampNestedScrollView damp_scrollview;
     private String hide_salesOrder = "";
     private String temporary_find_edit = "";
@@ -76,7 +76,6 @@ public class InStorageActivity extends BaseActivity<InStoragePresenter,InStorage
         barcode = findViewById(R.id.barcode);
         not_in_storage = findViewById(R.id.not_in_storage);
         recyclerview_data = findViewById(R.id.recyclerview_data);
-        loading_layout = findViewById(R.id.loading_layout);
         recyclerview_title = findViewById(R.id.recyclerview_title);
         storage_item = findViewById(R.id.storage_item);
         damp_scrollview = findViewById(R.id.damp_scrollview);
@@ -248,6 +247,7 @@ public class InStorageActivity extends BaseActivity<InStoragePresenter,InStorage
 
     @Override
     public void onError(String message) {
+        showEmpty();
         recyclerview_data.setAdapter(null);
         soundUtils.playSound(1,0);
         showToast(message);
@@ -265,6 +265,7 @@ public class InStorageActivity extends BaseActivity<InStoragePresenter,InStorage
             showToast(bean.getMsg());
             soundUtils.playSound(1,0);
         } else{
+            showEmpty();
             recyclerview_title.setVisibility(View.GONE);
             storage_item.setVisibility(View.GONE);
             recyclerview_data.setAdapter(null);

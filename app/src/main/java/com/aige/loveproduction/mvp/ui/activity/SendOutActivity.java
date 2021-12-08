@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.StorageAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.StorageBean;
 import com.aige.loveproduction.mvp.contract.SendOutContract;
@@ -48,11 +49,11 @@ public class SendOutActivity extends BaseActivity<SendOutPresenter,SendOutContra
     private TextView find_edit,barcode,storage_bit_name_to,
             storage_bit_name,not_in_storage_to,not_in_storage,button_text;
     private ImageView image_camera,find_img;
-    private RelativeLayout loading_layout,re_layout_body;
+    private RelativeLayout re_layout_body;
     private LinearLayout recyclerview_title,storage_item;
 
     private StorageAdapter adapter;
-    private RecyclerView recyclerview_data;
+    private WrapRecyclerView recyclerview_data;
 
     private String temporary_barcode = "";
 
@@ -70,7 +71,6 @@ public class SendOutActivity extends BaseActivity<SendOutPresenter,SendOutContra
         image_camera = findViewById(R.id.image_camera);
         find_edit = findViewById(R.id.find_edit);
         find_img = findViewById(R.id.find_img);
-        loading_layout = findViewById(R.id.loading_layout);
         barcode = findViewById(R.id.barcode);
         recyclerview_data = findViewById(R.id.recyclerview_data);
 
@@ -87,7 +87,7 @@ public class SendOutActivity extends BaseActivity<SendOutPresenter,SendOutContra
     @Override
     public void initView() {
         bindViews();
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
         find_edit.setHint("直接扫描或输入条码");
         find_edit.requestFocus();
@@ -223,6 +223,7 @@ public class SendOutActivity extends BaseActivity<SendOutPresenter,SendOutContra
 
     @Override
     public void onError(String message) {
+        showEmpty();
         soundUtils.playSound(1,0);
         recyclerview_data.setAdapter(null);
         showToast(message);
@@ -240,6 +241,7 @@ public class SendOutActivity extends BaseActivity<SendOutPresenter,SendOutContra
             showToast(bean.getMsg());
             soundUtils.playSound(1,0);
         }else{
+            showEmpty();
             recyclerview_title.setVisibility(View.GONE);
             storage_item.setVisibility(View.GONE);
             recyclerview_data.setAdapter(null);

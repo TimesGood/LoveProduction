@@ -83,6 +83,10 @@ public interface ActivityAction {
                 .setCaptureActivity(QrCodeActivity.class)//自定义扫码界面
                 .initiateScan();// 初始化扫码
     }
+
+    /**
+     * 在Activity调用扫描二维码
+     */
     default void startActivityCapture() {
         new IntentIntegrator(getActivity())
                 .setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES)// 扫码的类型,可选：一维码，二维码，一/二维码

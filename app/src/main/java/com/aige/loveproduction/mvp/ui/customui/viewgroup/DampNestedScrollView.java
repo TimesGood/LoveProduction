@@ -9,6 +9,9 @@ import android.view.animation.Interpolator;
 import android.view.animation.TranslateAnimation;
 
 import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.aige.loveproduction.action.KeyboardAction;
 
 /**
  * 自定义阻尼回弹滑动效果，阻尼相当于是移动速度
@@ -57,6 +60,18 @@ public class DampNestedScrollView extends NestedScrollView {
             childView = getChildAt(0);
         }
     }
+
+    //解决嵌套RecyclerView导致复用失效的问题
+    @Override
+    protected void measureChildWithMargins(View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+        if(childView instanceof RecyclerView) {
+            child.measure(parentWidthMeasureSpec,parentHeightMeasureSpec);
+        }else{
+            super.measureChildWithMargins(child,parentWidthMeasureSpec,widthUsed,parentHeightMeasureSpec,heightUsed);
+        }
+
+    }
+
     //处理手指触摸滑动事件
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {

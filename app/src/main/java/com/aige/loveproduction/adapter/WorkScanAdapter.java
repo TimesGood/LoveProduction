@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aige.loveproduction.R;
-import com.aige.loveproduction.bean.AdapterList;
 import com.aige.loveproduction.bean.ScanCodeBean;
 
 import org.jetbrains.annotations.NotNull;

@@ -14,7 +14,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="方案" />
+        android:textColor="@color/black"
+        android:text="@string/solution_name" />
     <TextView
         android:id="@+id/package_count"
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="总包数" />
+        android:textColor="@color/black"
+        android:text="@string/package_count" />
     <TextView
         android:id="@+id/storage_ok"
         android:layout_width="match_parent"
@@ -32,7 +34,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="已入" />
+        android:textColor="@color/black"
+        android:text="@string/storage_ok" />
     <TextView
         android:id="@+id/storage_no"
         android:layout_width="match_parent"
@@ -41,7 +44,8 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="未入" />
+        android:textColor="@color/black"
+        android:text="@string/storage_no" />
     <TextView
         android:id="@+id/bin_name"
         android:layout_width="match_parent"
@@ -50,6 +54,7 @@
         android:gravity="center"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
-        android:text="库位" />
+        android:textColor="@color/black"
+        android:text="@string/bin_name" />
 
 </LinearLayout>

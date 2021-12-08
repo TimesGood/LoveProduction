@@ -6,15 +6,6 @@ public class MachineBean {
     private String mdName;
     private String operation_Id;
     private String typeName;
-    private int status = 200;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getTypeName() {
         return typeName;
@@ -63,8 +54,7 @@ public class MachineBean {
                 ", mdCode='" + mdCode + '\'' +
                 ", mdName='" + mdName + '\'' +
                 ", operation_Id='" + operation_Id + '\'' +
-                ", typeName='" + typeName + '\'' +
-                ", status='" + status + '\'' +
+                ", typeName='" + typeName +
                 '}';
     }
 }

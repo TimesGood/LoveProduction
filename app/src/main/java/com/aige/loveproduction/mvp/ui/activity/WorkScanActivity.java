@@ -26,6 +26,7 @@ import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.TestAdapter;
 
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.PlanNoMessageBean;
 import com.aige.loveproduction.bean.ScanCodeBean;
@@ -52,10 +53,9 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
         implements WorkScanContract.View,View.OnClickListener , StatusAction {
     private ImageView camera,find_img;
     private EditText planNo_Edit;
-    private RecyclerView lv_list;//列表组件
+    private WrapRecyclerView recyclerview_data;//列表组件
     //private WorkScanAdapter adapter;
     private TestAdapter adapter;
-    private RelativeLayout loading_layout;
 
 
     @Override
@@ -70,14 +70,13 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
     private void bindViews() {
         camera = findViewById(R.id.image_camera);
         planNo_Edit = findViewById(R.id.find_edit);
-        lv_list = findViewById(R.id.lv_list);
+        recyclerview_data = findViewById(R.id.recyclerview_data);
         find_img = findViewById(R.id.find_img);
-        loading_layout = findViewById(R.id.loading_layout);
     }
     @Override
     public void initView() {
         bindViews();
-        lv_list.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
         camera.setOnClickListener(this);
         planNo_Edit.requestFocus();//获得焦点
         planNo_Edit.setSelection(planNo_Edit.length());//光标置尾
@@ -228,15 +227,15 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
         adapter.setData(list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        lv_list.setLayoutManager(manager);
-        lv_list.setAdapter(adapter);
+        recyclerview_data.setLayoutManager(manager);
+        recyclerview_data.setAdapter(adapter);
 
     }
 
     @Override
     public void showLoading() {
-        lv_list.setVisibility(View.GONE);
-        lv_list.setAdapter(null);
+        recyclerview_data.setVisibility(View.GONE);
+        recyclerview_data.setAdapter(null);
         //loading_layout.setVisibility(View.VISIBLE);
         showLoadings();
     }
@@ -244,14 +243,15 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
     public void hideLoading() {
         //loading_layout.setVisibility(View.GONE);
         showComplete();
-        lv_list.setVisibility(View.VISIBLE);
-        mAnimation.alphaTran(lv_list,300);
+        recyclerview_data.setVisibility(View.VISIBLE);
+        mAnimation.alphaTran(recyclerview_data,300);
     }
 
     @Override
     public void onError(String message) {
+        showEmpty();
         showToast(message);
-        lv_list.setAdapter(null);
+        recyclerview_data.setAdapter(null);
         soundUtils.playSound(1,0);
     }
 

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.WorkScanAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.ScanCodeBean;
 import com.aige.loveproduction.bean.TransferBean;
@@ -46,12 +47,7 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
     private TextView find_edit;
     private ImageView image_camera,find_img;
     private WorkScanAdapter adapter;
-    private RecyclerView plan_no_recyclerview;
-
-    //private SuperSwipeRefreshLayout super_swipe;
-
-    private RelativeLayout loading_layout;
-
+    private WrapRecyclerView recyclerview_data;
     private String temporary_barcode = "";
 
     @Override
@@ -64,13 +60,20 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
         return R.layout.activity_plan_no_scan;
     }
 
+    private void bindViews() {
+        image_camera = findViewById(R.id.image_camera);
+        find_edit = findViewById(R.id.find_edit);
+        find_img = findViewById(R.id.find_img);
+        recyclerview_data = findViewById(R.id.recyclerview_data);
+    }
+
     @Override
     public void initView() {
         bindViews();
         find_edit.setHint("直接扫描、或输入批次号");
         image_camera.setOnClickListener(this);
         find_img.setOnClickListener(this);
-        plan_no_recyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -86,14 +89,6 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
                 return true;
             }
         });
-    }
-
-    private void bindViews() {
-        image_camera = findViewById(R.id.image_camera);
-        find_edit = findViewById(R.id.find_edit);
-        find_img = findViewById(R.id.find_img);
-        plan_no_recyclerview = findViewById(R.id.plan_no_recyclerview);
-        loading_layout = findViewById(R.id.loading_layout);
     }
 
     @Override
@@ -156,19 +151,6 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == 1) {
-//            if(data != null) {
-//                Bundle bundle = data.getExtras();
-//                if (bundle == null) {
-//                    return;
-//                }
-//                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-//                    //获取到扫描的结果
-//                    temporary_barcode = bundle.getString(CodeUtils.RESULT_STRING);
-//                    requestReady(temporary_barcode);
-//                }
-//            }
-//        }
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult != null) {
             if (intentResult.getContents() == null) {
@@ -200,12 +182,11 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
     }
     @Override
     public void onGetWonoByBatchNoSuccess(BaseBean<List<TransferBean>> bean) {
-
         if(bean.getCode() == 0) {
 //            System.out.println("-----------------------");
 //            System.out.println(bean);
         }else{
-            plan_no_recyclerview.setAdapter(null);
+            recyclerview_data.setAdapter(null);
             soundUtils.playSound(1,0);
             showToast(bean.getMsg());
         }
@@ -233,8 +214,8 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
         adapter = new WorkScanAdapter(this,data);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        plan_no_recyclerview.setLayoutManager(manager);
-        plan_no_recyclerview.setAdapter(adapter);
+        recyclerview_data.setLayoutManager(manager);
+        recyclerview_data.setAdapter(adapter);
         for(ScanCodeBean scanBean : data) {
             if(!"扫描成功".equals(scanBean.getMessage())) {
                 soundUtils.playSound(1,0);
@@ -246,22 +227,20 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
 
     @Override
     public void showLoading() {
-        //super_swipe.setVisibility(View.GONE);
-        plan_no_recyclerview.setVisibility(View.GONE);
-        //loading_layout.setVisibility(View.VISIBLE);
+        recyclerview_data.setVisibility(View.GONE);
         showLoadings();
     }
 
     @Override
     public void hideLoading() {
-        plan_no_recyclerview.setVisibility(View.VISIBLE);
-        //loading_layout.setVisibility(View.GONE);
+        recyclerview_data.setVisibility(View.VISIBLE);
         showComplete();
-        mAnimation.alphaTran(plan_no_recyclerview,300);
+        mAnimation.alphaTran(recyclerview_data,300);
     }
 
     @Override
     public void onError(String message) {
+        showEmpty();
         soundUtils.playSound(1,0);
         showToast(message);
     }

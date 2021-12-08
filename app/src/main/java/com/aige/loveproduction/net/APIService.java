@@ -8,6 +8,8 @@ import com.aige.loveproduction.bean.HandlerBean;
 import com.aige.loveproduction.bean.MachineBean;
 import com.aige.loveproduction.bean.PlanNoMessageBean;
 import com.aige.loveproduction.bean.PlateBean;
+import com.aige.loveproduction.bean.PrintAsk;
+import com.aige.loveproduction.bean.PrintBean;
 import com.aige.loveproduction.bean.ScanCodeBean;
 import com.aige.loveproduction.bean.SpeciaBarAsk;
 import com.aige.loveproduction.bean.StorageBean;
@@ -108,6 +110,12 @@ public interface APIService {
     //转运扫描提交数据
     @POST("/api/EBAP/Transport/ConfirmScan")
     Observable<BaseBean> transportSubmit(@Body RequestBody body);
+
+    //获取打印信息
+    @GET("/api/print/Print/GetEntityByBarcode")
+    Observable<BaseBean<PrintBean>> getEntityByBarcode(@Query("BarCode") String barcode);
+    @POST("/api/print/Print/CreatePrintInfo")
+    Observable<BaseBean> submitPrint(@Body PrintAsk ask);
 
 
 }

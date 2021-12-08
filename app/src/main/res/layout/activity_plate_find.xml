@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                android:text="条码："
+                android:text="@string/barcode"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/barcode_refer"
-                android:text="板件名称："
+                android:text="@string/plate_name"
                 android:textColor="@color/black" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_columnWeight="0.1"
                 android:layout_alignBottom="@+id/plate_name"
                 android:layout_toEndOf="@+id/plate_name"
-                android:text="材质："
+                android:text="@string/material_refer"
                 android:textColor="@color/black" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:layout_columnWeight="0.1"
                 android:layout_below="@+id/material_refer"
                 android:layout_marginTop="10dp"
-                android:text="颜色："
+                android:text="@string/mat_name"
                 android:textColor="@color/black" />
 
             <TextView
@@ -115,7 +115,7 @@
                 android:layout_below="@+id/plate_name"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/matname"
-                android:text="尺寸："
+                android:text="@string/string_size"
                 android:textColor="@color/black" />
 
             <TextView
@@ -142,17 +142,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/plate_find_list"
+        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_while"
-            />
+            android:layout_height="match_parent">
+            <include layout="@layout/recyclerview_data_include"/>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical">-->
+<!--                <include layout="@layout/recyclerview_data_include"-->
+<!--                    android:id="@+id/recyclerview_data_one"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--                <include layout="@layout/recyclerview_data_include"-->
+<!--                    android:id="@+id/recyclerview_data_two"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--                <include layout="@layout/recyclerview_data_include"-->
+<!--                    android:id="@+id/recyclerview_data_tree"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--            </LinearLayout>-->
+        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+
 
     </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
-
-    <include
-        layout="@layout/loading_layout"
-        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

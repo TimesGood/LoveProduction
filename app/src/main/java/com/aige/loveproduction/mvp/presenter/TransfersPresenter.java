@@ -32,7 +32,6 @@ public class TransfersPresenter extends BasePresenter<TransfersContract.View, Tr
                 .subscribe(new BaseObserver<TransportBean>() {
                     @Override
                     public void onStart(Disposable d) {
-                        mView.showLoading();
                         setDisposable(d);
                     }
 
@@ -60,27 +59,50 @@ public class TransfersPresenter extends BasePresenter<TransfersContract.View, Tr
         String methodName = new Exception().getStackTrace()[0].getMethodName();
         mModel.transportScan(packageCode,transportName).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new BaseObserver() {
+                .subscribe(new Observer<BaseBean>() {
                     @Override
-                    public void onStart(Disposable d) {
+                    public void onSubscribe(@NonNull Disposable d) {
                         setDisposable(d);
+                        mView.showLoading();
                     }
 
                     @Override
-                    public void onSuccess(Object response) {
-                        mView.onScanSuccess(null);
+                    public void onNext(@NonNull BaseBean baseBean) {
+                        mView.onScanSuccess(baseBean);
                     }
 
                     @Override
-                    public void onError(String message) {
-                        mView.onError(methodName,message);
+                    public void onError(@NonNull Throwable e) {
+                        mView.onError(methodName,e.getMessage());
+                        mView.hideLoading();
                     }
 
                     @Override
-                    public void onNormalEnd() {
+                    public void onComplete() {
 
                     }
                 });
+//                .subscribe(new BaseObserver() {
+//                    @Override
+//                    public void onStart(Disposable d) {
+//                        setDisposable(d);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(Object response) {
+//                        mView.onScanSuccess(null);
+//                    }
+//
+//                    @Override
+//                    public void onError(String message) {
+//                        mView.onError(methodName,message);
+//                    }
+//
+//                    @Override
+//                    public void onNormalEnd() {
+//
+//                    }
+//                });
     }
 
     @Override

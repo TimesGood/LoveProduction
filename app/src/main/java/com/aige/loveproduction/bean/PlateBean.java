@@ -12,17 +12,7 @@ public class PlateBean {
     private float fwidth;
     private int thk;
     private String info1;
-    private int status = 200;
 
-
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getOpName() {
         return opName;
@@ -125,8 +115,7 @@ public class PlateBean {
                 ", fleng=" + fleng +
                 ", fwidth=" + fwidth +
                 ", thk=" + thk +
-                ", info1='" + info1 + '\'' +
-                ", status=" + status +
+                ", info1='" + info1 +
                 '}';
     }
 }

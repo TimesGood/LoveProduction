@@ -36,37 +36,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout
+            android:id="@+id/re_layout_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+                android:id="@+id/damp_to"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp">
+                <include layout="@layout/recyclerview_data_include" />
+            </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
 
+            <TextView
+                android:id="@+id/button_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shape_while"
+                android:gravity="center_vertical"
+                android:paddingStart="5dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp"
+                android:visibility="gone" />
+        </RelativeLayout>
     </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
-    <RelativeLayout
-        android:id="@+id/re_layout_body"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
-            android:id="@+id/damp_to"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="50dp">
 
-            <include layout="@layout/recyclerview_data_include" />
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
 
-        <TextView
-            android:id="@+id/button_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/shape_while"
-            android:gravity="center_vertical"
-            android:paddingStart="5dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="10dp"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-    <include
-        layout="@layout/loading_layout"
-        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

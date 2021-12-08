@@ -19,7 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.ActivityAction;
 import com.aige.loveproduction.adapter.FragmentPagerAdapter;
-import com.aige.loveproduction.base.BaseAnimation;
+import com.aige.loveproduction.animation.BaseAnimation;
 import com.aige.loveproduction.manager.ActivityManager;
 import com.aige.loveproduction.mvp.ui.fragment.UserFragment;
 import com.aige.loveproduction.mvp.ui.fragment.HomeFragment;

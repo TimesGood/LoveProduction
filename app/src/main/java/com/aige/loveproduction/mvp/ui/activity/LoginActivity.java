@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.aige.loveproduction.R;
-import com.aige.loveproduction.base.BaseAnimation;
+import com.aige.loveproduction.animation.BaseAnimation;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.UserBean;
 import com.aige.loveproduction.mvp.contract.LoginContract;

@@ -10,15 +10,7 @@ public class PlanNoScanBean {
     private String rowId;
     private String status;
     private String createDate;
-    private int responseCode = 200;
 
-    public int getResponseCode() {
-        return responseCode;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
-    }
 
     public String getPackageCode() {
         return packageCode;
@@ -102,8 +94,7 @@ public class PlanNoScanBean {
                 ", order_Id='" + order_Id + '\'' +
                 ", rowId='" + rowId + '\'' +
                 ", status='" + status + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", responseCode=" + responseCode +
+                ", createDate='" + createDate +
                 '}';
     }
 }

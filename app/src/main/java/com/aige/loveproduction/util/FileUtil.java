@@ -79,16 +79,6 @@ public class FileUtil {
                 filename = context.getExternalFilesDir(null)+"/"+filename;
 
             }
-//            //打开文件输入流
-//            FileInputStream input = new FileInputStream(filename);
-//            byte[] temp = new byte[1024];
-//            int len = 0;
-//            //读取文件内容:
-//            while ((len = input.read(temp)) > 0) {
-//                sb.append(new String(temp, 0, len)).append("#");
-//            }
-//            //关闭输入流
-//            input.close();
             FileReader fr = new FileReader(filename);
             BufferedReader buff = new BufferedReader(fr);
             while (buff.ready()) {
@@ -99,10 +89,10 @@ public class FileUtil {
     }
 
     /**
-     * 解析mpr文件
+     * 读取mpr文件
      */
     private static int i;
-    public static Map<String,List<Map<String,Float>>> readFile(File file) {
+    public static Map<String,List<Map<String,Float>>> readMprFile(File file) {
         if(!file.isFile()) return null;
         //第一层，图形类型
         Map<String,List<Map<String,Float>>> maps = new HashMap<>();
@@ -191,7 +181,7 @@ public class FileUtil {
      * @param data 原数据
      * @param map 以键值对储存对应图形属性
      * @param list 一个图形的属性整合
-     * @return 当数据正常解析完成返回false，此返回值可作为关闭解析通道的值
+     * @return 当数据正常解析完成返回false关闭通道，此返回值可作为关闭解析通道的值
      */
     private static boolean parseData(String data,Map<String,Float> map,List<Map<String,Float>> list) {
         //矩形数据解析

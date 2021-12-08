@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.PlateAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.PlateBean;
 import com.aige.loveproduction.mvp.contract.PlateFindContract;
@@ -47,12 +48,12 @@ import java.util.List;
  */
 public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFindContract.View>
         implements PlateFindContract.View,View.OnClickListener , StatusAction {
-    private RelativeLayout loading_layout,recyclerview_title;
+    private RelativeLayout recyclerview_title;
     private TextView barcode,plate_name,material,matname,size;
     private EditText find_edit;
     private ImageView image_camera,find_img;
     private LinearLayout linear_body;
-    private RecyclerView plate_find_list;//列表组件
+    private WrapRecyclerView recyclerview_data;//列表组件
     private PlateAdapter adapter;
     private LinearLayout plate_item;
 
@@ -74,13 +75,12 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
         image_camera = findViewById(R.id.image_camera);
         find_img = findViewById(R.id.find_img);
         linear_body = findViewById(R.id.linear_body);
-        plate_find_list = findViewById(R.id.plate_find_list);
+        recyclerview_data = findViewById(R.id.recyclerview_data);
         barcode = findViewById(R.id.barcode);
         plate_name = findViewById(R.id.plate_name);
         material = findViewById(R.id.material);
         matname = findViewById(R.id.matname);
         size = findViewById(R.id.size);
-        loading_layout = findViewById(R.id.loading_layout);
         recyclerview_title = findViewById(R.id.recyclerview_title);
         plate_item = findViewById(R.id.plate_item);
     }
@@ -88,8 +88,8 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
     @Override
     public void initView() {
         bindViews();
-        plate_find_list.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        plate_find_list.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         find_img.setOnClickListener(this);
         image_camera.setOnClickListener(this);
         find_edit.requestFocus();//获得焦点
@@ -98,12 +98,10 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(event != null && event.getKeyCode()==KeyEvent.KEYCODE_ENTER&&v.getText()!=null&& event.getAction() == KeyEvent.ACTION_DOWN){
-                    temporary_find_edit = find_edit.getText().toString();
-                    requestReady(temporary_find_edit);
+                    requestReady(find_edit.getText().toString());
                 }
                 if(event == null) {
-                    temporary_find_edit = find_edit.getText().toString();
-                    requestReady(temporary_find_edit);
+                    requestReady(find_edit.getText().toString());
                 }
                 return true;
             }
@@ -157,8 +155,7 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
                 //扫码失败
                 showToast("解析二维码失败");
             } else {
-                String result = intentResult.getContents();//返回值
-                requestReady(result);
+                requestReady(intentResult.getContents());
             }
 
         }
@@ -181,17 +178,19 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
             adapter = new PlateAdapter(this,data);
             LinearLayoutManager manager = new LinearLayoutManager(this);
             manager.setOrientation(LinearLayoutManager.VERTICAL);
-            plate_find_list.setLayoutManager(manager);
-            plate_find_list.setAdapter(adapter);
+            recyclerview_data.setLayoutManager(manager);
+            recyclerview_data.setAdapter(adapter);
             soundUtils.playSound(0,0);
         }else{
             hideTest();
+            showEmpty();
             soundUtils.playSound(1,0);
+            recyclerview_data.setAdapter(null);
             showToast(bean.getMsg());
         }
     }
     private void hideTest() {
-        plate_find_list.setAdapter(null);
+        recyclerview_data.setAdapter(null);
         plate_name.setText("");
         material.setText("");
         matname.setText("");
@@ -201,7 +200,7 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
     public void showLoading() {
         recyclerview_title.setVisibility(View.GONE);
         plate_item.setVisibility(View.GONE);
-        plate_find_list.setVisibility(View.GONE);
+        recyclerview_data.setVisibility(View.GONE);
         //loading_layout.setVisibility(View.VISIBLE);
         showLoadings();
     }
@@ -210,7 +209,7 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
     public void hideLoading() {
         recyclerview_title.setVisibility(View.VISIBLE);
         plate_item.setVisibility(View.VISIBLE);
-        plate_find_list.setVisibility(View.VISIBLE);
+        recyclerview_data.setVisibility(View.VISIBLE);
         //loading_layout.setVisibility(View.GONE);
         showComplete();
         mAnimation.alphaTran(linear_body,300);
@@ -218,7 +217,8 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
 
     @Override
     public void onError(String message) {
-        plate_find_list.setAdapter(null);
+        showEmpty();
+        recyclerview_data.setAdapter(null);
         hideTest();
         soundUtils.playSound(1,0);
         showToast(message);
@@ -241,12 +241,12 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
                 }
             });
         }else if(id == R.id.find_img) {
-            temporary_find_edit = find_edit.getText().toString();
-            requestReady(temporary_find_edit);
+            requestReady(find_edit.getText().toString());
         }
     }
     public void requestReady(String input) {
         find_edit.setText("");
+        temporary_find_edit = input;
         hideKeyboard(find_edit);
         if(input.isEmpty()) {
             showToast("请输入板件编号");

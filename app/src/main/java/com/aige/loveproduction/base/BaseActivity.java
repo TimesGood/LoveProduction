@@ -2,29 +2,28 @@ package com.aige.loveproduction.base;
 
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.ActivityAction;
 import com.aige.loveproduction.action.ClickAction;
 import com.aige.loveproduction.action.KeyboardAction;
 import com.aige.loveproduction.action.TitleBarAction;
+import com.aige.loveproduction.animation.BaseAnimation;
 import com.aige.loveproduction.premission.Permission;
 import com.aige.loveproduction.util.SoundUtils;
 
@@ -48,6 +47,7 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
         super.onCreate(savedInstanceState);
         //锁定竖屏
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         //创建相应的P层对象
         mPresenter = createPresenter();
         //绑定V层
@@ -63,7 +63,6 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
     @Override
     @Nullable
     public Toolbar getTitleBar() {
-        toolbar = findViewById(R.id.toolbar_title);
         return toolbar;
     }
     /**
@@ -73,7 +72,7 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
         toolbar = findViewById(R.id.toolbar_title);
         if(toolbar == null) return;
         hideTitle();
-        setCenterTitle("居中标题");
+        setCenterTitle("标题");
         toolbar.setBackground(ContextCompat.getDrawable(this,R.color.blue));
         toolbar.setNavigationIcon(R.drawable.back);
         setSupportActionBar(toolbar);

@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.TestAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseActivity;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.ScanCodeBean;
@@ -46,8 +47,7 @@ public class MixedLotActivity extends BaseActivity<MixedLotPresenter, MixedLotCo
     private TextView find_edit;
     private String spinner_text;
     private TestAdapter adapter;
-    private RecyclerView recyclerview_data;
-    private RelativeLayout loading_layout;
+    private WrapRecyclerView recyclerview_data;
     @Override
     protected MixedLotPresenter createPresenter() {
         return new MixedLotPresenter();
@@ -62,7 +62,6 @@ public class MixedLotActivity extends BaseActivity<MixedLotPresenter, MixedLotCo
     public void initView() {
         find_edit = findViewById(R.id.find_edit);
         recyclerview_data = findViewById(R.id.recyclerview_data);
-        loading_layout = findViewById(R.id.loading_layout);
         setSpinner();
         setOnClickListener(R.id.image_camera,R.id.find_img);
 
@@ -204,6 +203,7 @@ public class MixedLotActivity extends BaseActivity<MixedLotPresenter, MixedLotCo
 
     @Override
     public void onError(String message) {
+        showEmpty();
         recyclerview_data.setAdapter(null);
         showToast(message);
         soundUtils.playSound(1,0);

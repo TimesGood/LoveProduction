@@ -82,7 +82,13 @@ public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> im
             mView.onError( "请求超时");
         }else if(e instanceof HttpException) {
             HttpException exception = (HttpException) e;
-            if(exception.code() == 500) mView.onError("找不到数据");
+            if(exception.code() >= 400 && exception.code() < 500) {
+                mView.onError("服务器错误");
+            } else if(exception.code() >= 500 && exception.code() < 600) {
+                mView.onError("服务器找不到数据");
+            } else {
+                mView.onError(e.getMessage());
+            }
         }else if(e instanceof ConnectException){
             mView.onError("请连接网络后重试");
         }else{
@@ -95,7 +101,13 @@ public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> im
                 mView.onError(methodName, "请求超时");
             }else if(e instanceof HttpException) {
                 HttpException exception = (HttpException) e;
-                if(exception.code() == 500) mView.onError("找不到数据");
+                if(exception.code() >= 400 && exception.code() < 500) {
+                    mView.onError("服务器错误");
+                } else if(exception.code() >= 500 && exception.code() < 600) {
+                    mView.onError("服务器找不到数据");
+                } else {
+                    mView.onError(e.getMessage());
+                }
             }else if(e instanceof ConnectException){
                 mView.onError(methodName,"请连接网络后重试");
             }else{

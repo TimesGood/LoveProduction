@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.WorkScanAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseActivity;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.ScanCodeBean;
@@ -46,10 +47,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
     private TextView find_edit;
     private ImageView image_camera,find_img;
     private WorkScanAdapter adapter;
-    private RecyclerView plan_no_recyclerview;
-
-
-    private RelativeLayout loading_layout;
+    private WrapRecyclerView recyclerview_data;
 
     private String temporary_barcode = "";
 
@@ -69,7 +67,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
         find_edit.setHint("直接扫描、或输入批次号");
         image_camera.setOnClickListener(this);
         find_img.setOnClickListener(this);
-        plan_no_recyclerview.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener((v, actionId, event) -> {
             if(event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && v.getText() != null && event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -88,8 +86,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
         image_camera = findViewById(R.id.image_camera);
         find_edit = findViewById(R.id.find_edit);
         find_img = findViewById(R.id.find_img);
-        plan_no_recyclerview = findViewById(R.id.plan_no_recyclerview);
-        loading_layout = findViewById(R.id.loading_layout);
+        recyclerview_data = findViewById(R.id.recyclerview_data);
     }
     private void requestReady(String input) {
         find_edit.setText("");
@@ -104,7 +101,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
                 soundUtils.playSound(1,0);
                 return;
             }
-            plan_no_recyclerview.setAdapter(null);
+            recyclerview_data.setAdapter(null);
             mPresenter.getWonoByPackageCode(input,opId,getAsk());
         }
     }
@@ -121,7 +118,7 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
 //            System.out.println("-----------------------");
 //            System.out.println(bean);
         }else{
-            plan_no_recyclerview.setAdapter(null);
+            recyclerview_data.setAdapter(null);
             soundUtils.playSound(1,0);
             showToast(bean.getMsg());
         }
@@ -134,8 +131,8 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
         adapter = new WorkScanAdapter(this,data);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        plan_no_recyclerview.setLayoutManager(manager);
-        plan_no_recyclerview.setAdapter(adapter);
+        recyclerview_data.setLayoutManager(manager);
+        recyclerview_data.setAdapter(adapter);
         for(ScanCodeBean scanBean : data) {
             if(!"扫描成功".equals(scanBean.getMessage())) {
                 soundUtils.playSound(1,0);
@@ -147,22 +144,23 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
 
     @Override
     public void showLoading() {
-        plan_no_recyclerview.setVisibility(View.GONE);
+        recyclerview_data.setVisibility(View.GONE);
         //loading_layout.setVisibility(View.VISIBLE);
         showLoadings();
     }
 
     @Override
     public void hideLoading() {
-        plan_no_recyclerview.setVisibility(View.VISIBLE);
+        recyclerview_data.setVisibility(View.VISIBLE);
         //loading_layout.setVisibility(View.GONE);
         showComplete();
-        mAnimation.alphaTran(plan_no_recyclerview,300);
+        mAnimation.alphaTran(recyclerview_data,300);
     }
 
     @Override
     public void onError(String message) {
-        plan_no_recyclerview.setAdapter(null);
+        showEmpty();
+        recyclerview_data.setAdapter(null);
         soundUtils.playSound(1,0);
         showToast(message);
     }

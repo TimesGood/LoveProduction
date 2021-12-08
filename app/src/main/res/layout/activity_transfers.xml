@@ -32,13 +32,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="生产单号:"/>
+                    android:textColor="@color/black"
+                    android:text="@string/order_id"/>
                 <TextView
                     android:id="@+id/orderId_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/orderId_to"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:text=""/>
             </RelativeLayout>
             <RelativeLayout
@@ -51,13 +53,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="方案:"/>
+                    android:textColor="@color/black"
+                    android:text="@string/solution_name_"/>
                 <TextView
                     android:id="@+id/plan_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/plan_to"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:text=""/>
             </RelativeLayout>
             <RelativeLayout
@@ -69,13 +73,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="未包件数:"/>
+                    android:textColor="@color/black"
+                    android:text="@string/not_pack"/>
                 <TextView
                     android:id="@+id/not_pack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/not_pack_to"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:text=""/>
             </RelativeLayout>
             <RelativeLayout
@@ -87,15 +93,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:text="未转包数:"/>
+                    android:textColor="@color/black"
+                    android:text="@string/not_transfer_pack"/>
                 <TextView
                     android:id="@+id/not_transfer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/not_transfer_to"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:text=""/>
             </RelativeLayout>
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="2"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/red"/>
         </GridLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <com.aige.loveproduction.mvp.ui.customui.StatusLayout
@@ -111,10 +129,7 @@
             <com.aige.loveproduction.adapter.WrapRecyclerView
                 android:id="@+id/recyclerview_data"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
     </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
-
-    <include layout="@layout/loading_layout" android:visibility="gone"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

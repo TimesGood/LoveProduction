@@ -22,6 +22,7 @@ import com.aige.loveproduction.adapter.HomeAdapter;
 import com.aige.loveproduction.base.BaseAdapter;
 import com.aige.loveproduction.bean.HomeBean;
 import com.aige.loveproduction.mvp.ui.activity.ApplyActivity;
+import com.aige.loveproduction.mvp.ui.activity.CreateTaskActivity;
 import com.aige.loveproduction.mvp.ui.activity.InStorageActivity;
 import com.aige.loveproduction.mvp.ui.activity.MixedLotActivity;
 import com.aige.loveproduction.mvp.ui.activity.MoveStorageActivity;
@@ -31,6 +32,7 @@ import com.aige.loveproduction.mvp.ui.activity.SendOutActivity;
 import com.aige.loveproduction.mvp.ui.activity.SendOutVerifyActivity;
 import com.aige.loveproduction.mvp.ui.activity.SpecialShapedActivity;
 import com.aige.loveproduction.mvp.ui.activity.StorageFindActivity;
+import com.aige.loveproduction.mvp.ui.activity.ToFillInActivity;
 import com.aige.loveproduction.mvp.ui.activity.TransferActivity;
 import com.aige.loveproduction.mvp.ui.activity.TransferVerifyActivity;
 import com.aige.loveproduction.mvp.ui.activity.TransfersActivity;
@@ -49,13 +51,8 @@ import java.util.List;
 public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickListener{
     private View view;
     private Activity activity;
-//    private RelativeLayout workScan,plate_find,planNO_scan,storage_find,
-//            in_storage,out_storage,send_out,send_out_verify,move_storage,transfer,
-//            transfer_verify, special_shaped,mixed_lot;
     private RecyclerView recyclerview_data;
     private HomeAdapter adapter;
-
-//    private GridLayout grid_home;
     private List<RelativeLayout> listView = new ArrayList<>();
 
     @Override
@@ -77,7 +74,6 @@ public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickLis
         initView();
         return view;
     }
-
     public void initView() {
         showRoles();
     }
@@ -87,20 +83,23 @@ public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickLis
                     0,1,2,3,
                     4,5,6,7,
                     8,9,10,11,
-                    12,13,14
+                    12,13,14,15,
+                    16
             },
             {
                     R.drawable.plan_scan_img,R.drawable.plate_img,R.drawable.work_scan,R.drawable.transfer,
                     R.drawable.special,R.drawable.mixed, R.drawable.storage, R.drawable.in_storage_img,
                     R.drawable.out_storage_img,R.drawable.send_out_img,R.drawable.send_out_verify_img, R.drawable.move_storage_img,
-                    R.drawable.transfer,R.drawable.transfer_verify,R.drawable.apply_img
+                    R.drawable.transfer,R.drawable.transfer_verify,R.drawable.apply_img,R.drawable.print_img,
+                    R.drawable.apply_img
             }
     };
     private final String[] text = new String[]{
             "批次扫描","板件查询","工单扫描","转运扫描",
             "异形板件扫描","混批扫描","库位查询","入库扫描",
             "出库扫描","发货扫描","发货验证","移库扫描",
-            "转运扫描+","转运验证","孔图查看"
+            "转运扫描+","转运验证","孔图查看","无纸化打印",
+            "内改补"
     };
     /**
      * 根据角色显示对应的界面
@@ -109,13 +108,7 @@ public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickLis
         List<HomeBean> list = new ArrayList<>();
         String roleName = SharedPreferencesUtils.getValue(activity, "loginInfo", "roleName");
         if("Administrator".equals(roleName)) {
-            for(int i = 0;i < ids[0].length;i++) {
-                HomeBean bean = new HomeBean();
-                bean.setId(ids[0][i]);
-                bean.setImg_id(ids[1][i]);
-                bean.setText(text[i]);
-                list.add(bean);
-            }
+            list = setData(text);
         }else if("经销商".equals(roleName)) {
 
         }else if("车间".equals(roleName)) {
@@ -124,6 +117,9 @@ public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickLis
         }else if("入库出库发货".equals(roleName)) {
             String[] function = {"库位查询","入库扫描", "出库扫描","发货扫描","发货验证","移库扫描","转运验证"};
             list = setData(function);
+        }else{
+            //老是有人来提说什么主页不显示任何功能的情况，权限也不整理规划一下，算了，没有在清单内的权限就全部放开吧，爱咋咋滴
+            list = setData(text);
         }
         recyclerview_data = view.findViewById(R.id.recyclerview_data);
         adapter = new HomeAdapter(activity);
@@ -134,9 +130,16 @@ public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickLis
         recyclerview_data.setLayoutManager(manager);
         recyclerview_data.setAdapter(adapter);
     }
+
+    /**
+     * 筛选需要的功能菜单
+     * @param arr 需要哪些功能菜单，自己加
+     * @return 返回Recyclerview组件需要用data
+     */
     private List<HomeBean> setData(String[] arr) {
         List<HomeBean> list = new ArrayList<>();
         for (String s : arr) {
+            if("转运扫描".equals(s)) continue;
             for (int j = 0; j < text.length; j++) {
                 if (s.equals(text[j])) {
                     HomeBean bean = new HomeBean();
@@ -198,6 +201,12 @@ public class HomeFragment extends Fragment implements BaseAdapter.OnItemClickLis
                 break;
             case 14 :
                 intent = new Intent(activity, ApplyActivity.class);
+                break;
+            case 15:
+                intent = new Intent(activity, CreateTaskActivity.class);
+                break;
+            case 16:
+                intent = new Intent(activity, ToFillInActivity.class);
                 break;
         }
         if(intent != null) activity.startActivity(intent);

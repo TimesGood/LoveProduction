@@ -182,6 +182,7 @@ public class ApplyActivity extends BaseActivity<ApplyPresenter, ApplyContract.Vi
     //请求前的操作
     private void requestReady(String input) {
         find_edit.setText("");
+        hideKeyboard(find_edit);
         //每一次搜索请求清空之前下载的文件
         FileViewerUtils.deleteDir(new File(this.getExternalCacheDir() + "/mprFile"));
         if (input.isEmpty()) {
@@ -262,7 +263,7 @@ public class ApplyActivity extends BaseActivity<ApplyPresenter, ApplyContract.Vi
         }
     }
     private void parseFile(File file) {
-        Map<String, List<Map<String, Float>>> data = FileUtil.readFile(file);
+        Map<String, List<Map<String, Float>>> data = FileUtil.readMprFile(file);
         if(data == null) {
             showToast("文件解析错误");
             return;

@@ -32,6 +32,7 @@ public class TransferPresenter extends BasePresenter<TransferContract.View,Trans
 
     @Override
     public void getWonoByPackageCode(String packageCode, String operationEntity_Id,WonoAsk ask) {
+        checkViewAttached();
         mModel.getWonoByPackageCode(packageCode,operationEntity_Id,ask).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
                 .subscribe(new Observer<BaseBean<List<TransferBean>>>() {
@@ -83,6 +84,7 @@ public class TransferPresenter extends BasePresenter<TransferContract.View,Trans
 
     @Override
     public void getMessageByWono(WonoAsk ask) {
+        checkViewAttached();
         mModel.getMessageByWono(ask).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
                 .subscribe(new Observer<BaseBean<PlanNoMessageBean>>() {

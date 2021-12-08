@@ -3,13 +3,14 @@ package com.aige.loveproduction.mvp.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
 
 import com.aige.loveproduction.R;
-import com.aige.loveproduction.base.BaseAnimation;
+import com.aige.loveproduction.animation.BaseAnimation;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
 
 import java.util.Timer;
@@ -23,6 +24,9 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        //刘海屏适配
+//        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+//        attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         init();
     }
     private void init() {

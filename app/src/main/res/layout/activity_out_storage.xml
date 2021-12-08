@@ -68,8 +68,4 @@
         </RelativeLayout>
     </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
 
-    <include
-        layout="@layout/loading_layout"
-        android:visibility="gone" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

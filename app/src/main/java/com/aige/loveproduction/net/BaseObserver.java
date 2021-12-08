@@ -21,10 +21,11 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     }
     @Override
     public void onNext(@NonNull BaseBean<T> response) {
-        if(response.getCode() != 0) {
-            onError(response.getMsg());
-        }else{
+        //返回数据状态为0时，才返回数据，否则以异常处理
+        if(response.getCode() == 0) {
             onSuccess(response.getData());
+        }else{
+            onError(response.getMsg());
         }
     }
     @Override
@@ -33,7 +34,13 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
             onError("请求超时");
         }else if(e instanceof HttpException) {
             HttpException exception = (HttpException) e;
-            if(exception.code() == 500) onError("找不到数据");
+            if(exception.code() >= 400 && exception.code() < 500) {
+                onError("服务器错误");
+            }else if(exception.code() >= 500 && exception.code() < 600) {
+                onError("服务器找不到数据");
+            }else {
+                onError(e.getMessage());
+            }
         }else if(e instanceof ConnectException){
             onError("请连接网络后重试");
         }else{

@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
 /**
- *    desc   : 禁用水平滑动的ViewPager（一般用于 APP 首页的 ViewPager + Fragment）
+ * 自定义ViewPager
+ * 禁用水平滑动的ViewPager（一般用于 APP 首页的 ViewPager + Fragment）
  */
 public final class NoScrollViewPager extends ViewPager {
 

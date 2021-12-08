@@ -39,7 +39,7 @@ public class SpecialShapedActivity extends BaseActivity<SpecialShapedPresenter, 
         implements SpecialShapedContract.View , StatusAction {
     private GridLayout grid_data;
     private TextView find_edit;
-    private RelativeLayout main_body,loading_layout;
+    private RelativeLayout main_body;
 
     private String find_edit_data;
 
@@ -64,7 +64,6 @@ public class SpecialShapedActivity extends BaseActivity<SpecialShapedPresenter, 
         grid_data = findViewById(R.id.grid_data);
         setOnClickListener(R.id.image_camera,R.id.find_img,R.id.submit_button);
         main_body = findViewById(R.id.main_body);
-        loading_layout = findViewById(R.id.loading_layout);
         find_edit = findViewById(R.id.find_edit);
 
         main_body.setVisibility(View.GONE);
@@ -101,6 +100,7 @@ public class SpecialShapedActivity extends BaseActivity<SpecialShapedPresenter, 
 
     @Override
     public void onError(String message) {
+        showEmpty();
         main_body.setVisibility(View.GONE);
         //loading_layout.setVisibility(View.GONE);
         showComplete();

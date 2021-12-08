@@ -22,6 +22,7 @@ public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyContr
 
     @Override
     public void getMPRByBatchNo(String barcode) {
+        checkViewAttached();
         mModel.getMPRByBatchNo(barcode).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
                 .subscribe(new BaseObserver<List<DownloadBean>>(){
@@ -54,6 +55,7 @@ public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyContr
 
     @Override
     public void getFile(String url) {
+        checkViewAttached();
         mModel.getFile(url).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
                 .subscribe(new Observer<ResponseBody>() {
@@ -69,7 +71,7 @@ public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyContr
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        mView.onError("文件下载异常");
+                        analysisThrowable(e);
                         mView.hideLoading();
                     }
 

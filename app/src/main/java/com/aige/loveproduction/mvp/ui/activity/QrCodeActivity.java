@@ -10,6 +10,9 @@ import com.aige.loveproduction.R;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
+/**
+ * 自定义二维码扫描界面
+ */
 public class QrCodeActivity extends AppCompatActivity implements  DecoratedBarcodeView.TorchListener {
  
     private DecoratedBarcodeView decoratedBarcodeView;

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.StorageAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.StorageBean;
 import com.aige.loveproduction.mvp.contract.StorageFindContract;
@@ -48,11 +49,10 @@ public class StorageFindActivity extends BaseActivity<StorageFindPresenter,Stora
 
     private TextView find_edit,barcode,storage_bit_name_to,storage_bit_name,not_in_storage_to,not_in_storage;
     private ImageView image_camera,find_img;
-    private RelativeLayout loading_layout;
     private LinearLayout recyclerview_title,storage_item;
     private DampNestedScrollView damp_scrollview;
     private StorageAdapter adapter;
-    private RecyclerView recyclerview_data;
+    private WrapRecyclerView recyclerview_data;
 
     private String temporary_find_edit = "";
 
@@ -71,8 +71,6 @@ public class StorageFindActivity extends BaseActivity<StorageFindPresenter,Stora
         image_camera = findViewById(R.id.image_camera);
         find_edit = findViewById(R.id.find_edit);
         find_img = findViewById(R.id.find_img);
-        loading_layout = findViewById(R.id.loading_layout);
-        //linear_body = findViewById(R.id.linear_body);
         barcode = findViewById(R.id.barcode);
         recyclerview_data = findViewById(R.id.recyclerview_data);
         storage_bit_name_to = findViewById(R.id.storage_bit_name_to);
@@ -112,7 +110,7 @@ public class StorageFindActivity extends BaseActivity<StorageFindPresenter,Stora
         storage_bit_name.setVisibility(View.GONE);
         not_in_storage_to.setVisibility(View.GONE);
         not_in_storage.setVisibility(View.GONE);
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(StorageFindActivity.this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(StorageFindActivity.this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
     }
@@ -221,6 +219,7 @@ public class StorageFindActivity extends BaseActivity<StorageFindPresenter,Stora
 
     @Override
     public void onError(String message) {
+        showEmpty();
         soundUtils.playSound(1,0);
         recyclerview_data.setAdapter(null);
         showToast(message);
@@ -238,6 +237,7 @@ public class StorageFindActivity extends BaseActivity<StorageFindPresenter,Stora
             showToast(bean.getMsg());
             soundUtils.playSound(1,0);
         }else{
+            showEmpty();
             showToast(bean.getMsg());
             recyclerview_title.setVisibility(View.GONE);
             storage_item.setVisibility(View.GONE);

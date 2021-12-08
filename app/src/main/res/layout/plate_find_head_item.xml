@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/head_planNo_text_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/planNo"
+        android:textColor="@color/black"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/head_planNo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/head_planNo_text_to"
+        android:layout_toEndOf="@+id/head_planNo_text_to"/>
+    <TextView
+        android:id="@+id/head_plan_data_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plan_data"
+        android:textColor="@color/black"
+        android:layout_below="@+id/head_planNo_text_to"
+        android:layout_marginStart="15dp"/>
+    <TextView
+        android:id="@+id/head_plan_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/head_plan_data_to"
+        android:layout_toEndOf="@+id/head_plan_data_to"/>
+    <include layout="@layout/plate_item"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/head_plan_data_to" />
+</RelativeLayout>

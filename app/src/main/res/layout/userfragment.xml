@@ -36,154 +36,14 @@
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@+id/image_user"
                         android:paddingLeft="10dp"
-                        android:text="点击头像登录"
+                        android:text="登录名"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
-
-            <RelativeLayout
-                android:id="@+id/settings"
+            <include layout="@layout/recyclerview_data_include"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/button_ripple_result">
-
-                <ImageView
-                    android:id="@+id/setting_image"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/setting_image" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/setting_image"
-                    android:text="工厂设置"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/right_arrow" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/examine_layout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/button_ripple_result">
-
-                <ImageView
-                    android:id="@+id/examine_image"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/examine_image" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/examine_image"
-                    android:text="检验混单"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/right_arrow" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/special_shaped_layout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/button_ripple_result">
-
-                <ImageView
-                    android:id="@+id/special_shaped_image"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/examine_image" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/special_shaped_image"
-                    android:text="异形工序设置"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/right_arrow" />
-            </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/about_us"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/button_ripple_result">
-
-                <ImageView
-                    android:id="@+id/about_image"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/about_image" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/about_image"
-                    android:text="关于我们"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/tv_version"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/abiut_to"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/abiut_to"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/right_arrow" />
-            </RelativeLayout>
-
+                android:layout_height="wrap_content"/>
             <RelativeLayout
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
@@ -203,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:text="退出登录"
+                    android:text="@string/login_out"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:layout_toEndOf="@+id/login_image"/>
@@ -212,31 +72,6 @@
                     android:layout_width="50dp"
                     android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/right_arrow" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/layout_test"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ripple_button_white_stroke">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:text="测试"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    android:gravity="center"/>
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/right_arrow" />
             </RelativeLayout>

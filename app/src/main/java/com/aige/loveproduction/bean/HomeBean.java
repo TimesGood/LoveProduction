@@ -4,7 +4,6 @@ public class HomeBean {
     private int id;
     private int img_id;
     private String text;
-
     public int getId() {
         return id;
     }

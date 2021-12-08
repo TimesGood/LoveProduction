@@ -40,17 +40,11 @@
         <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
             android:id="@+id/damp_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <include layout="@layout/recyclerview_data_include" />
         </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
 
     </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
-
-    <include
-        layout="@layout/loading_layout"
-        android:visibility="gone" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

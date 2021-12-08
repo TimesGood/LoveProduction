@@ -6,9 +6,37 @@
             <enum name="landscape" value="2" />
         </attr>
     </declare-styleable>
+
     <string-array name="spinner">
         <item>请选择</item>
         <item>颗粒板</item>
         <item>颗粒门</item>
+    </string-array>
+    <string-array name="print_type_spinner">
+        <item>五金车间</item>
+        <item>移门车间</item>
+        <item>板件车间</item>
+        <item>所有</item>
+    </string-array>
+    <string-array name="to_fill_in">
+        <item>类型一</item>
+        <item>类型二</item>
+        <item>类型三</item>
+        <item>类型四</item>
+        <item>类型五</item>
+    </string-array>
+    <string-array name="post_responsibility">
+        <item>选项一</item>
+        <item>选项二</item>
+        <item>选项三</item>
+        <item>选项四</item>
+        <item>选项五</item>
+    </string-array>
+    <string-array name="cause">
+        <item>原因一</item>
+        <item>原因二</item>
+        <item>原因三</item>
+        <item>原因四</item>
+        <item>原因五</item>
     </string-array>
 </resources>

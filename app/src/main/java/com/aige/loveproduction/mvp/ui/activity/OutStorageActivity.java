@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.StorageAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.BinFindBean;
 import com.aige.loveproduction.bean.StorageBean;
@@ -51,8 +52,8 @@ public class OutStorageActivity extends BaseActivity<OutStoragePresenter,OutStor
     private EditText find_edit;
     private ImageView image_camera,find_img;
     private StorageAdapter adapter;
-    private RecyclerView recyclerview_data;
-    private RelativeLayout loading_layout,re_layout_body;
+    private WrapRecyclerView recyclerview_data;
+    private RelativeLayout re_layout_body;
     private LinearLayout recyclerview_title,storage_item;
 
     private String hide_salesOrder = "";
@@ -73,7 +74,6 @@ public class OutStorageActivity extends BaseActivity<OutStoragePresenter,OutStor
         find_edit = findViewById(R.id.find_edit);
         find_img = findViewById(R.id.find_img);
         recyclerview_data = findViewById(R.id.recyclerview_data);
-        loading_layout = findViewById(R.id.loading_layout);
         storage_bit_name = findViewById(R.id.storage_bit_name);
         barcode = findViewById(R.id.barcode);
         not_in_storage_to = findViewById(R.id.not_in_storage_to);
@@ -89,7 +89,7 @@ public class OutStorageActivity extends BaseActivity<OutStoragePresenter,OutStor
     public void initView() {
         bindViews();
         find_edit.setHint("直接扫描或输入条码");
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
         not_in_storage_to.setVisibility(View.GONE);
         not_in_storage.setVisibility(View.GONE);
@@ -245,6 +245,7 @@ public class OutStorageActivity extends BaseActivity<OutStoragePresenter,OutStor
 
     @Override
     public void onError(String message) {
+        showEmpty();
         soundUtils.playSound(1,0);
         recyclerview_data.setAdapter(null);
         showToast(message);
@@ -262,6 +263,7 @@ public class OutStorageActivity extends BaseActivity<OutStoragePresenter,OutStor
             showToast(bean.getMsg());
             soundUtils.playSound(1,0);
         }else{
+            showEmpty();
             recyclerview_title.setVisibility(View.GONE);
             storage_item.setVisibility(View.GONE);
             recyclerview_data.setAdapter(null);

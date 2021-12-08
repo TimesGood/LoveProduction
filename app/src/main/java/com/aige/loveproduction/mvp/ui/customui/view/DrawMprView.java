@@ -2,23 +2,18 @@ package com.aige.loveproduction.mvp.ui.customui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
 
 import com.aige.loveproduction.R;
+import com.aige.loveproduction.action.ResourcesAction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,42 +21,44 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @author 张文科
  * 板件渲染
- * 自定义渲染图形
- * 支持拖拽、缩放
+ * 自定义图形图形渲染
+ * 支持拖拽、缩放，双击图形置中
  */
-public class DrawMprView extends View {
-    private final Context mContext;
+public class DrawMprView extends View implements ResourcesAction {
     //坐标
     private RectF mRectF;
     //画笔
     private Paint mPaint;
     //储存主图形的宽高
-    private float mWidth = 0f,mHeight = 0f;
-    //外面传递的数据
+    private float mWidth = 0f,mHeight = 0f,viewWidth,viewHeight;
+    //外面传递的图形参数
     private Map<String,List<Map<String,Float>>> oldMapData;
     private Map<String,List<Map<String,Float>>> newMapData;
-    //缩放比例，当绘制的图形大于当前View的大小时，按比例缩放
+    //缩放比例
     private float scale = 1f;
     //图形初始坐标
     private float centerX = 0f,centerY = 0f;
     private final PointF centerPoint = new PointF();
     //**********************************以下是实现图形移动、缩放功能的属性***********************************
-    // 不同状态的表示：
+    //触摸的不同状态的表示：
     private static final int NONE = 0;//未接触
     private static final int DRAG = 1;//单指
     private static final int ZOOM = 2;//双指
     private int mode = NONE;
-    // 定义第一个按下的点，两只接触点的重点，以及出事的两指按下的距离：
-    //图形移动前的坐标
+    //定义第一个按下的点，两只接触点的重点，以及出事的两指按下的距离：
+    //图形移动、缩放前的坐标
     private final PointF coordinate = new PointF();
+    //手指按下时的位置
     private final PointF startPoint = new PointF();
-    private float oriDis = 1f;
-    //*****************************************
-    private final int MAX_LONG_PRESS_TIME=350;//双击最长等待时间
+    //两指按下时，两指之间的距离
+    private float oldDist = 1f;
+    //双击最长等待时间
+    private final int MAX_LONG_PRESS_TIME=350;
     private long oldTime;
     private long newTime = 0;
-
+    //*************************************************************************************************
     public DrawMprView(Context context) {
         this(context,null);
     }
@@ -70,7 +67,6 @@ public class DrawMprView extends View {
         super(context, attrs);
         initRectF();
         initPaint();
-        mContext = context;
     }
 
     /**
@@ -80,40 +76,49 @@ public class DrawMprView extends View {
     public void setData(Map<String, List<Map<String,Float>>> map) {
         if(map == null) throw new NullPointerException("图形数据为空！");
         oldMapData = map;
-        //加入一些自定义的属性
-        Map<String,Float> cusMap = new HashMap<>();
-        cusMap.put("textSize",16f);
-        cusMap.put("offsetX",50f);
-        cusMap.put("offsetY",12f);
-        setCustom("text",cusMap);
+        setCustom();
         //深度克隆
-        newMapData = new HashMap<>();
         newMapData = cloneData(oldMapData,1f);
         //恢复原始状态
         initProperty();
         //刷新
         invalidate();
+        //设置图形显示在中心
+        setCenter();
     }
     //恢复一些属性的初始状态
     private void initProperty() {
         scale = 1f;
         firstDraw = true;
     }
+    private void setCenter() {
+        List<Map<String, Float>> rectangle = newMapData.get("rectangle");
+        if(rectangle == null) throw new NullPointerException("主视图为空!");
+        for(Map.Entry<String, Float> entry : rectangle.get(0).entrySet()) {
+            if("BSX".equals(entry.getKey())) mWidth = entry.getValue();
+            if("BSY".equals(entry.getKey())) mHeight = entry.getValue();
+        }
+        centerX = viewWidth/2-mWidth/2;
+        centerY = viewHeight/2+mHeight/2;
+        centerPoint.set(centerX,centerY);
+    }
     /**
      * 项目需求自定义一些属性
-     * @param key 自定义的key
-     * @param map 数据
      */
-    private void setCustom(String key,Map<String,Float> map) {
+    private void setCustom() {
+        Map<String,Float> cusMap = new HashMap<>();
+        cusMap.put("textSize",16f);
+        cusMap.put("offsetX",50f);
+        cusMap.put("offsetY",12f);
         List<Map<String,Float>> list = new ArrayList<>();
-        list.add(map);
-        oldMapData.put(key,list);
+        list.add(cusMap);
+        oldMapData.put("customProperty",list);
     }
     /**
      * 深度克隆+数据调整缩放
      * @param data 克隆的数据
      * @param scale 缩放被克隆的数据的倍率
-     * @return 克隆新集合
+     * @return 克隆后全新的List集合
      */
     private Map<String,List<Map<String, Float>>> cloneData(Map<String,List<Map<String, Float>>> data,float scale) {
         List<Map<String, Float>> rectangle;
@@ -140,11 +145,11 @@ public class DrawMprView extends View {
      */
     private void initPaint() {
         if(mPaint == null) mPaint = new Paint();
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStyle(Paint.Style.FILL);  //设置画笔模式为填充
-        mPaint.setStrokeWidth(10f); //设置画笔宽度
-        mPaint.setXfermode(null);
-
+        mPaint.setColor(getColor(R.color.white));
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setStrokeWidth(10f);
+        mPaint.setDither(true);//设定是否使用图像抖动处理，会使绘制出来的图片颜色更加平滑和饱满，图像更加清晰
+        mPaint.setXfermode(null);//清除图像混合
     }
 
     /**
@@ -157,9 +162,11 @@ public class DrawMprView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        //坐标点
-        centerX = w/10f;
-        centerY = h/1.2f;
+        viewWidth = w;
+        viewHeight = h;
+        //初始坐标点
+        centerX = viewWidth/2f;
+        centerY = viewHeight/2f;
         centerPoint.set(centerX,centerY);
     }
     //目前默认占满父布局
@@ -189,7 +196,7 @@ public class DrawMprView extends View {
         super.onDraw(canvas);
         parseData(canvas);
     }
-    //第一次绘制
+    //是否是第一次绘制
     private boolean firstDraw = true;
     //记录初始坐标值
     private final List<String> textList1 = new ArrayList<>();
@@ -202,89 +209,83 @@ public class DrawMprView extends View {
         List<Map<String, Float>> bohrVert1 = newMapData.get("BohrVert1");
         List<Map<String, Float>> bohrVert2 = newMapData.get("BohrVert2");
         List<Map<String, Float>> bohrHoriz1 = newMapData.get("BohrHoriz1");
-        List<Map<String, Float>> text = newMapData.get("text");
-        Map<String, Float> textMap = text.get(0);
+        List<Map<String, Float>> property = newMapData.get("customProperty");
+        Map<String, Float> propertyMap = property.get(0);
         if(rectangle != null) {
-            for(Map<String, Float> map : rectangle) {
-                initPaint();
-                mPaint.setColor(ContextCompat.getColor(mContext, R.color.draw_brown));
-                mWidth = map.get("BSX");
-                mHeight = map.get("BSY");
-                drawRectangle(canvas,centerPoint.x, centerPoint.y, mWidth, mHeight);
+            for(Map.Entry<String, Float> entry : rectangle.get(0).entrySet()) {
+                if("BSX".equals(entry.getKey())) mWidth = entry.getValue();
+                if("BSY".equals(entry.getKey())) mHeight = entry.getValue();
             }
+            centerX = viewWidth/2-mWidth/2;
+            centerY = viewHeight/2+mHeight/2;
+            initPaint();
+            mPaint.setColor(getColor(R.color.draw_brown));
+            drawRectangle(canvas,centerPoint.x, centerPoint.y, mWidth, mHeight);
         }
         if(cutting1 != null) {
             int pathCount = 1;
             for(Map<String, Float> map : cutting1) {
                 int size = map.size()/2;
                 initPaint();
-                mPaint.setColor(ContextCompat.getColor(mContext, R.color.draw_green));
+                mPaint.setColor(getColor(R.color.draw_green));
                 mPaint.setStrokeWidth(3f);
                 mPaint.setStyle(Paint.Style.STROKE);
                 if(size == 2) {
+                    //当坐标只有两个时，那是弧形切割面
                     drawPathQuad(canvas,map);
                 }else if(pathCount == cutting1.size()){
-                    drawPath(canvas,map,textMap.get("textSize"),textMap.get("offsetX"),textMap.get("offsetY"),false,true);
+                    //取最后一组切面，绘制最终切割描边
+                    drawPath(canvas,map,propertyMap.get("textSize"),propertyMap.get("offsetX"),propertyMap.get("offsetY"),false,true);
                 }
                 pathCount++;
             }
         }
         if(bohrHoriz1 != null) {
+            initPaint();
+            mPaint.setColor(getColor(R.color.white));
+            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStrokeWidth(1f);
             for(Map<String, Float> map : bohrHoriz1) {
-                Float xa = map.get("XA");
-                Float ya = map.get("YA");
-                Float ti = map.get("TI");
-                Float du = map.get("DU");
-                if(xa == null || ya == null || ti == null || du == null) break;
-                initPaint();
-                mPaint.setColor(ContextCompat.getColor(mContext, R.color.white));
-                mPaint.setStyle(Paint.Style.STROKE);
-                mPaint.setStrokeWidth(1f);
-                drawNail(canvas,xa,ya,du,ti);
+                Float[] floats = parseMap(map);
+                drawNail(canvas,floats[0],floats[1],floats[2],floats[3]);
             }
         }
         int index;
+        //普通钉
         if(bohrVert1 != null) {
             index = 0;
             for(Map<String, Float> map : bohrVert1) {
-                Float xa = map.get("XA");
-                Float ya = map.get("YA");
-                Float ti = map.get("TI");
-                Float du = map.get("DU");
-                if(xa == null || ya == null || ti == null || du == null) break;
+                Float[] floats = parseMap(map);
                 initPaint();
-                mPaint.setColor(ContextCompat.getColor(mContext,R.color.grey));
-                drawArc(canvas,0,360,du,xa,ya);
                 if(firstDraw) {
-                    textList1.add(index,printInt(xa,ya));
+                    textList1.add(index,printCoordinate(floats[0],floats[1]));
                 }
-                drawText(canvas, textList1.get(index), textMap.get("textSize"), xa, ya, 0f, textMap.get("offsetY"));
+                drawText(canvas, textList1.get(index), propertyMap.get("textSize"), floats[0], floats[1], 0f, floats[2]);
+                mPaint.setColor(getColor(R.color.grey));
+                drawArc(canvas,0,360,floats[2],floats[0],floats[1]);
                 index++;
             }
         }
+        //十字钉
         if(bohrVert2 != null) {
             index = 0;
             for(Map<String, Float> map : bohrVert2) {
-                Float ti = map.get("TI");
-                Float xa = map.get("XA");
-                Float ya = map.get("YA");
-                if(ti == null || xa == null || ya == null) break;
+                Float[] floats = parseMap(map);
                 initPaint();
-                mPaint.setColor(ContextCompat.getColor(mContext,R.color.grey));
-                drawArc(canvas,0,360,ti,xa,ya);
+                if(firstDraw) {
+                    textList2.add(index,printCoordinate(floats[0],floats[1]));
+                }
+                mPaint.setColor(getColor(R.color.grey));
+                drawText(canvas, textList2.get(index), propertyMap.get("textSize"), floats[0], floats[1], 0f, floats[2]);
+                mPaint.setColor(getColor(R.color.grey));
+                drawArc(canvas,0,360,floats[2],floats[0],floats[1]);
                 mPaint.setStyle(Paint.Style.STROKE);
                 mPaint.setStrokeWidth(1f);
-                mPaint.setColor(ContextCompat.getColor(mContext,R.color.black));
-                drawArc(canvas,45,90,ti,xa,ya);
-                drawArc(canvas,135,90,ti,xa,ya);
-                drawArc(canvas,225,90,ti,xa,ya);
-                drawArc(canvas,315,90,ti,xa,ya);
-                if(firstDraw) {
-                    textList2.add(index,printInt(xa,ya));
-                }
-                initPaint();
-                mPaint.setColor(ContextCompat.getColor(mContext,R.color.grey));
-                drawText(canvas, textList2.get(index), textMap.get("textSize"), xa, ya, 0f, textMap.get("offsetY"));
+                mPaint.setColor(getColor(R.color.black));
+                drawArc(canvas,45,90,floats[2],floats[0],floats[1]);
+                drawArc(canvas,135,90,floats[2],floats[0],floats[1]);
+                drawArc(canvas,225,90,floats[2],floats[0],floats[1]);
+                drawArc(canvas,315,90,floats[2],floats[0],floats[1]);
                 index++;
             }
         }
@@ -293,12 +294,28 @@ public class DrawMprView extends View {
     }
 
     /**
-     * 坐标输出
+     * 解析固定格式的Map集合
+     * @param map Key为XA、YA、TI、DU的Map
+     * @return Float数组，0：x轴，1：y轴，2：直径，3：深度
+     */
+    private Float[] parseMap(Map<String,Float> map) {
+        Float[] floats = new Float[4];
+        for(Map.Entry<String, Float> entry : map.entrySet()) {
+            if("XA".equals(entry.getKey())) floats[0] = entry.getValue();
+            if("YA".equals(entry.getKey())) floats[1] = entry.getValue();
+            if("DU".equals(entry.getKey())) floats[2] = entry.getValue();
+            if("TI".equals(entry.getKey())) floats[3] = entry.getValue();
+        }
+        return floats;
+    }
+
+    /**
+     * 坐标输出坐标
      * @param fx x坐标
      * @param fy y坐标
      * @return x=？,y=?
      */
-    private String printInt(Float fx,Float fy) {
+    private String printCoordinate(Float fx,Float fy) {
         StringBuilder builder = new StringBuilder();
         String x = String.valueOf(fx);
         String y = String.valueOf(fy);
@@ -436,7 +453,7 @@ public class DrawMprView extends View {
             }else{
                 mPath.lineTo(xy.x,xy.y);
             }
-            if(firstDraw) pathList.add(i,printInt(x,y));
+            if(firstDraw) pathList.add(i,printCoordinate(x,y));
             //是否显示坐标
             if (!showXY) continue;
             //字体位置
@@ -495,6 +512,7 @@ public class DrawMprView extends View {
     public boolean performClick() {
         return super.performClick();
     }
+    private PointF distance;
     /**
      * 手指触摸移动、缩放
      */
@@ -508,22 +526,29 @@ public class DrawMprView extends View {
                 startPoint.set(event.getX(),event.getY());
                 //获取当前图形的坐标
                 coordinate.set(centerPoint.x,centerPoint.y);
+                //双击储存上一次点击时间戳
                 oldTime = newTime;
+                //双击储存获取当前点击时间戳
                 newTime = System.currentTimeMillis();
+                //手指数量：单指
                 mode = DRAG;
                 break;
-            // 双指按下
+            // 多指按下
             case MotionEvent.ACTION_POINTER_DOWN:
-                //获取两手指之间的距离
-                oriDis = distance(event);
-                if (oriDis > 10f) {
-                    //获取两手指之间的x，y
-                    mode = ZOOM;
-                }
-                //设置前一次缩放之后的原始数据
+                //获取当前图形的坐标
+                coordinate.set(centerPoint.x,centerPoint.y);
+                //如果之前有缩放的话，需要把旧数据也缩放到最新的缩放程度
                 oldMapData.putAll(cloneData(oldMapData, scale));
+                scale = 1f;
+                //获取两手指之间的距离
+                oldDist = distance(event);
+                //获取两指坐标
+                distance = middle(event);
+                //取得初始坐标与两指之间的相距的坐标
+                distance.set(-(distance.x - coordinate.x),-(distance.y - coordinate.y));
+                mode = ZOOM;
                 break;
-            //手指放开
+            //单、多指放开
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 performClick();
@@ -533,32 +558,43 @@ public class DrawMprView extends View {
                 }
                 mode = NONE;
                 break;
+            //移动
             case MotionEvent.ACTION_MOVE:
                 oldTime = 0;
+                //根据屏幕上手指数量执行不同的事件
                 if(mode == DRAG) {
-                    //更改图形坐标
+                    //图形移动，实现主要通过更改坐标
                     centerPoint.x = coordinate.x+(event.getX()-startPoint.x);
                     centerPoint.y = coordinate.y+(event.getY()-startPoint.y);
                 }else if(mode == ZOOM) {
+                    //缩放，主要通过更改图形数值以及更改坐标实现
                     //获取新的俩手指距离
                     float newDist = distance(event);
-                    if (newDist > 10f) {
-                        scale = (newDist / oriDis);
-                        newMapData.putAll(cloneData(oldMapData, scale));
-                    }
+                    //原手指距离与新手指距离比率为缩放倍率
+                    scale = (newDist / oldDist);
+                    newMapData.putAll(cloneData(oldMapData, scale));
+                    //坐标的实际移动距离
+                    float actualX = distance.x*scale-distance.x;
+                    float actualY = distance.y*scale-distance.y;
+                    //把原坐标加上缩放后坐标的实际移动距离
+                    centerPoint.set(coordinate.x+actualX,coordinate.y+actualY);
                 }
                 break;
         }
         invalidate();
         return true;
     }
-    // 计算两个触摸点之间的距离
+    /**
+     * 计算两个触摸点之间的距离
+     */
     private float distance(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
-        return (float)Math.sqrt(x * x + y * y);
+        return (float)Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
-    // 计算两个触摸点的中点
+    /**
+     * 计算两个触摸点的中点
+     */
     private PointF middle(MotionEvent event) {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);

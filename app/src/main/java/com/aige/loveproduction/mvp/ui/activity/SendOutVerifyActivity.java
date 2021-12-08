@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.SendVerifyAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.StorageBean;
 import com.aige.loveproduction.mvp.contract.SendOutVerifyContract;
@@ -50,10 +51,8 @@ public class SendOutVerifyActivity extends BaseActivity<SendOutVerifyPresenter,S
             storage_bit_name,not_in_storage_to,not_in_storage,
             barcode;
     private ImageView image_camera,find_img;
-    private RecyclerView recyclerview_data;
+    private WrapRecyclerView recyclerview_data;
     private SendVerifyAdapter adapter2;
-
-    private RelativeLayout loading_layout;
     private LinearLayout recyclerview_title,storage_item;
     private DampNestedScrollView damp_scrollview;
 
@@ -74,7 +73,6 @@ public class SendOutVerifyActivity extends BaseActivity<SendOutVerifyPresenter,S
         find_edit = findViewById(R.id.find_edit);
         find_img = findViewById(R.id.find_img);
         recyclerview_data = findViewById(R.id.recyclerview_data);
-        loading_layout = findViewById(R.id.loading_layout);
         not_in_storage_to = findViewById(R.id.not_in_storage_to);
         not_in_storage = findViewById(R.id.not_in_storage);
         storage_bit_name_to = findViewById(R.id.storage_bit_name_to);
@@ -88,7 +86,7 @@ public class SendOutVerifyActivity extends BaseActivity<SendOutVerifyPresenter,S
     public void initView() {
         bindViews();
         find_edit.setHint("直接扫描或输入条码");
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -226,6 +224,7 @@ public class SendOutVerifyActivity extends BaseActivity<SendOutVerifyPresenter,S
                 soundUtils.playSound(1,0);
             }
         }else{
+            showEmpty();
             storage_item.setVisibility(View.GONE);
             damp_scrollview.setVisibility(View.GONE);
             recyclerview_title.setVisibility(View.GONE);
@@ -259,6 +258,7 @@ public class SendOutVerifyActivity extends BaseActivity<SendOutVerifyPresenter,S
 
     @Override
     public void onError(String message) {
+        showEmpty();
         soundUtils.playSound(1,0);
         recyclerview_data.setAdapter(null);
         showToast(message);

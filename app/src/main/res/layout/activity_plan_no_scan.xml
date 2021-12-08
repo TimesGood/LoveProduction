@@ -24,17 +24,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/plan_no_recyclerview"
+        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent">
+            <include layout="@layout/recyclerview_data_include"/>
+        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+
 
     </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
-
-    <include
-        layout="@layout/loading_layout"
-        android:visibility="gone" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

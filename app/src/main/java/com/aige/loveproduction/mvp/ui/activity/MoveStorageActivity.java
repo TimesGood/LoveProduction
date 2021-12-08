@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.adapter.StorageAdapter;
+import com.aige.loveproduction.adapter.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseActivity;
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.BinFindBean;
@@ -53,8 +55,7 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
     private EditText find_edit;
     private ImageView image_camera,find_img;
     private StorageAdapter adapter;
-    private RecyclerView recyclerview_data;
-    private RelativeLayout loading_layout;
+    private WrapRecyclerView recyclerview_data;
     private LinearLayout recyclerview_title,storage_item;
     private DampNestedScrollView damp_scrollview;
 
@@ -77,7 +78,6 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
         find_edit = findViewById(R.id.find_edit);
         find_img = findViewById(R.id.find_img);
         recyclerview_data = findViewById(R.id.recyclerview_data);
-        loading_layout = findViewById(R.id.loading_layout);
         storage_bit_name = findViewById(R.id.storage_bit_name);
         barcode = findViewById(R.id.barcode);
         not_in_storage_to = findViewById(R.id.not_in_storage_to);
@@ -91,7 +91,7 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
     public void initView() {
         bindViews();
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,1,getColor(R.color.grey)));
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -145,12 +145,6 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
             requestReady(temporary_find_edit);
         }
     }
-    /**
-     * 处理权限申请回调
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -168,12 +162,6 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
         }
     }
 
-    /**
-     * 处理界面跳转回传数据回调
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -235,6 +223,7 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
             showToast(bean.getMsg());
             soundUtils.playSound(1,0);
         }else{
+            showEmpty();
             showToast(bean.getMsg());
             recyclerview_title.setVisibility(View.GONE);
             storage_item.setVisibility(View.GONE);
@@ -288,6 +277,7 @@ public class MoveStorageActivity extends BaseActivity<MoveStoragePresenter,MoveS
 
     @Override
     public void onError(String message) {
+        showEmpty();
         soundUtils.playSound(1,0);
         recyclerview_data.setAdapter(null);
     }

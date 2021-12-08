@@ -3,6 +3,9 @@ package com.aige.loveproduction.animation;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
+/**
+ * 自定义一些动画插值器
+ */
 public class AnimationInterpolator {
 
     /**

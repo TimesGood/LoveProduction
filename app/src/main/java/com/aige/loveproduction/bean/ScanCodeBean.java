@@ -10,15 +10,7 @@ public class ScanCodeBean {
     private String totalCnt;
     private String totalArea;
     private String message;
-    private int status = 200;
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getBatchno() {
         return batchno;
@@ -102,8 +94,7 @@ public class ScanCodeBean {
                 ", weiSaoCount='" + weiSaoCount + '\'' +
                 ", totalCnt='" + totalCnt + '\'' +
                 ", totalArea='" + totalArea + '\'' +
-                ", message='" + message + '\'' +
-                ", status=" + status +
+                ", message='" + message +
                 '}';
     }
 }

@@ -4,15 +4,6 @@ public class WorkgroupBean {
     private String id;
     private String wgCode;
     private String wgName;
-    private int status = 200;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getId() {
         return id;
@@ -43,8 +34,7 @@ public class WorkgroupBean {
         return "Workgroup{" +
                 "id='" + id + '\'' +
                 ", wgCode='" + wgCode + '\'' +
-                ", wgName='" + wgName + '\'' +
-                ", status='" + status + '\'' +
+                ", wgName='" + wgName +
                 '}';
     }
 }

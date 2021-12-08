@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:text="对应机器"
+                        android:text="@string/setting_machine_title"
                         android:textSize="18sp"
                         android:textColor="#000"
                         android:paddingStart="10dp"
@@ -86,7 +86,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:text="对应工作组"
+                        android:text="@string/setting_workgroup_title"
                         android:textSize="18sp"
                         android:textColor="#000"
                         android:paddingStart="10dp"
@@ -128,7 +128,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:text="操作人员"
+                        android:text="@string/setting_handler_title"
                         android:textSize="18sp"
                         android:textColor="#000"
                         android:paddingStart="10dp"

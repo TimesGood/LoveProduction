@@ -38,7 +38,6 @@ public class TransferVerifyPresenter extends BasePresenter<TransferVerifyContrac
                     @Override
                     public void onError(String message) {
                         mView.onError(message);
-                        mView.hideLoading();
                     }
 
                     @Override
