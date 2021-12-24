@@ -23,7 +23,7 @@ public interface SpecialShapedContract {
         void submitHideLoading();
         void onGetSpecialBar(BaseBean bean);
     }
-    interface Presenter extends IBasePresenter<SpecialShapedContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getSpecialBar(SpeciaBarAsk ask);
     }
 }

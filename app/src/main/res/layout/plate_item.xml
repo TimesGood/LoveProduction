@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/grey"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/grey2">
         <TextView
             android:id="@+id/opname"
             android:gravity="center"
@@ -13,7 +13,6 @@
             android:layout_gravity="center"
             android:text="@string/op_name"
             android:textColor="@color/black"
-            android:background="@color/white"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_marginStart="1dp"
@@ -27,7 +26,6 @@
             android:layout_gravity="center"
             android:text="@string/operation_date"
             android:textColor="@color/black"
-            android:background="@color/white"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_marginEnd="1dp"/>
@@ -40,7 +38,7 @@
             android:layout_gravity="center"
             android:text="@string/operation_name"
             android:textColor="@color/black"
-            android:background="@color/white"
+
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_marginEnd="1dp"/>
@@ -53,7 +51,7 @@
             android:layout_gravity="center"
             android:text="@string/operation_group"
             android:textColor="@color/black"
-            android:background="@color/white"
+
             android:layout_marginEnd="1dp"/>
 
 

@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class TransferPresenter extends BasePresenter<TransferContract.View,TransferContract.Model> implements TransferContract.Presenter {
+public class TransferPresenter extends BasePresenter<TransferContract.View,TransferModel> implements TransferContract.Presenter {
     private List<ScanCodeBean> scanCodeBeanList;
     private BaseBean<List<ScanCodeBean>> scanCodeBean;
     //记录请求的数据列表数量
@@ -26,8 +26,8 @@ public class TransferPresenter extends BasePresenter<TransferContract.View,Trans
     private int execute = 0;
 
     @Override
-    public TransferContract.Model bindModel() {
-        return (TransferContract.Model) TransferModel.newInatance();
+    public TransferModel bindModel() {
+        return new TransferModel();
     }
 
     @Override

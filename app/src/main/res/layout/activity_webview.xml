@@ -39,13 +39,13 @@
             android:visibility="gone" />
 
     </LinearLayout>
-    <com.aige.loveproduction.mvp.ui.webview.MyWebView
+    <com.aige.loveproduction.ui.webview.MyWebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-    </com.aige.loveproduction.mvp.ui.webview.MyWebView>
+    </com.aige.loveproduction.ui.webview.MyWebView>
 
 
     <LinearLayout

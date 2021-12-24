@@ -10,10 +10,10 @@ import com.aige.loveproduction.net.RxScheduler;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class CreateTaskPresenter extends BasePresenter<CreateTaskContract.View,CreateTaskContract.Model> implements CreateTaskContract.Presenter{
+public class CreateTaskPresenter extends BasePresenter<CreateTaskContract.View,CreateTaskModel> implements CreateTaskContract.Presenter{
     @Override
-    public CreateTaskContract.Model bindModel() {
-        return (CreateTaskContract.Model) CreateTaskModel.newInstance();
+    public CreateTaskModel bindModel() {
+        return new CreateTaskModel();
     }
 
     @Override

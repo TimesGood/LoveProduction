@@ -14,10 +14,10 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class OutStoragePresenter extends BasePresenter<OutStorageContract.View,OutStorageContract.Model> implements OutStorageContract.Presenter {
+public class OutStoragePresenter extends BasePresenter<OutStorageContract.View,OutStorageModel> implements OutStorageContract.Presenter {
     @Override
     public OutStorageModel bindModel() {
-        return (OutStorageModel) OutStorageModel.newInstance();
+        return new OutStorageModel();
     }
 
     @Override

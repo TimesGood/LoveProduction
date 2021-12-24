@@ -11,9 +11,6 @@ import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
 
 public class ApplyModel implements ApplyContract.Model {
-    public static IBaseModel newInstance(){
-        return new ApplyModel();
-    }
 
     @Override
     public Observable<BaseBean<List<DownloadBean>>> getMPRByBatchNo(String barcode) {

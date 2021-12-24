@@ -9,16 +9,15 @@ import retrofit2.HttpException;
 
 
 /**
- * P层基类，持有V层、M层，主要对其解耦及绑定对应V层、M层
+ * P层基类，需要持有V层、M层，主要对其解耦及绑定对应V层、M层
  * @param <V> 继承IBaseView的接口
  * @param <M> 继承IBaseModel的接口
  */
 public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> implements IBasePresenter<V> {
     protected V mView;
     protected M mModel;
-
     /**
-     * Disposable管理容器
+     * Disposable管理容器，用于解绑一些东西
      */
     protected CompositeDisposable mDisposable;
 
@@ -26,29 +25,34 @@ public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> im
         this.mModel = bindModel();
         mDisposable = new CompositeDisposable();
     }
-    //注册绑定
+    /**
+     * RxJava订阅
+     */
     public void setDisposable(Disposable disposable) {
         mDisposable.add(disposable);
     }
+    /**
+     * RxJava解除订阅
+     */
     public void dispose() {
         if(!mDisposable.isDisposed()) mDisposable.dispose();
     }
     /**
-     * View是否已经绑定
+     * 检查View是否已经绑定
      */
     public boolean isViewAttached() {
         return mView != null;
     }
 
     /**
-     * 核查View是否已经绑定
+     * 检查View是否已经绑定，并抛出异常
      */
     public void checkViewAttached() {
         if (!isViewAttached()) throw new RuntimeException("未注册View");
     }
 
     /**
-     * 绑定View
+     * 绑定V层
      * @param v
      */
     @Override
@@ -60,7 +64,7 @@ public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> im
     }
 
     /**
-     * 子类重写，返回需要绑定的Model
+     * 绑定M层
      */
     public abstract M bindModel();
 
@@ -73,6 +77,7 @@ public abstract class BasePresenter<V extends IBaseView,M extends IBaseModel> im
             mDisposable.dispose();
         mView = null;
     }
+
 
     /**
      * 对请求网络异常进行统一处理

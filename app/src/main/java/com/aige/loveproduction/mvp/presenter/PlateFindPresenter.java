@@ -2,8 +2,10 @@ package com.aige.loveproduction.mvp.presenter;
 
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.PlateBean;
+import com.aige.loveproduction.bean.PlateWrapBean;
 import com.aige.loveproduction.mvp.contract.PlateFindContract;
 import com.aige.loveproduction.mvp.model.PlateFindModel;
+import com.aige.loveproduction.net.BaseObserver;
 import com.aige.loveproduction.net.RxScheduler;
 import com.aige.loveproduction.base.BasePresenter;
 
@@ -13,11 +15,11 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class PlateFindPresenter extends BasePresenter<PlateFindContract.View,PlateFindContract.Model> implements PlateFindContract.Presenter {
+public class PlateFindPresenter extends BasePresenter<PlateFindContract.View,PlateFindModel> implements PlateFindContract.Presenter {
 
     @Override
-    public PlateFindContract.Model bindModel() {
-        return (PlateFindContract.Model) PlateFindModel.newInstance();
+    public PlateFindModel bindModel() {
+        return new PlateFindModel();
     }
 
     @Override
@@ -25,25 +27,26 @@ public class PlateFindPresenter extends BasePresenter<PlateFindContract.View,Pla
         checkViewAttached();
         mModel.getPlateListByPackageCode(barcode).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<List<PlateBean>>>() {
+                .subscribe(new BaseObserver<PlateWrapBean>() {
+
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onStart(Disposable d) {
                         mView.showLoading();
                     }
 
                     @Override
-                    public void onNext(@NonNull BaseBean<List<PlateBean>> listBaseBean) {
-                        mView.onGetPlateListByPackageCodeSuccess(listBaseBean);
+                    public void onSuccess(PlateWrapBean response) {
+                        mView.onGetPlateListByPackageCodeSuccess(response);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        analysisThrowable(e);
+                    public void onError(String message) {
+                        mView.onError(message);
                         mView.hideLoading();
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onNormalEnd() {
                         mView.hideLoading();
                     }
                 });

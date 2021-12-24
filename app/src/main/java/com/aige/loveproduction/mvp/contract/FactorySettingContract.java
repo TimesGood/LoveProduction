@@ -24,13 +24,13 @@ public interface FactorySettingContract {
         void hideLoading(String method);
         //void onError(String method,String message);
 
-        void onGetMachineSuccess(BaseBean<List<MachineBean>> bean,boolean isInit);
-        void onGetWorkgroupSuccess(BaseBean<List<WorkgroupBean>> bean,boolean isInit);
-        void onGetHandlerSuccess(BaseBean<List<HandlerBean>> bean,boolean isInit);
+        void onGetMachineSuccess(List<MachineBean> bean);
+        void onGetWorkgroupSuccess(List<WorkgroupBean> bean);
+        void onGetHandlerSuccess(List<HandlerBean> bean);
     }
-    interface Presenter extends IBasePresenter<FactorySettingContract.View> {
-        void getMachine(boolean isInit);
-        void getWorkgroupByMachineId(String machineId,boolean isInit);
-        void getHandlerByWorkgroupId(String workgroupId,boolean isInit);
+    interface Presenter extends IBasePresenter<View> {
+        void getMachine();
+        void getWorkgroupByMachineId(String machineId);
+        void getHandlerByWorkgroupId(String workgroupId);
     }
 }

@@ -15,10 +15,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class SendOutModel implements SendOutContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new SendOutModel();
-    }
+
     @Override
     public Observable<BaseBean<List<StorageBean>>> getScanPackage(String packageCode, String userName, String action, String binCode) {
         Map<String,String> map = new HashMap<>();

@@ -14,11 +14,11 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class StorageFindPresenter extends BasePresenter<StorageFindContract.View,StorageFindContract.Model> implements StorageFindContract.Presenter {
+public class StorageFindPresenter extends BasePresenter<StorageFindContract.View,StorageFindModel> implements StorageFindContract.Presenter {
 
     @Override
-    public StorageFindContract.Model bindModel() {
-        return (StorageFindContract.Model) StorageFindModel.newInstance();
+    public StorageFindModel bindModel() {
+        return new StorageFindModel();
     }
 
 

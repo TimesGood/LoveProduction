@@ -17,10 +17,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class TransferModel implements TransferContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInatance() {
-        return new TransferModel();
-    }
+
     @Override
     public Observable<BaseBean<List<TransferBean>>> getWonoByPackageCode(String packageCode, String operationEntity_Id, WonoAsk ask) {
         Map<String,String> map = new HashMap<>();

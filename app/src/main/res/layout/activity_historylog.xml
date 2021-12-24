@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".mvp.ui.activity.HistoryLogActivity">
+    tools:context=".ui.activity.HistoryLogActivity">
     <include layout="@layout/title_include"/>
     <ListView
         android:id="@+id/log_listview"

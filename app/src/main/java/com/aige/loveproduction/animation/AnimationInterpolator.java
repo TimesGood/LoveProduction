@@ -19,4 +19,11 @@ public class AnimationInterpolator {
             return (float) (Math.pow(2, -10 * input) * Math.sin((input - factor / 4) * (2 * Math.PI) / factor) + 1);
         }
     }
+    public static class DampInterpolator implements Interpolator {
+        @Override
+        public float getInterpolation(float input) {
+            float move = (1 - input);
+            return 1 - (float) Math.pow(move, 3);
+        }
+    }
 }

@@ -15,11 +15,11 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class WorkScanPresenter extends BasePresenter<WorkScanContract.View,WorkScanContract.Model> implements WorkScanContract.Presenter {
+public class WorkScanPresenter extends BasePresenter<WorkScanContract.View,WorkScanModel> implements WorkScanContract.Presenter {
 
     @Override
-    public WorkScanContract.Model bindModel() {
-        return (WorkScanContract.Model) WorkScanModel.newInstance();
+    public WorkScanModel bindModel() {
+        return new WorkScanModel();
     }
 
     //获取扫描结果

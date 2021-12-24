@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".mvp.ui.activity.SSSettingActivity">
+    tools:context=".ui.activity.SSSettingActivity">
     <include layout="@layout/title_include"/>
-    <com.aige.loveproduction.mvp.ui.customui.viewgroup.LineWrapRadioGroup
+    <com.aige.loveproduction.ui.customui.viewgroup.LineWrapRadioGroup
         android:id="@+id/radio"
         android:layout_gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </com.aige.loveproduction.mvp.ui.customui.viewgroup.LineWrapRadioGroup>
+    </com.aige.loveproduction.ui.customui.viewgroup.LineWrapRadioGroup>
 </LinearLayout>

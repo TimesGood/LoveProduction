@@ -17,14 +17,14 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class PlanNoScanPresenter extends BasePresenter<PlanNoScanContract.View,PlanNoScanContract.Model> implements PlanNoScanContract.Presenter {
+public class PlanNoScanPresenter extends BasePresenter<PlanNoScanContract.View,PlanNoScanModel> implements PlanNoScanContract.Presenter {
     private List<ScanCodeBean> scanCodeBeanList;
     private BaseBean<List<ScanCodeBean>> scanCodeBeans;
     //记录请求的数据列表数量
     private int wonoSize = 0;
     @Override
-    public PlanNoScanContract.Model bindModel() {
-        return (PlanNoScanContract.Model) PlanNoScanModel.newInstance();
+    public PlanNoScanModel bindModel() {
+        return new PlanNoScanModel();
     }
 
     @Override

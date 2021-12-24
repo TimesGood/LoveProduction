@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".mvp.ui.activity.TransferVerifyActivity">
+    tools:context=".ui.activity.TransferVerifyActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,19 +116,19 @@
                 android:textColor="@color/red"/>
         </GridLayout>
     </com.google.android.material.appbar.AppBarLayout>
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:id="@+id/damp_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.aige.loveproduction.adapter.WrapRecyclerView
+            <com.aige.loveproduction.ui.customui.viewgroup.WrapRecyclerView
                 android:id="@+id/recyclerview_data"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

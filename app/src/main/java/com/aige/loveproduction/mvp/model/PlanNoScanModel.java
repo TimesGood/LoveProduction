@@ -17,10 +17,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class PlanNoScanModel implements PlanNoScanContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new PlanNoScanModel();
-    }
+
     @Override
     public Observable<BaseBean<List<TransferBean>>> getWonoByBatchNo(String batchNo, String opId, WonoAsk ask) {
         Map<String,String> map = new HashMap<>();

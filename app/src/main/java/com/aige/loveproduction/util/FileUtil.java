@@ -2,14 +2,17 @@ package com.aige.loveproduction.util;
 
 import android.content.Context;
 import android.os.Environment;
+import android.util.Base64;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -109,9 +112,11 @@ public class FileUtil {
         //第三层，每个图形属性
         Map<String,Float> map = null;
         boolean flag = false;
+        FileReader fr = null;
+        BufferedReader buff = null;
         try {
-            FileReader fr = new FileReader(file);
-            BufferedReader buff = new BufferedReader(fr);
+            fr = new FileReader(file);
+            buff = new BufferedReader(fr);
             String name = null;
             while (buff.ready()) {
                 String readLine = buff.readLine();
@@ -168,10 +173,23 @@ public class FileUtil {
             maps.put("BohrVert2",list4);
             maps.put("Cutting1",list5);
             return maps;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if(buff != null) {
+                try {
+                    buff.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return null;
     }
@@ -224,5 +242,28 @@ public class FileUtil {
             return Float.parseFloat(Objects.requireNonNull(m.group(1)));
         }
         return null;
+    }
+
+    public static String imageToBase64(String path) {
+        InputStream is = null;
+        byte[] data = null;
+        String result = null;
+        try {
+            is = new FileInputStream(path);
+            data = new byte[is.available()];
+            is.read(data);
+            result = Base64.encodeToString(data,Base64.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
     }
 }

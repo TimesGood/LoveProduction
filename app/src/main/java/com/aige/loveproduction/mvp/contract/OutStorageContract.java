@@ -21,7 +21,7 @@ public interface OutStorageContract {
         void onGetScanPackageSuccess(BaseBean<List<StorageBean>> bean);
 
     }
-    interface Presenter extends IBasePresenter<OutStorageContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getBinFind(String binCode);
         void getScanPackage(String packageCode,String userName,String action,String binCode);
     }

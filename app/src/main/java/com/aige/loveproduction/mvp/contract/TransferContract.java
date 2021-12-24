@@ -23,7 +23,7 @@ public interface TransferContract {
         void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean);
 
     }
-    interface Presenter extends IBasePresenter<TransferContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getWonoByPackageCode(String packageCode,String operationEntity_Id,WonoAsk ask);
         void getMessageByWono(WonoAsk ask);
 

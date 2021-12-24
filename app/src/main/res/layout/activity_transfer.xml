@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".mvp.ui.activity.TransferActivity">
+    tools:context=".ui.activity.TransferActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -24,13 +24,13 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
         <include layout="@layout/recyclerview_data_include"/>
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

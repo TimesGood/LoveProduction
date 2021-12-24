@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+    <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <include layout="@layout/recyclerview_data_include"/>
-    </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+    </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
 </RelativeLayout>

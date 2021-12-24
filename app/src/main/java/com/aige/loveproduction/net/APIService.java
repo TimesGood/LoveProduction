@@ -8,11 +8,15 @@ import com.aige.loveproduction.bean.HandlerBean;
 import com.aige.loveproduction.bean.MachineBean;
 import com.aige.loveproduction.bean.PlanNoMessageBean;
 import com.aige.loveproduction.bean.PlateBean;
+import com.aige.loveproduction.bean.PlateWrapBean;
 import com.aige.loveproduction.bean.PrintAsk;
 import com.aige.loveproduction.bean.PrintBean;
+import com.aige.loveproduction.bean.ReportBean;
 import com.aige.loveproduction.bean.ScanCodeBean;
 import com.aige.loveproduction.bean.SpeciaBarAsk;
 import com.aige.loveproduction.bean.StorageBean;
+import com.aige.loveproduction.bean.ToFillInAsk;
+import com.aige.loveproduction.bean.ToFillInBean;
 import com.aige.loveproduction.bean.TransferBean;
 import com.aige.loveproduction.bean.TransportBean;
 import com.aige.loveproduction.bean.UserBean;
@@ -52,8 +56,8 @@ public interface APIService {
     Observable<BaseBean<List<HandlerBean>>> getHandlerByWorkgroupId(@Body RequestBody body);
 
     //获取板材列表
-    @POST("/api/ScanQRcode/Scan_BOM_ItemDetailByBarcode")
-    Observable<BaseBean<List<PlateBean>>> getPlateListByPackageCode(@Body RequestBody body);
+    @POST("/api/ScanQRcode/Scan_BOM_ItemDetailByBarcode_V3")
+    Observable<BaseBean<PlateWrapBean>> getPlateListByPackageCode(@Body RequestBody body);
 
     //库位查询
     @POST("/api/ScanQRcode/Scan_LocationQuery")
@@ -68,7 +72,7 @@ public interface APIService {
     Observable<BaseBean<List<TransferBean>>> getWonoByBatchNo(@Body RequestBody body);
 
     //工单扫描获取扫描结果
-    @Headers({"CONNECT_TIMEOUT:30", "READ_TIMEOUT:30", "WRITE_TIMEOUT:30"})
+    @Headers({HostType.CONNECT_TIMEOUT+":30", HostType.READ_TIMEOUT+":30", HostType.WRITE_TIMEOUT+":30"})
     @POST("/api/ScanQRcode/Scan_WorkOrder")
     Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(@Body WonoAsk body);
 
@@ -80,7 +84,7 @@ public interface APIService {
     @POST("/api/ScanQRcode/Scan_PackageCodeReturnWono")
     Observable<BaseBean<List<TransferBean>>> getWonoByPackageCode(@Body RequestBody body);
 
-
+    //异形板件扫描
     @POST("/api/ScanQRcode/Scan_BOM_ItemDetailByBarcodeV2")
     Observable<BaseBean<PlateBean>> getPlateByPackageCode(@Body RequestBody body);
     //提交异形板件数据
@@ -116,6 +120,38 @@ public interface APIService {
     Observable<BaseBean<PrintBean>> getEntityByBarcode(@Query("BarCode") String barcode);
     @POST("/api/print/Print/CreatePrintInfo")
     Observable<BaseBean> submitPrint(@Body PrintAsk ask);
+
+    //内改补数据采集
+    @GET("/api/Examine/ic/InnerChange/QueryBOMItemDetailModelByBarcore")
+    Observable<BaseBean<ToFillInBean>> getToFillInData(@Query("Barcode") String barcode);
+//    @POST("/api/Examine/ic/InnerChange/CreateInnerChange")
+//    Observable<BaseBean> submitData(@Body ToFillInAsk ask);
+    @Headers({HostType.BASE_URL+":"+ApiConstants.base_url_one})
+    @POST("/api/ExamineOrder/InnerChange/Create")
+    Observable<BaseBean> submitData(@Body ToFillInAsk ask);
+
+
+
+    /*报表*/
+    //月回款统计
+    @POST("/api/EBAP/Dashboard/QueryReportChannelMonthTotal")
+    Observable<BaseBean<List<ReportBean>>> getReportRefundMonth(@Body RequestBody body);
+    //直营单值月统计
+    @POST("/api/EBAP/Dashboard/QueryReportZhiYingDanZhi")
+    Observable<BaseBean<List<ReportBean>>> getReportDirectlyMonth(@Body RequestBody body);
+    //渠道一部单值月统计
+    @POST("/api/EBAP/Dashboard/QueryReportQuDaoOneDanZhi")
+    Observable<BaseBean<List<ReportBean>>> getReportChannelOne(@Body RequestBody body);
+    //渠道二部单值月统计
+    @POST("/api/EBAP/Dashboard/QueryReportQuDaoTooDanZhi")
+    Observable<BaseBean<List<ReportBean>>> getReportChannelTwo(@Body RequestBody body);
+    //月下单统计
+    @POST("/api/EBAP/Dashboard/QueryReportMonthOrder")
+    Observable<BaseBean<List<ReportBean>>> getReportOrderMonth(@Body RequestBody body);
+    //日下单统计
+    @POST("/api/EBAP/Dashboard/QueryReportDayOrder")
+    Observable<BaseBean<List<ReportBean>>> getReportOrderDay(@Body RequestBody body);
+
 
 
 }

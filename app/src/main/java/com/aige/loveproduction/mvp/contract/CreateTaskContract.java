@@ -22,7 +22,7 @@ public interface CreateTaskContract {
         void onGetEntityByBarcodeSuccess(PrintBean bean);
         void onSubmitPrintSuccess();
     }
-    interface Presenter extends IBasePresenter<CreateTaskContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getEntityByBarcode(String barcode);
         void submitPrint(PrintAsk ask);
     }

@@ -17,7 +17,7 @@ public interface SendOutVerifyContract {
     interface View extends IBaseView {
         void onGetSendOutVerifySuccess(BaseBean<List<StorageBean>> bean);
     }
-    interface Presenter extends IBasePresenter<SendOutVerifyContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getSendOutVerify(String packageCode,String userName,String action,String binCode);
     }
 }

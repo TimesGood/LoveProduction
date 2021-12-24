@@ -1,6 +1,9 @@
 package com.aige.loveproduction;
 
 
+import com.aige.loveproduction.test.A;
+import com.aige.loveproduction.test.C;
+
 import org.junit.Test;
 
 
@@ -12,9 +15,9 @@ import org.junit.Test;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        float f = 12.002541f;
-        String s = f+"";
-        System.out.println(s.substring(s.lastIndexOf(".") + 1));
+        A a = new A();
+        C c = (C) a;
+        c.gg();
 
 
     }

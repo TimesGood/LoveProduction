@@ -20,7 +20,7 @@ public interface InStorageContract {
         void onGetScanPackageSuccess(BaseBean<List<StorageBean>> bean);
         void onGetBinFindSuccess(BaseBean<BinFindBean> bean);
     }
-    interface Presenter extends IBasePresenter<InStorageContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getScanPackage(String packageCode,String userName,String action,String binCode);
         void getBinFind(String binCode);
     }

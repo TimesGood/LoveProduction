@@ -10,10 +10,6 @@ import com.google.gson.Gson;
 import io.reactivex.rxjava3.core.Observable;
 
 public class CreateTaskModel implements CreateTaskContract.Model{
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new CreateTaskModel();
-    }
 
     @Override
     public Observable<BaseBean<PrintBean>> getEntityByBarcode(String barcode) {

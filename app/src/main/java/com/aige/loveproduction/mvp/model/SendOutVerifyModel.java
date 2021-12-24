@@ -15,10 +15,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class SendOutVerifyModel implements SendOutVerifyContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new SendOutVerifyModel();
-    }
+
     @Override
     public Observable<BaseBean<List<StorageBean>>> getSendOutVerify(String packageCode, String userName, String action, String binCode) {
         Map<String,String> map = new HashMap<>();

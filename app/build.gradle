@@ -7,71 +7,81 @@ android {
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.aige.loveproduction"
-        minSdkVersion 28
+        minSdkVersion 24
         targetSdkVersion 30
-        versionCode 2
-        versionName "2.3"
+        versionCode 3
+        versionName "3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //声明多渠道打包风味维度
         flavorDimensions "channel"
+        //混淆配置
+        proguardFiles 'proguard-sdk.pro', 'proguard-rules.pro'
 
-        //腾讯配置
         vectorDrawables.useSupportLibrary = true
         //X5兼容64位手机
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
     }
+
     //java版本
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // 设置存放 so 文件的目录
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['armeabi']
+        }
+    }
     //打包签名
     signingConfigs {
-        debug {
-            keyAlias 'key0'
-            keyPassword 'zwk.2020452796'
+        config {
             storeFile file('../app/src/main/filters/sign/loveproduction.jks')
             storePassword 'zwk.2020452796'
-        }
-        release {
             keyAlias 'key0'
             keyPassword 'zwk.2020452796'
-            storeFile file('../app/src/main/filters/sign/loveproduction.jks')
-            storePassword 'zwk.2020452796'
         }
     }
     //构建打包类型
     buildTypes {
         debug {
+            debuggable true
+            //开启混淆开关
             minifyEnabled false
+            //移除无用的resource文件开关
             zipAlignEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //为BuildConfig.class文件添加新属性
-            buildConfigField 'String','SERVER',getSERVER('debug')
-            signingConfig signingConfigs.debug
+            //压缩对齐开关
+            zipAlignEnabled true
+            //为BuildConfig.class文件添加新属性，指定主机服务器地址
+            buildConfigField 'String','SERVER',getSERVER('debug','SERVER')
+            buildConfigField 'String','SERVER_ONE',getSERVER('debug','SERVER_ONE')
+            //签名配置信息
+            signingConfig signingConfigs.config
         }
         release {
-            minifyEnabled true  //开启混淆
-            shrinkResources true //移除无用的resource文件
-            zipAlignEnabled true //压缩
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField 'String','SERVER',getSERVER('release')
-            signingConfig signingConfigs.release
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String','SERVER',getSERVER('release','SERVER')
+            buildConfigField 'String','SERVER_ONE',getSERVER('release',"SERVER_ONE")
+            signingConfig signingConfigs.config
         }
     }
 
-    //打包后app名称
+    //输出apk
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
-                outputFileName = "LoveProduction-${variant.name}-v${variant.versionName}.apk"
+                outputFileName = rootProject.getName()+"_v"+variant.versionName+"_"+variant.buildType.name+".apk"
             }
     }
 
-    //多渠道打包
+    //多渠道打包；运行时可在左边Build Variants选择要运行的版本
     productFlavors {
         xiaomi{
             //为BuildConfig.class文件添加新属性
@@ -134,16 +144,24 @@ dependencies {
 
     //腾讯SDK
     //api 'com.tencent.tbs:tbssdk:44085'
+
+    //MPAndroidChart图表
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //图片加载框架
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    //图片预览
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     }
 //获取配置文件中的内容
-def getSERVER(String val) {
+def getSERVER(String context,String Server) {
     def SERVER = null
     Properties properties = new Properties()
-    def proFile = file("src/main/filters/"+val+"/config.properties")
+    def proFile = file("src/main/filters/"+context+"/config.properties")
     if(proFile.canRead()) {
         properties.load(new FileInputStream(proFile))
         if(properties != null) {
-            SERVER = properties['SERVER']
+            SERVER = properties[Server]
         }
     }
     return SERVER

@@ -22,7 +22,7 @@ public interface TransfersContract {
         void onSubmitSuccess(BaseBean bean);
 
     }
-    interface Presenter extends IBasePresenter<TransfersContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getTransportVerification(String packageCode);
         void transportScan(String packageCode,String transportName);
         void transportSubmit(String packageCode);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".mvp.ui.activity.InStorageActivity">
+    tools:context=".ui.activity.InStorageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -22,27 +22,19 @@
         <include layout="@layout/find_include" />
 
         <include layout="@layout/recyclerview_title_include" />
-
-        <include
-            android:id="@+id/storage_item"
-            layout="@layout/storage_item"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:id="@+id/damp_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <include layout="@layout/recyclerview_data_include" />
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

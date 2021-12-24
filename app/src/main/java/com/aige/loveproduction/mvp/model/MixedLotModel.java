@@ -17,10 +17,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class MixedLotModel implements MixedLotContract.Model {
-    private Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new MixedLotModel();
-    }
 
     @Override
     public Observable<BaseBean<List<ScanCodeBean>>> getHunPiByBatchNo(String batchNo, String opId, String solutionName, WonoAsk ask) {

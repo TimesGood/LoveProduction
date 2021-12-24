@@ -14,10 +14,10 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import okhttp3.ResponseBody;
 
-public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyContract.Model> implements ApplyContract.Presenter{
+public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyModel> implements ApplyContract.Presenter{
     @Override
-    public ApplyContract.Model bindModel() {
-        return (ApplyContract.Model) ApplyModel.newInstance();
+    public ApplyModel bindModel() {
+        return new ApplyModel();
     }
 
     @Override

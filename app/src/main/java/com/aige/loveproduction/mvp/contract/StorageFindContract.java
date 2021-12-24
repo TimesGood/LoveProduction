@@ -17,7 +17,7 @@ public interface StorageFindContract {
     interface View extends IBaseView {
         void onGetScanPackageSuccess(BaseBean<List<StorageBean>> bean);
     }
-    interface Presenter extends IBasePresenter<StorageFindContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getScanPackage(String packageCode,String userName,String action,String binCode);
     }
 }

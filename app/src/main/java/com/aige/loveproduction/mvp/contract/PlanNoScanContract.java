@@ -22,7 +22,7 @@ public interface PlanNoScanContract {
         void onGetWonoByBatchNoSuccess(BaseBean<List<TransferBean>> bean);
         void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean);
     }
-    interface Presenter extends IBasePresenter<PlanNoScanContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getWonoByBatchNo(String batchNo, String opId,WonoAsk ask);
         void getMessageByWono(WonoAsk ask);
 

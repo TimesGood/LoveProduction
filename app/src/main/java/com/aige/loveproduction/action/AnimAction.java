@@ -2,6 +2,9 @@ package com.aige.loveproduction.action;
 
 import com.aige.loveproduction.R;
 
+/**
+ * 整理一些动画
+ */
 public interface AnimAction {
 
     /** 默认动画效果 */

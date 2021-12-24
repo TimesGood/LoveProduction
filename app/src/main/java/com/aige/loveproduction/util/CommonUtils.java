@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 /**
- * 获取屏幕参数
+ * 获取一些参数
  */
 public class CommonUtils {
 
@@ -41,45 +41,23 @@ public class CommonUtils {
         TypedArray array = context.getTheme().obtainStyledAttributes(new int[]{
                 attrId,
         });
-        int heightA = (int)array.getDimension(0, CommonUtils.dip2px(context, 50));
+        int heightA = (int)array.getDimension(0,dip2px(context, 50));
         array.recycle();
         return heightA;
     }
 
     /**
      * 获取手机屏幕高度
-     *
-     * @param context
-     * @return
      */
-    public static int getScreenHeight(Activity context) {
-        DisplayMetrics dm = new DisplayMetrics();
-        context.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.heightPixels;
+    public static int getScreenHeight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     /**
      * 获取手机屏幕宽度
-     *
-     * @param context
-     * @return
      */
-    public static int getScreenWidth(Activity context) {
-        DisplayMetrics dm = new DisplayMetrics();
-        context.getWindowManager().getDefaultDisplay().getMetrics(dm);
-        return dm.widthPixels;
-    }
-
-    public static void hideSoftKeyBoard(Context context, EditText edit) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(edit.getWindowToken(), 0);
-    }
-
-    public static void showSoftKeyBoard(Context context, EditText edit) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        edit.requestFocus();
-        imm.showSoftInput(edit, InputMethodManager.RESULT_SHOWN);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+    public static int getScreenWidth(Context context) {
+        return context.getResources().getDisplayMetrics().widthPixels;
     }
 
 }

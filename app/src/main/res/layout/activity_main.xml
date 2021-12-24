@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".mvp.ui.activity.MainActivity"
+    tools:context=".ui.activity.MainActivity"
     android:background="@color/background">
     <include layout="@layout/title_include"/>
-    <com.aige.loveproduction.mvp.ui.customui.viewgroup.NoScrollViewPager
+    <com.aige.loveproduction.ui.customui.viewgroup.NoScrollViewPager
         android:id="@+id/main_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_below="@id/toolbar_title"
         android:layout_marginBottom="50dp">
-    </com.aige.loveproduction.mvp.ui.customui.viewgroup.NoScrollViewPager>
+    </com.aige.loveproduction.ui.customui.viewgroup.NoScrollViewPager>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/home_navigation"
         android:layout_width="match_parent"

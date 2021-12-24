@@ -17,14 +17,14 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class MixedLotPresenter extends BasePresenter<MixedLotContract.View,MixedLotContract.Model> implements MixedLotContract.Presenter {
+public class MixedLotPresenter extends BasePresenter<MixedLotContract.View,MixedLotModel> implements MixedLotContract.Presenter {
     private List<ScanCodeBean> scanCodeBeanList;
     private BaseBean<List<ScanCodeBean>> scanCodeBeans;
     //记录请求的数据列表数量
     private int wonoSize = 0;
     @Override
-    public MixedLotContract.Model bindModel() {
-        return (MixedLotContract.Model) MixedLotModel.newInstance();
+    public MixedLotModel bindModel() {
+        return new MixedLotModel();
     }
 
     @Override

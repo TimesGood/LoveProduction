@@ -9,7 +9,7 @@
         app:zxing_framing_rect_height="300dp"
         app:zxing_framing_rect_width="300dp" />
 
-    <com.aige.loveproduction.mvp.ui.customui.viewgroup.CustomViewFinderView
+    <com.aige.loveproduction.ui.customui.viewgroup.CustomViewFinderView
         android:id="@+id/zxing_viewfinder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

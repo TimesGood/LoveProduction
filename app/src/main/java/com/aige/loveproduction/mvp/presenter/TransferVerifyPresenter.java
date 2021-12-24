@@ -13,10 +13,10 @@ import java.util.List;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class TransferVerifyPresenter extends BasePresenter<TransferVerifyContract.View, TransferVerifyContract.Model> implements TransferVerifyContract.Presenter {
+public class TransferVerifyPresenter extends BasePresenter<TransferVerifyContract.View, TransferVerifyModel> implements TransferVerifyContract.Presenter {
     @Override
-    public TransferVerifyContract.Model bindModel() {
-        return (TransferVerifyContract.Model) TransferVerifyModel.newInstance();
+    public TransferVerifyModel bindModel() {
+        return new TransferVerifyModel();
     }
     @Override
     public void getTransportVerification(String packageCode) {

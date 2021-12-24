@@ -4,12 +4,17 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@drawable/home_image_off"
-        android:title="首页"
+        android:icon="@drawable/selector_home"
+        android:title="@string/app_home"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/report"
+        android:icon="@drawable/selector_report"
+        android:title="@string/app_report"
         app:showAsAction="never"/>
     <item
         android:id="@+id/user"
-        android:icon="@drawable/user_image_off"
-        android:title="个人中心"
+        android:icon="@drawable/selector_user"
+        android:title="@string/app_user"
         app:showAsAction="never"/>
 </menu>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".mvp.ui.activity.PlanNoScanActivity">
+    tools:context=".ui.activity.PlanNoScanActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,19 +19,19 @@
             app:layout_scrollFlags="scroll|enterAlways" />
         <include layout="@layout/find_include"/>
     </com.google.android.material.appbar.AppBarLayout>
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <include layout="@layout/recyclerview_data_include"/>
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

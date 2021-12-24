@@ -16,10 +16,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class InStorageModel implements InStorageContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new InStorageModel();
-    }
+
     @Override
     public Observable<BaseBean<BinFindBean>> getBinFind(String binCode) {
         Map<String,String> map = new HashMap<>();

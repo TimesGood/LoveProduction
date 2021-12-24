@@ -8,6 +8,7 @@ buildscript {
         }
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
@@ -23,6 +24,7 @@ allprojects {
         }
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 //删除文件的任务

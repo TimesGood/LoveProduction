@@ -9,11 +9,6 @@ import com.aige.loveproduction.base.IBaseModel;
 import io.reactivex.rxjava3.core.Observable;
 
 public class WorkScanModel implements WorkScanContract.Model {
-    public WorkScanModel() {
-    }
-    public static IBaseModel newInstance() {
-        return new WorkScanModel();
-    }
 
     @Override
     public Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(WonoAsk ask) {

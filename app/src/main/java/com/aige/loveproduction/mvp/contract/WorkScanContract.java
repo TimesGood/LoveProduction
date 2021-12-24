@@ -19,7 +19,7 @@ public interface WorkScanContract {
         void onGetMessageByWonoSuccess(BaseBean<PlanNoMessageBean> bean);
 
     }
-    interface Presenter extends IBasePresenter<WorkScanContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getMessageByWono(WonoAsk ask);
     }
 }

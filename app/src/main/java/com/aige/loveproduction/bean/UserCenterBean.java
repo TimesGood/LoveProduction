@@ -2,8 +2,8 @@ package com.aige.loveproduction.bean;
 
 public class UserCenterBean {
     private int id;
-    private int left_img_id;
-    private int right_img_id;
+    private int left_img_id = -1;
+    private int right_img_id = -1;
     private String select_text;
 
     public int getId() {

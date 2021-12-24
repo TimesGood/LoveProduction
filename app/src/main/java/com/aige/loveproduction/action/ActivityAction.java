@@ -7,7 +7,7 @@ import android.content.Intent;
 
 import androidx.fragment.app.Fragment;
 
-import com.aige.loveproduction.mvp.ui.activity.QrCodeActivity;
+import com.aige.loveproduction.ui.activity.QrCodeActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 /**

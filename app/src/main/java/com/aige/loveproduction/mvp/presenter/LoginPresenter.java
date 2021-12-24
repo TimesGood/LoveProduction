@@ -15,11 +15,11 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import retrofit2.HttpException;
 
-public class LoginPresenter extends BasePresenter<LoginContract.View,LoginContract.Model> implements LoginContract.Presenter {
+public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel> implements LoginContract.Presenter {
 
     @Override
-    public LoginContract.Model bindModel() {
-        return (LoginContract.Model) LoginModel.newInstance();
+    public LoginModel bindModel() {
+        return new LoginModel();
     }
 
     @Override

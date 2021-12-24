@@ -50,15 +50,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *    desc   : Dialog 基类
+ *  Dialog 基类
  */
-public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
-        ActivityAction, ResourcesAction,HandlerAction, ClickAction, AnimAction, KeyboardAction,
-        DialogInterface.OnShowListener, DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
+public class BaseDialog extends AppCompatDialog
+        implements LifecycleOwner,
+        ActivityAction,
+        ResourcesAction,
+        HandlerAction,
+        ClickAction,
+        AnimAction,
+        KeyboardAction,
+        DialogInterface.OnShowListener,
+        DialogInterface.OnCancelListener,
+        DialogInterface.OnDismissListener {
 
     private final ListenersWrapper<BaseDialog> mListeners = new ListenersWrapper<>(this);
     private final LifecycleRegistry mLifecycle = new LifecycleRegistry(this);
 
+    //可能我们需要弹窗不止一个，所以把注册的监听器用集合保存
     private List<OnShowListener> mShowListeners;
     private List<OnCancelListener> mCancelListeners;
     private List<OnDismissListener> mDismissListeners;
@@ -204,8 +213,10 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
     @Override
     public void dismiss() {
         removeCallbacks();
+        //如果弹窗上有input框，并且已经获得焦点了，就需要先关闭软键盘，再关闭Dialog
         View focusView = getCurrentFocus();
         if (focusView != null) {
+            //隐藏软件盘
             getSystemService(InputMethodManager.class).hideSoftInputFromWindow(focusView.getWindowToken(), 0);
         }
         super.dismiss();
@@ -264,7 +275,7 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
 
     /**
      * 设置一个按键监听器
-     *
+     * 弃用本体的setOnKeyListener
      * @param listener       按键监听器对象
      * @deprecated           请使用 {@link #setOnKeyListener(OnKeyListener)}
      */
@@ -375,22 +386,24 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
     }
 
     /**
+     * 调用原生显示事件，在里面调用我们的监听器
      * {@link DialogInterface.OnShowListener}
      */
     @Override
     public void onShow(DialogInterface dialog) {
-        mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);
+        mLifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME);//生命周期的监听
 
         if (mShowListeners == null) {
             return;
         }
-
+        //显示所有受监听的Dialog
         for (int i = 0; i < mShowListeners.size(); i++) {
             mShowListeners.get(i).onShow(this);
         }
     }
 
     /**
+     * 调用原生取消事件，在里面调用我们的取消监听
      * {@link DialogInterface.OnCancelListener}
      */
     @Override
@@ -405,6 +418,7 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
     }
 
     /**
+     * 调用原生销毁事件，在里面调用我们的取消监听
      * {@link DialogInterface.OnDismissListener}
      */
     @Override
@@ -439,7 +453,7 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
     }
 
     @SuppressWarnings("unchecked")
-    public static class Builder<B extends Builder> implements
+    public static class Builder<B extends Builder<?>> implements
             ActivityAction, ResourcesAction, ClickAction, KeyboardAction {
 
         /** Activity 对象 */
@@ -457,7 +471,6 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
         private int mAnimStyle = BaseDialog.ANIM_DEFAULT;
         /** 重心位置 */
         private int mGravity = Gravity.NO_GRAVITY;
-
         /** 水平偏移 */
         private int mXOffset;
         /** 垂直偏移 */
@@ -507,7 +520,7 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
             mThemeId = id;
             if (isCreated()) {
                 // Dialog 创建之后不能再设置主题 id
-                throw new IllegalStateException("are you ok?");
+                throw new IllegalStateException("设置主题请在创建Dialog之前");
             }
             return (B) this;
         }
@@ -1014,7 +1027,7 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
         public  <V extends View> V findViewById(@IdRes int id) {
             if (mContentView == null) {
                 // 没有 setContentView 就想 findViewById ?
-                throw new IllegalStateException("are you ok?");
+                throw new IllegalStateException("请设置setContentView?");
             }
             return mContentView.findViewById(id);
         }
@@ -1159,7 +1172,10 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
      * Dialog 监听包装类（修复原生 Dialog 监听器对象导致的内存泄漏）
      */
     private static final class ListenersWrapper<T extends DialogInterface.OnShowListener & DialogInterface.OnCancelListener & DialogInterface.OnDismissListener>
-                        extends SoftReference<T> implements DialogInterface.OnShowListener, DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
+            extends SoftReference<T>
+            implements DialogInterface.OnShowListener,
+            DialogInterface.OnCancelListener,
+            DialogInterface.OnDismissListener {
 
         private ListenersWrapper(T referent) {
             super(referent);
@@ -1210,6 +1226,7 @@ public class BaseDialog extends AppCompatDialog implements LifecycleOwner,
 
     /**
      * 显示监听包装类
+     * 使用软引用SoftReference，当内存不足时，自动回收
      */
     private static final class ShowListenerWrapper
             extends SoftReference<DialogInterface.OnShowListener>

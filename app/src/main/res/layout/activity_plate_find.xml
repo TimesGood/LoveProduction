@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".mvp.ui.activity.PlateFindActivity">
+    tools:context=".ui.activity.PlateFindActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -31,31 +31,36 @@
             android:background="@drawable/shape_while_grey_stroke"
             android:orientation="horizontal"
             android:padding="5dp">
-
             <TextView
                 android:id="@+id/barcode_refer"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 android:text="@string/barcode"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/barcode"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_toEndOf="@+id/barcode_refer"
                 android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
+                android:layout_alignBottom="@+id/barcode_refer"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@+id/barcode_refer"
+                android:textSize="20sp"
+                android:textColor="@color/black"/>
+            <View
+                android:id="@+id/line_refer"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/barcode_refer"
+                android:background="@color/black"/>
             <TextView
                 android:id="@+id/plate_name_refer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/barcode_refer"
                 android:text="@string/plate_name"
+                android:layout_below="@+id/line_refer"
                 android:textColor="@color/black" />
 
             <TextView
@@ -126,46 +131,66 @@
                 android:layout_alignBottom="@+id/size_refer"
                 android:layout_toEndOf="@+id/size_refer"
                 android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/operator_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_below="@+id/matname"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="@string/operator_refer"/>
+            <TextView
+                android:id="@+id/operator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_alignBottom="@+id/operator_refer"
+                android:layout_toEndOf="@+id/operator_refer"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/supplier_refer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0.1"
+                android:layout_below="@+id/matname"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/operator"
+                android:text="@string/supplier_refer"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/supplier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1.6"
+                android:layout_alignBottom="@+id/supplier_refer"
+                android:layout_toEndOf="@+id/supplier_refer"
+                android:textColor="@color/black" />
 
         </RelativeLayout>
-
-        <include
-            android:id="@+id/plate_item"
-            layout="@layout/plate_item"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="1dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <include layout="@layout/recyclerview_data_include"/>
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="vertical">-->
-<!--                <include layout="@layout/recyclerview_data_include"-->
-<!--                    android:id="@+id/recyclerview_data_one"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"/>-->
-<!--                <include layout="@layout/recyclerview_data_include"-->
-<!--                    android:id="@+id/recyclerview_data_two"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"/>-->
-<!--                <include layout="@layout/recyclerview_data_include"-->
-<!--                    android:id="@+id/recyclerview_data_tree"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"/>-->
-<!--            </LinearLayout>-->
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+<!--            <include layout="@layout/recyclerview_data_include"/>-->
+            <LinearLayout
+                android:id="@+id/recyclerview_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            </LinearLayout>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

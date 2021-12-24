@@ -20,10 +20,15 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.LoveProduction"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mvp.ui.activity.ToFillInActivity"/><!--内改补-->
-        <activity android:name=".mvp.ui.activity.ProblemActivity" /><!--遇到问题-->
-        <activity android:name=".mvp.ui.activity.AboutActivity" /><!--关于我们-->
+        <activity android:name=".ui.activity.ReportChannelOneActivity"/> <!-- 渠道一部单值月统计 -->
+        <activity android:name=".ui.activity.ReportDirectlyMonthActivity" /> <!-- 直营单值月统计 -->
+        <activity android:name=".ui.activity.ReportRefundMonthActivity" /> <!-- 月回款统计 -->
+        <activity android:name=".ui.activity.PreviewActivity" /> <!-- 功能测试 -->
+        <activity android:name=".ui.activity.ToFillInActivity" /> <!-- 内改补 -->
+        <activity android:name=".ui.activity.ProblemActivity" /> <!-- 遇到问题 -->
+        <activity android:name=".ui.activity.AboutActivity" /> <!-- 关于我们 -->
         <!--
 au      thorities：{app的包名}.provider
         grantUriPermissions：必须是true，表示授予 URI 临时访问权限
@@ -40,41 +45,41 @@ au      thorities：{app的包名}.provider
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".mvp.ui.activity.MixedLotActivity" /> <!-- 混批扫描 -->
-        <activity android:name=".mvp.ui.activity.SSSettingActivity" /> <!-- 异形工序设置 -->
-        <activity android:name=".mvp.ui.activity.TransferVerifyActivity" /> <!-- 转运验证 -->
-        <activity android:name=".mvp.ui.activity.TransfersActivity" /> <!-- 转运扫描+ -->
-        <activity android:name=".mvp.ui.activity.SpecialShapedActivity" /> <!-- 异形板件扫描 -->
-        <activity android:name=".mvp.ui.activity.CreateTaskActivity" /> <!-- 创建打印 -->
-        <activity android:name=".mvp.ui.activity.TransferActivity" /> <!-- 转运扫描界面 -->
-        <activity android:name=".mvp.ui.activity.MoveStorageActivity" /> <!-- 移库扫描界面 -->
-        <activity android:name=".mvp.ui.activity.SendOutVerifyActivity" /> <!-- 发货验证界面 -->
-        <activity android:name=".mvp.ui.activity.SendOutActivity" /> <!-- 发货扫描界面 -->
-        <activity android:name=".mvp.ui.activity.OutStorageActivity" /> <!-- 出库扫描界面 -->
-        <activity android:name=".mvp.ui.activity.InStorageActivity" /> <!-- 入库扫描界面 -->
-        <activity android:name=".mvp.ui.activity.StorageFindActivity" /> <!-- 库位查询界面 -->
-        <activity android:name=".mvp.ui.activity.PlateFindActivity" /> <!-- 板件查询界面 -->
-        <activity android:name=".mvp.ui.activity.MainActivity" /> <!-- 首页 -->
-        <activity android:name=".mvp.ui.activity.LoginActivity" /> <!-- 登录页 -->
-        <activity android:name=".mvp.ui.activity.FactorySettingsActivity" /> <!-- 工厂设置界面 -->
-        <activity android:name=".mvp.ui.activity.WorkScanActivity" /> <!-- 工单扫描界面 -->
-        <activity android:name=".mvp.ui.activity.HistoryLogActivity" /> <!-- 历史记录界面 -->
-        <activity android:name=".mvp.ui.activity.PlanNoScanActivity" /> <!-- 批次扫描界面 -->
-        <activity android:name=".mvp.ui.activity.ExamineActivity" /> <!-- 检验混单 -->
+        <activity android:name=".ui.activity.MixedLotActivity" /> <!-- 混批扫描 -->
+        <activity android:name=".ui.activity.SSSettingActivity" /> <!-- 异形工序设置 -->
+        <activity android:name=".ui.activity.TransferVerifyActivity" /> <!-- 转运验证 -->
+        <activity android:name=".ui.activity.TransfersActivity" /> <!-- 转运扫描+ -->
+        <activity android:name=".ui.activity.SpecialShapedActivity" /> <!-- 异形板件扫描 -->
+        <activity android:name=".ui.activity.CreateTaskActivity" /> <!-- 创建打印 -->
+        <activity android:name=".ui.activity.TransferActivity" /> <!-- 转运扫描界面 -->
+        <activity android:name=".ui.activity.MoveStorageActivity" /> <!-- 移库扫描界面 -->
+        <activity android:name=".ui.activity.SendOutVerifyActivity" /> <!-- 发货验证界面 -->
+        <activity android:name=".ui.activity.SendOutActivity" /> <!-- 发货扫描界面 -->
+        <activity android:name=".ui.activity.OutStorageActivity" /> <!-- 出库扫描界面 -->
+        <activity android:name=".ui.activity.InStorageActivity" /> <!-- 入库扫描界面 -->
+        <activity android:name=".ui.activity.StorageFindActivity" /> <!-- 库位查询界面 -->
+        <activity android:name=".ui.activity.PlateFindActivity" /> <!-- 板件查询界面 -->
+        <activity android:name=".ui.activity.MainActivity" /> <!-- 首页 -->
+        <activity android:name=".ui.activity.LoginActivity" /> <!-- 登录页 -->
+<!--        <activity android:name=".ui.activity.FactorySettingsActivityDeprecated" /> &lt;!&ndash; 工厂设置界面 &ndash;&gt;-->
+        <activity android:name=".ui.activity.WorkScanActivity" /> <!-- 工单扫描界面 -->
+        <activity android:name=".ui.activity.HistoryLogActivity" /> <!-- 历史记录界面 -->
+        <activity android:name=".ui.activity.PlanNoScanActivity" /> <!-- 批次扫描界面 -->
+        <activity android:name=".ui.activity.ExamineActivity" /> <!-- 检验混单 -->
         <!-- <activity android:name=".mvp.ui.activity.WebviewActivity" /> -->
         <!-- <activity android:name=".mvp.ui.webview.FileDisplayActivity" /> -->
         <!-- <activity android:name=".mvp.ui.activity.OpenFileTestActivity" /> -->
         <!-- <activity android:name=".mvp.ui.webview.FilesDisplayActivity" /> -->
         <!-- <activity android:name=".mvp.ui.activity.TBSFileViewActivity" /> -->
         <activity
-            android:name=".mvp.ui.activity.ApplyActivity"
+            android:name=".ui.activity.ApplyActivity"
             android:screenOrientation="landscape" /> <!-- 图形渲染 -->
         <activity
-            android:name=".mvp.ui.activity.QrCodeActivity"
+            android:name=".ui.activity.QrCodeActivity"
             android:screenOrientation="behind" /> <!-- 自定义二维码扫描界面 -->
         <!-- 启动欢迎页，theme设置启动页面全屏，不过继承AppCompatActivity的需要改成Activity -->
         <activity
-            android:name=".mvp.ui.activity.SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashAppTheme">
             <intent-filter>
@@ -83,6 +88,22 @@ au      thorities：{app的包名}.provider
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.ReportChannelTwoActivity" /> <!-- 渠道二部单值月统计 -->
+        <activity android:name=".ui.activity.ReportOrderMonthActivity" /> <!-- 月下单统计 -->
+        <activity android:name=".ui.activity.ReportOrderDayActivity" /> <!-- 日下单统计 -->
+        <activity android:name=".ui.activity.ImageSelectActivity" /><!-- 图片选择 -->
+        <activity android:name=".ui.activity.CameraActivity" /><!-- 拍摄、录屏 -->
+        <activity android:name=".ui.activity.FactorySettingsActivity" /><!-- 工厂设置界面 -->
+        <activity android:name=".ui.activity.ImagePreviewActivity" /><!-- 图片预览 -->
     </application>
+<!--  在判断相机是否可用时，需要添加相应跳转地址  -->
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE"/>
+        </intent>
+        <intent>
+            <action android:name="android.media.action.VIDEO_CAPTURE"/>
+        </intent>
+    </queries>
 
 </manifest>

@@ -16,10 +16,10 @@ import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class SpecialShapedPresenter extends BasePresenter<SpecialShapedContract.View,SpecialShapedContract.Model> implements SpecialShapedContract.Presenter {
+public class SpecialShapedPresenter extends BasePresenter<SpecialShapedContract.View,SpecialShapedModel> implements SpecialShapedContract.Presenter {
     @Override
-    public SpecialShapedContract.Model bindModel() {
-        return (SpecialShapedContract.Model) SpecialShapedModel.newInstance();
+    public SpecialShapedModel bindModel() {
+        return new SpecialShapedModel();
     }
 
     public void getPlateListByPackageCode(String barcode) {

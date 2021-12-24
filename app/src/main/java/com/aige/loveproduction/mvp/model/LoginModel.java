@@ -15,7 +15,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class LoginModel implements LoginContract.Model {
-    private final Gson gson = new Gson();
+
     public static IBaseModel newInstance() {
         return new LoginModel();
     }

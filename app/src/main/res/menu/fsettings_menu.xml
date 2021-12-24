@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/confirm"
-        android:title="确定"
-
+        android:title="@string/dialog_confirm"
         app:showAsAction="always"/>
 
 </menu>

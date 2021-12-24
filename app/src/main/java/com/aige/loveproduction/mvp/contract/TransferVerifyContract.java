@@ -17,7 +17,7 @@ public interface TransferVerifyContract {
     interface View extends IBaseView {
         void onGetTransport(TransportBean bean);
     }
-    interface Presenter extends IBasePresenter<TransferVerifyContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getTransportVerification(String packageCode);
     }
 }

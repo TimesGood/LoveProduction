@@ -31,8 +31,8 @@ public class RxScheduler {
     public static <T> FlowableTransformer< T, T> Flo_io_main() {
         return new FlowableTransformer<T, T>() {
             @Override
-            public Publisher<T> apply(Flowable<T> upstream) {
-                return upstream.subscribeOn(Schedulers.io())//切换到io()线程执行请求
+            public @NonNull Publisher<T> apply(@NonNull Flowable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io())//切换到io()线程，执行请求网络请求
                         .observeOn(AndroidSchedulers.mainThread());//切换到主线程，处理请求结果
             }
         };
@@ -47,7 +47,7 @@ public class RxScheduler {
     public static <T> ObservableTransformer<T, T> Obs_io_main() {
         return new ObservableTransformer<T, T>() {
             @Override
-            public ObservableSource<T> apply( Observable<T> upstream) {
+            public @NonNull ObservableSource<T> apply(@NonNull Observable<T> upstream) {
                 return upstream.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             }

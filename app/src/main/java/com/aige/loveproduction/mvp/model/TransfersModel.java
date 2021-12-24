@@ -16,10 +16,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class TransfersModel implements TransfersContract.Model {
-    private Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new TransfersModel();
-    }
 
     @Override
     public Observable<BaseBean<TransportBean>> getTransportVerification(String packageCode) {

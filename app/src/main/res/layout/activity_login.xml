@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".mvp.ui.activity.LoginActivity">
+    tools:context=".ui.activity.LoginActivity">
     <include layout="@layout/title_include"/>
     <TextView
         android:id="@+id/welcome_text"

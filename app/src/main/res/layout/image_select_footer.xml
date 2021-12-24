@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.aige.loveproduction.ui.customui.viewgroup.RatioFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/image_select_footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_while_grey_stroke"
+    app:sizeRatio="1:1">
+
+    <FrameLayout
+        android:id="@+id/fl_image_select_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/iv_image_select_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            app:buttonCompat="@drawable/checkbox_image" />
+
+    </FrameLayout>
+
+</com.aige.loveproduction.ui.customui.viewgroup.RatioFrameLayout>

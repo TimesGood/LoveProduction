@@ -16,10 +16,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class SpecialShapedModel extends PlateFindModel implements SpecialShapedContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new SpecialShapedModel();
-    }
 
     @Override
     public Observable<BaseBean<PlateBean>> getPlateByPackageCode(String barcode) {

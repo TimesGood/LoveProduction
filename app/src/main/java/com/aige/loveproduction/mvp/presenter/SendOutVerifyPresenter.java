@@ -14,10 +14,10 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class SendOutVerifyPresenter extends BasePresenter<SendOutVerifyContract.View,SendOutVerifyContract.Model> implements SendOutVerifyContract.Presenter {
+public class SendOutVerifyPresenter extends BasePresenter<SendOutVerifyContract.View,SendOutVerifyModel> implements SendOutVerifyContract.Presenter {
     @Override
-    public SendOutVerifyContract.Model bindModel() {
-        return (SendOutVerifyContract.Model) SendOutVerifyModel.newInstance();
+    public SendOutVerifyModel bindModel() {
+        return new SendOutVerifyModel();
     }
 
     @Override

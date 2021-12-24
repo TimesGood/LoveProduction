@@ -11,12 +11,14 @@ import retrofit2.HttpException;
 
 /**
  * P层接口
- * @param <V>
+ * 主要用于View的绑定与解绑
  */
 public interface IBasePresenter<V extends IBaseView> {
 
+    //绑定
     void onAttach(V v);
 
+    //解绑
     void onDetach();
     
 }

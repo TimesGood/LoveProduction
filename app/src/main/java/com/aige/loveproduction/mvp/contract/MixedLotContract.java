@@ -21,7 +21,7 @@ public interface MixedLotContract {
         void onGetHunPiByBatchNoSuccess(List<ScanCodeBean> bean);
         void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean);
     }
-    interface Presenter extends IBasePresenter<MixedLotContract.View> {
+    interface Presenter extends IBasePresenter<View> {
         void getHunPiByBatchNo(String batchNo,String opId,String solutionName,WonoAsk ask);
         void getMessageByWono(WonoAsk ask);
     }

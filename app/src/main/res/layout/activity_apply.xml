@@ -5,31 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".mvp.ui.activity.ApplyActivity">
+    tools:context=".ui.activity.ApplyActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
-        <include layout="@layout/find_include"/>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
+    <include layout="@layout/find_include"/>
     <FrameLayout
         android:id="@+id/main_body"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.aige.loveproduction.mvp.ui.customui.view.DrawMprView
+        <com.aige.loveproduction.ui.customui.view.DrawMprView
             android:id="@+id/apply_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/black" />
+            android:background="@color/black"/>
 
     </FrameLayout>
 

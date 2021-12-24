@@ -11,9 +11,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Observable;
 
 public class TransferVerifyModel implements TransferVerifyContract.Model {
-    public static IBaseModel newInstance() {
-        return new TransferVerifyModel();
-    }
+
     @Override
     public Observable<BaseBean<TransportBean>> getTransportVerification(String packageCode) {
         return getApi().getTransportVerification(packageCode);

@@ -13,12 +13,6 @@ import java.util.Map;
  */
 
 public class SharedPreferencesUtils {
-    //获取用户名
-    public static String readLoginUserName(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("loginInfo",Context.MODE_PRIVATE);
-        String userName = sp.getString("userName","");
-        return userName;
-    }
 
     /**
      * 保存文件

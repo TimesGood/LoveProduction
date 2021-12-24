@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mvp.ui.activity.ToFillInActivity">
+    android:background="@color/background"
+    tools:context=".ui.activity.ToFillInActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,19 +13,20 @@
         <include layout="@layout/title_include"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            />
         <include layout="@layout/find_include"/>
     </com.google.android.material.appbar.AppBarLayout>
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
-            android:layout_width="wrap_content"
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never">
             <RelativeLayout
+                android:id="@+id/data_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -48,13 +50,37 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
+
+                    android:background="@drawable/shape_edit_enabled"/>
+                <TextView
+                    android:id="@+id/plate_name_to"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/barcode_to"
+                    android:text="@string/plate_code"
+                    android:textColor="@color/black"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginBottom="5dp"/>
+                <EditText
+                    android:id="@+id/plate_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_alignTop="@+id/plate_name_to"
+                    android:layout_toEndOf="@+id/plate_name_to"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:enabled="false"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/materials_to"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
-                    android:layout_below="@+id/barcode_to"
-                    android:text="@string/materials"
+                    android:layout_below="@+id/plate_name_to"
+                    android:text="@string/plate_name"
                     android:textColor="@color/black"
                     android:gravity="end|center_vertical"
                     android:layout_marginBottom="5dp"/>
@@ -68,6 +94,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/mat_name_to"
@@ -88,6 +115,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/f_leng_to"
@@ -108,6 +136,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/f_width_to"
@@ -128,6 +157,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/thk_to"
@@ -148,6 +178,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/area_to"
@@ -168,6 +199,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/price_to"
@@ -188,6 +220,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/amount_to"
@@ -208,6 +241,7 @@
                     android:paddingEnd="10dp"
                     android:enabled="false"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
                 <TextView
                     android:id="@+id/type_to"
@@ -263,6 +297,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_while_grey_stroke"/>
                 <TextView
                     android:id="@+id/post_responsibility_to"
@@ -300,7 +335,37 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:background="@drawable/shape_while_grey_stroke"/>
+                <RelativeLayout
+                    android:id="@+id/select_image_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/responsible_to">
+
+                    <com.aige.loveproduction.ui.customui.viewgroup.WrapRecyclerView
+                        android:id="@+id/select_images"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/select_image"
+                        tools:layoutManager="GridLayoutManager"
+                        tools:listitem="@layout/image_select_item"
+                        tools:spanCount="3"
+                        android:overScrollMode="never"/>
+                    <TextView
+                        android:id="@+id/select_image"
+                        android:layout_width="100dp"
+                        android:layout_height="35dp"
+                        android:layout_alignTop="@+id/select_images"
+                        android:layout_alignBottom="@+id/select_images"
+                        android:gravity="end|center_vertical"
+                        android:textSize="14sp"
+                        android:text="@string/select_image"
+                        android:textColor="@color/black" />
+
+                </RelativeLayout>
+
+
                 <Button
                     android:id="@+id/submit_button"
                     android:layout_width="150dp"
@@ -308,14 +373,14 @@
                     android:layout_marginEnd="150dp"
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="50dp"
-                    android:layout_below="@+id/responsible_to"
+                    android:layout_below="@+id/select_image_layout"
                     android:layout_centerHorizontal="true"
                     android:text="@string/submit"
                     android:textColor="@color/white"
                     android:background="@drawable/ripple_button_blue" />
             </RelativeLayout>
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

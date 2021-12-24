@@ -5,8 +5,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.view.View;
 
-import com.aige.loveproduction.animation.AnimationInterpolator;
-
 public class BaseAnimation implements Animator.AnimatorListener{
     private ObjectAnimator animator;
 
@@ -89,7 +87,7 @@ public class BaseAnimation implements Animator.AnimatorListener{
     }
 
     /**
-     * 欢迎页字体淡出
+     * 向上平移淡出
      */
     public void alphaTran(View view,long duration) {
         PropertyValuesHolder animator1 = PropertyValuesHolder.ofFloat("translationY",50,0);
@@ -97,5 +95,16 @@ public class BaseAnimation implements Animator.AnimatorListener{
         animator = ObjectAnimator.ofPropertyValuesHolder(view,animator1,animator2);
         animator.setDuration(duration);
         animator.start();
+    }
+
+    /**
+     * 从右向左平移
+     */
+    public void tran(View view) {
+        animator = ObjectAnimator.ofFloat(view, "translationX", 1000, 0);
+        animator.setDuration(600);
+        animator.setInterpolator(new AnimationInterpolator.DampInterpolator());
+        animator.start();
+
     }
 }

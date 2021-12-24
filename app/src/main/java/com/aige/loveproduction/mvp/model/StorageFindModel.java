@@ -15,10 +15,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class StorageFindModel implements StorageFindContract.Model {
-    private final Gson gson = new Gson();
-    public static IBaseModel newInstance() {
-        return new StorageFindModel();
-    }
+
     @Override
     public Observable<BaseBean<List<StorageBean>>> getScanPackage(String packageCode, String userName, String action, String binCode) {
         Map<String,String> map = new HashMap<>();

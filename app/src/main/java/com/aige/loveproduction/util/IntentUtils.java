@@ -92,12 +92,18 @@ public class IntentUtils {
      * @param param
      * @return
      */
-    static Intent getImageFileIntent(File param,Context context) {
+    public static Intent getImageFileIntent(File param,Context context) {
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Uri uri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", param);
         intent.setDataAndType(uri, "image/*");
+        return intent;
+    }
+    public static Intent getImage(){
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.addCategory("android.intent.category.DEFAULT");
+        intent.setType("image/*");
         return intent;
     }
 

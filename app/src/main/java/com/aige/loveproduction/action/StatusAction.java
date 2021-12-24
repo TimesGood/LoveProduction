@@ -12,7 +12,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.aige.loveproduction.R;
-import com.aige.loveproduction.mvp.ui.customui.StatusLayout;
+import com.aige.loveproduction.ui.customui.StatusLayout;
 
 /**
 

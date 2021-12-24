@@ -16,10 +16,10 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class TransfersPresenter extends BasePresenter<TransfersContract.View, TransfersContract.Model> implements TransfersContract.Presenter {
+public class TransfersPresenter extends BasePresenter<TransfersContract.View, TransfersModel> implements TransfersContract.Presenter {
     @Override
-    public TransfersContract.Model bindModel() {
-        return (TransfersContract.Model) TransfersModel.newInstance();
+    public TransfersModel bindModel() {
+        return new TransfersModel();
     }
 
 

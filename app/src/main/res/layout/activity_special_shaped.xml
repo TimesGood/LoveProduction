@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".mvp.ui.activity.SpecialShapedActivity">
+    tools:context=".ui.activity.SpecialShapedActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,12 +18,12 @@
         <include layout="@layout/find_include"/>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
-                    android:background="@color/background">
+                    android:background="@color/black">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -55,7 +55,9 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -64,7 +66,9 @@
                         android:text="@string/material_refer_"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -74,7 +78,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -83,7 +88,9 @@
                         android:text="@string/mat_name_"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -93,7 +100,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -102,7 +110,9 @@
                         android:text="@string/thk_"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -112,7 +122,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
 
@@ -122,7 +133,9 @@
                         android:text="@string/f_leng_"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -132,7 +145,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -141,7 +155,9 @@
                         android:text="@string/f_width_"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -151,7 +167,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -160,7 +177,9 @@
                         android:text="@string/designation"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -170,7 +189,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -179,7 +199,9 @@
                         android:text="@string/remark"
                         android:textColor="@color/black"
                         android:layout_columnWeight="0.5"
-                        android:layout_margin="1dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                     <TextView
@@ -189,7 +211,8 @@
                         android:text=""
                         android:textColor="@color/black"
                         android:layout_columnWeight="1"
-                        android:layout_margin="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:padding="5dp"/>
                 </GridLayout>
@@ -206,9 +229,9 @@
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="10dp"/>
             </RelativeLayout>
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 
 
 

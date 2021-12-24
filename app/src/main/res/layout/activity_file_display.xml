@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".mvp.ui.webview.FilesDisplayActivity">
+    tools:context=".ui.webview.FilesDisplayActivity">
 
 
     <RelativeLayout

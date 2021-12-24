@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".mvp.ui.activity.MixedLotActivity">
+    tools:context=".ui.activity.MixedLotActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +15,7 @@
           android:layout_width="match_parent"
           android:layout_height="50dp"
           android:id="@+id/toolbar_title"
+          android:background="@color/blue"
           app:theme="@style/ToolbarTheme"
           app:layout_scrollFlags="scroll|enterAlways">
           <TextView
@@ -36,17 +37,17 @@
       </androidx.appcompat.widget.Toolbar>
       <include layout="@layout/find_include" />
     </com.google.android.material.appbar.AppBarLayout>
-    <com.aige.loveproduction.mvp.ui.customui.StatusLayout
+    <com.aige.loveproduction.ui.customui.StatusLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/loading"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+        <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <include layout="@layout/recyclerview_data_include"/>
-        </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+        </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
-    </com.aige.loveproduction.mvp.ui.customui.StatusLayout>
+    </com.aige.loveproduction.ui.customui.StatusLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -17,16 +17,6 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class FactorySettingModel implements FactorySettingContract.Model {
-    private final Gson gson = new Gson();
-
-    /**
-     * 实例化Model
-     * @return Model对象
-     */
-    public static IBaseModel newInstance() {
-        return new FactorySettingModel();
-    }
-
 
     @Override
     public Observable<BaseBean<List<MachineBean>>> getMachine() {

@@ -6,6 +6,7 @@ import com.aige.loveproduction.bean.MachineBean;
 import com.aige.loveproduction.bean.WorkgroupBean;
 import com.aige.loveproduction.mvp.contract.FactorySettingContract;
 import com.aige.loveproduction.mvp.model.FactorySettingModel;
+import com.aige.loveproduction.net.BaseObserver;
 import com.aige.loveproduction.net.RxScheduler;
 import com.aige.loveproduction.base.BasePresenter;
 
@@ -15,38 +16,39 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
-public class FactorySettingPresenter extends BasePresenter<FactorySettingContract.View,FactorySettingContract.Model> implements FactorySettingContract.Presenter {
+public class FactorySettingPresenter extends BasePresenter<FactorySettingContract.View,FactorySettingModel> implements FactorySettingContract.Presenter {
 
     @Override
-    public FactorySettingContract.Model bindModel() {
-        return (FactorySettingContract.Model) FactorySettingModel.newInstance();
+    public FactorySettingModel bindModel() {
+        return new FactorySettingModel();
     }
 
     @Override
-    public void getMachine(boolean isInit) {
+    public void getMachine() {
         checkViewAttached();
         String methodName = new Exception().getStackTrace()[0].getMethodName();
         mModel.getMachine().compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<List<MachineBean>>>() {
+                .subscribe(new BaseObserver<List<MachineBean>>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onStart(Disposable d) {
                         mView.showLoading(methodName);
                     }
 
                     @Override
-                    public void onNext(@NonNull BaseBean<List<MachineBean>> machineBeanBaseBean) {
-                        mView.onGetMachineSuccess(machineBeanBaseBean, isInit);
+                    public void onSuccess(List<MachineBean> response) {
+                        mView.onGetMachineSuccess(response);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(String message) {
                         mView.hideLoading(methodName);
-                        analysisThrowable(e,methodName);
+                        mView.onError(methodName,message);
+
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onNormalEnd() {
                         mView.hideLoading(methodName);
                     }
                 });
@@ -54,29 +56,30 @@ public class FactorySettingPresenter extends BasePresenter<FactorySettingContrac
     }
 
     @Override
-    public void getWorkgroupByMachineId(String machineId, boolean isInit) {
+    public void getWorkgroupByMachineId(String machineId) {
         String methodName = new Exception().getStackTrace()[0].getMethodName();
         checkViewAttached();
         mModel.getWorkgroupByMachineId(machineId).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<List<WorkgroupBean>>>() {
+                .subscribe(new BaseObserver<List<WorkgroupBean>>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onStart(Disposable d) {
                         mView.showLoading(methodName);
                     }
 
                     @Override
-                    public void onNext(@NonNull BaseBean<List<WorkgroupBean>> workgroupBeanBaseBean) {
-                        mView.onGetWorkgroupSuccess(workgroupBeanBaseBean, isInit);
+                    public void onSuccess(List<WorkgroupBean> response) {
+                        mView.onGetWorkgroupSuccess(response);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(String message) {
                         mView.hideLoading(methodName);
-                        analysisThrowable(e,methodName);
+                        mView.onError(methodName,message);
                     }
+
                     @Override
-                    public void onComplete() {
+                    public void onNormalEnd() {
                         mView.hideLoading(methodName);
                     }
                 });
@@ -84,36 +87,33 @@ public class FactorySettingPresenter extends BasePresenter<FactorySettingContrac
     }
 
     @Override
-    public void getHandlerByWorkgroupId(String workgroupId, boolean isInit) {
+    public void getHandlerByWorkgroupId(String workgroupId) {
         String methodName = new Exception().getStackTrace()[0].getMethodName();
-        if (!isViewAttached()) {
-            return;
-        }
+        checkViewAttached();
         mModel.getHandlerByWorkgroupId(workgroupId).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<List<HandlerBean>>>() {
+                .subscribe(new BaseObserver<List<HandlerBean>>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onStart(Disposable d) {
                         mView.showLoading(methodName);
                     }
 
                     @Override
-                    public void onNext(@NonNull BaseBean<List<HandlerBean>> handlerBeanBaseBean) {
-                        mView.onGetHandlerSuccess(handlerBeanBaseBean, isInit);
+                    public void onSuccess(List<HandlerBean> response) {
+                        mView.onGetHandlerSuccess(response);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
+                    public void onError(String message) {
                         mView.hideLoading(methodName);
-                        analysisThrowable(e,methodName);
+                        mView.onError(methodName,message);
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onNormalEnd() {
                         mView.hideLoading(methodName);
                     }
                 });
 
     }
-
 }

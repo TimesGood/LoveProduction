@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView
+    <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -77,6 +77,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-    </com.aige.loveproduction.mvp.ui.customui.viewgroup.DampNestedScrollView>
+    </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
 </RelativeLayout>
