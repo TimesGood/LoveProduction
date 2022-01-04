@@ -15,7 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * 封装Adapter
- * 这里主要对Adapter和RecyclerView进行封装
+ * 这里主要针对RecycleView增加一些监听事件
+ * 统一onBindViewHolder数据绑定入口为ViewHolder的onBindView
  * @param <VH>
  */
 public abstract class BaseAdapter<VH extends BaseAdapter<?>.ViewHolder> extends RecyclerView.Adapter<VH> {
