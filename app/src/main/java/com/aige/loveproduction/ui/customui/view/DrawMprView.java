@@ -43,7 +43,7 @@ public class DrawMprView extends View implements ResourcesAction {
     //图形初始坐标
     private float centerX = 0f,centerY = 0f;
     private final PointF centerPoint = new PointF();
-    //**********************************颜色属性****************************************************
+    //**********************************默认颜色属性****************************************************
     private int rectangle_color = getColor(R.color.draw_brown);
     private int cutting_color = getColor(R.color.draw_green);
     private int bohrHoriz_color = getColor(R.color.white);
@@ -231,7 +231,7 @@ public class DrawMprView extends View implements ResourcesAction {
         }
         //绘制切割线
         if(cutting1 != null) {
-            int pathCount = 1;
+            byte pathCount = 1;
             for(Map<String, Float> map : cutting1) {
                 int size = map.size()/2;
                 initPaint();
@@ -259,7 +259,7 @@ public class DrawMprView extends View implements ResourcesAction {
                 drawNail(canvas,floats[0],floats[1],floats[2],floats[3]);
             }
         }
-        int index;
+        byte index;
         //绘制表面钉子
         if(bohrVert1 != null) {
             index = 0;

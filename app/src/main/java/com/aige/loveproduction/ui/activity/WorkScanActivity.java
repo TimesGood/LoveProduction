@@ -44,7 +44,7 @@ import java.util.List;
 public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanContract.View>
         implements WorkScanContract.View,View.OnClickListener , StatusAction {
     private ImageView camera,find_img;
-    private EditText planNo_Edit;
+    private EditText find_edit;
     private WrapRecyclerView recyclerview_data;//列表组件
     private WorkScanAdapter adapter;
 
@@ -62,7 +62,7 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
     @Override
     protected void initView() {
         camera = findViewById(R.id.image_camera);
-        planNo_Edit = findViewById(R.id.find_edit);
+        find_edit = findViewById(R.id.find_edit);
         recyclerview_data = findViewById(R.id.recyclerview_data);
         find_img = findViewById(R.id.find_img);
     }
@@ -71,23 +71,21 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
     protected void initData() {
         setCenterTitle("工单扫描");
         recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        camera.setOnClickListener(this);
-        planNo_Edit.requestFocus();//获得焦点
-        planNo_Edit.setSelection(planNo_Edit.length());//光标置尾
-        planNo_Edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        setOnClickListener(camera,find_img);
+        find_edit.requestFocus();//获得焦点
+        find_edit.setSelection(find_edit.length());//光标置尾
+        find_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(event != null && event.getKeyCode()==KeyEvent.KEYCODE_ENTER&&v.getText()!=null&& event.getAction() == KeyEvent.ACTION_DOWN){
-                    requestReady(planNo_Edit.getText().toString());
+                    requestReady(find_edit.getText().toString());
                 }
                 if(event == null) {
-                    requestReady(planNo_Edit.getText().toString());
+                    requestReady(find_edit.getText().toString());
                 }
                 return true;
             }
         });
-        //点击扫描按钮
-        find_img.setOnClickListener(this);
     }
 
     //创建菜单
@@ -106,16 +104,6 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
         if(itemId == android.R.id.home) {
             onBackPressed();
         }
-//        else if(itemId == R.id.work_scan_record) {
-//            //动态申请读取文件的权限
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                    requestPermissions(PERMISSIONS, 2);
-//                }else{
-//                    startActivity(HistoryLogActivity.class);
-//                }
-//            }
-//        }
         else if(itemId == R.id.work_scan_event_more) {
 
         }
@@ -183,9 +171,9 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
         return ask;
     }
     @Override
-    public void onGetMessageByWonoSuccess(BaseBean<PlanNoMessageBean> bean) {
+    public void onGetMessageByWonoSuccess(BaseBean<ScanCodeBean> bean) {
         if(bean.getCode() == 0) {
-            PlanNoMessageBean data = bean.getData();
+            ScanCodeBean data = bean.getData();
             if(data.getCode() == 0) {
                 data.setMsg("扫描成功");
                 setAdapterData(data);
@@ -199,18 +187,9 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
             showToast(bean.getMsg());
         }
     }
-    private void setAdapterData(PlanNoMessageBean data) {
-        ScanCodeBean scanCodeBean = new ScanCodeBean();
-        scanCodeBean.setMessage(data.getMsg());
-        scanCodeBean.setPlanNo(data.getPlanNo());
-        scanCodeBean.setOrderId(data.getOrderId());
-        scanCodeBean.setTotalArea(String.valueOf(data.getTotalArea()));
-        scanCodeBean.setSaoMiaoCount(String.valueOf(data.getTotalCnt()));
-        scanCodeBean.setWono(data.getWono());
-        scanCodeBean.setWeiSaoCount("0");
-
+    private void setAdapterData(ScanCodeBean data) {
         List<ScanCodeBean> list = new ArrayList<>();
-        list.add(scanCodeBean);
+        list.add(data);
         adapter = new WorkScanAdapter(this);
         adapter.setData(list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -222,14 +201,12 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
 
     @Override
     public void showLoading() {
+        showLoadings();
         recyclerview_data.setVisibility(View.GONE);
         recyclerview_data.setAdapter(null);
-        //loading_layout.setVisibility(View.VISIBLE);
-        showLoadings();
     }
     @Override
     public void hideLoading() {
-        //loading_layout.setVisibility(View.GONE);
         showComplete();
         recyclerview_data.setVisibility(View.VISIBLE);
         mAnimation.alphaTran(recyclerview_data,300);
@@ -272,14 +249,14 @@ public class WorkScanActivity extends BaseActivity<WorkScanPresenter,WorkScanCon
                 }
             });
         }else if(id == R.id.find_img) {
-            String plan = planNo_Edit.getText()+"";
+            String plan = find_edit.getText()+"";
             requestReady(plan);
 
         }
     }
     private void requestReady(String input) {
-        planNo_Edit.setText("");
-        hideKeyboard(planNo_Edit);
+        find_edit.setText("");
+        hideKeyboard(find_edit);
         if(input.isEmpty()) {
             showToast("请输入条码");
             soundUtils.playSound(1,0);

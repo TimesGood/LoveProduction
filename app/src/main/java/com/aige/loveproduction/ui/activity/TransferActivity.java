@@ -118,15 +118,14 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
     }
 
     @Override
-    public void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean) {
-        List<ScanCodeBean> data = bean.getData();
+    public void onGetMessageByWonoSuccess(List<ScanCodeBean> bean) {
         adapter = new WorkScanAdapter(this);
-        adapter.setData(data);
+        adapter.setData(bean);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerview_data.setLayoutManager(manager);
         recyclerview_data.setAdapter(adapter);
-        for(ScanCodeBean scanBean : data) {
+        for(ScanCodeBean scanBean : bean) {
             if(!"扫描成功".equals(scanBean.getMessage())) {
                 soundUtils.playSound(1,0);
                 return;
@@ -137,25 +136,24 @@ public class TransferActivity extends BaseActivity<TransferPresenter, TransferCo
 
     @Override
     public void showLoading() {
-        recyclerview_data.setVisibility(View.GONE);
-        //loading_layout.setVisibility(View.VISIBLE);
         showLoadings();
+        hideKeyboard(find_edit);
+        recyclerview_data.setVisibility(View.GONE);
+        recyclerview_data.setAdapter(null);
     }
 
     @Override
     public void hideLoading() {
-        recyclerview_data.setVisibility(View.VISIBLE);
-        //loading_layout.setVisibility(View.GONE);
         showComplete();
+        recyclerview_data.setVisibility(View.VISIBLE);
         mAnimation.alphaTran(recyclerview_data,300);
     }
 
     @Override
     public void onError(String message) {
         showEmpty();
-        recyclerview_data.setAdapter(null);
-        soundUtils.playSound(1,0);
         showToast(message);
+        soundUtils.playSound(1,0);
     }
 
     @Override

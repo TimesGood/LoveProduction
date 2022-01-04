@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * 文件操作相关
@@ -67,15 +68,13 @@ public class FileViewerUtils {
 
     /**
      * 获取文件类型的拓展名
-     * @param file
-     * @return
      */
     public static String getMimeType(final File file) {
         String extension = getExtension(file);
         return extension == null ? "application/octet-stream" : MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.substring(1));
     }
     /**
-     * 判断目录是否存在，不存在则判断是否创建成功
+     * 判断目录是否存在，不存在则创建并判断是否创建成功
      * @param dirPath 目录路径
      * @return {@code true}: 存在或创建成功<br>{@code false}: 不存在或创建失败
      */
@@ -118,8 +117,6 @@ public class FileViewerUtils {
 
     /**
      * 根据路径获取文件名
-     * @param file
-     * @return
      */
     public static String getFileName(File file) {
         String[] split = file.getAbsolutePath().split("/");
@@ -128,16 +125,20 @@ public class FileViewerUtils {
 
     /**
      * 获取文件所在文件目录
-     * @param file
-     * @return
      */
     public static String getFilePath(File file) {
         String[] split = file.getAbsolutePath().split("/");
         return file.getAbsolutePath().split(split[split.length-1])[0];
     }
+
+    /**
+     * 获取缓存大小
+     */
+    public static String getCacheSize(Context context){
+        return getFormatSize(getFolderSize(context.getExternalCacheDir()));
+    }
     /**
      * 清空缓存
-     * @param context
      */
     public static void clearAllCache(Context context) {
         deleteDir(context.getExternalCacheDir());
@@ -168,5 +169,49 @@ public class FileViewerUtils {
             //删除
             return dir.delete();
         }
+    }
+
+    /**
+     * 获取某文件中的大小
+     */
+    public static long getFolderSize(File file){
+        long size = 0;
+        File[] files = file.listFiles();
+        if(files == null) return 0;
+        for (File value : files) {
+            //如果还有文件夹,递归找出
+            if (value.isDirectory()) {
+                size += getFolderSize(value);
+            } else {
+                //获取文件大小
+                size += value.length();
+            }
+        }
+        return size;
+    }
+    public static String getFormatSize(double size){
+        double kiloByte = size / 1024;
+        if(kiloByte < 1) return "0.0KB";
+        double megaByte = kiloByte / 1024;
+        if(megaByte < 1) {
+            BigDecimal result = new BigDecimal(Double.toString(kiloByte));
+            return result.setScale(2,BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "KB";
+        }
+        double gigaByte = megaByte / 1024;
+        if(gigaByte < 1) {
+            BigDecimal result = new BigDecimal(Double.toString(megaByte));
+            return result.setScale(2,BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "M";
+        }
+        double teraBytes = gigaByte / 1024;
+        if(teraBytes < 1) {
+            BigDecimal result = new BigDecimal(Double.toString(gigaByte));
+            return result.setScale(2,BigDecimal.ROUND_HALF_UP)
+                    .toPlainString() + "G";
+        }
+        BigDecimal result = new BigDecimal(Double.toString(teraBytes));
+        return result.setScale(2,BigDecimal.ROUND_HALF_UP)
+                .toPlainString() + "T";
     }
 }

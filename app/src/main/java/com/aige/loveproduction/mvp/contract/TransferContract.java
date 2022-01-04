@@ -16,16 +16,16 @@ import io.reactivex.rxjava3.core.Observable;
 public interface TransferContract {
     interface Model extends IBaseModel{
         Observable<BaseBean<List<TransferBean>>> getWonoByPackageCode(String packageCode, String operationEntity_Id,WonoAsk ask);
-        Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(WonoAsk ask);
+        Observable<BaseBean<ScanCodeBean>> getMessageByWono(WonoAsk ask);
     }
     interface View extends IBaseView{
         void onGetWonoByPackageCodeSuccess(BaseBean<List<TransferBean>> bean);
-        void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean);
+        void onGetMessageByWonoSuccess(List<ScanCodeBean> bean);
 
     }
     interface Presenter extends IBasePresenter<View> {
         void getWonoByPackageCode(String packageCode,String operationEntity_Id,WonoAsk ask);
-        void getMessageByWono(WonoAsk ask);
+        void getMessageByWono(List<TransferBean> beans,WonoAsk ask);
 
     }
 }

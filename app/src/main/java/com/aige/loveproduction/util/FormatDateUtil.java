@@ -3,6 +3,7 @@ package com.aige.loveproduction.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -26,6 +27,21 @@ public class FormatDateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
             return "日期解析异常";
+        }
+    }
+    public static Calendar FormatDate(String pattern, String date_str, String format_date){
+        if (date_str == null) return null;
+        Date parse;
+        DateFormat dateFormat;
+        SimpleDateFormat format = new SimpleDateFormat(pattern,Locale.CHINA);
+        try {
+            parse = format.parse(date_str);
+            dateFormat = new SimpleDateFormat(format_date,Locale.CHINA);
+            if(parse != null) dateFormat.format(parse);
+            return dateFormat.getCalendar();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

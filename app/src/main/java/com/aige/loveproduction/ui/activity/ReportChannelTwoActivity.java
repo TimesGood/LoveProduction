@@ -8,11 +8,13 @@ import com.aige.loveproduction.manager.MPAndroidChartManager;
 import com.aige.loveproduction.mvp.contract.ReportContract;
 import com.aige.loveproduction.mvp.presenter.ReportPresenter;
 import com.aige.loveproduction.ui.customui.StatusLayout;
+import com.aige.loveproduction.util.FormatDateUtil;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.components.YAxis;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReportChannelTwoActivity extends BaseActivity<ReportPresenter, ReportContract.View>
@@ -62,14 +64,17 @@ public class ReportChannelTwoActivity extends BaseActivity<ReportPresenter, Repo
         List<Integer> sign = new ArrayList<>();
         List<Integer> avg = new ArrayList<>();
         List<Integer> total = new ArrayList<>();
-        List<Integer> scale = new ArrayList<>();
-        int i = 0;
+        List<Byte> scale = new ArrayList<>();
+        List<String> xLabels = new ArrayList<>();
+        byte i = 0;
         for (ReportBean bean : beans) {
             sign.add(bean.getMonthCount());
             avg.add((int) bean.getAvgNumber());
             total.add((int) bean.getMonthTotal());
             scale.add(i);
             i++;
+            Calendar calendar = FormatDateUtil.FormatDate("yyyy-MM", bean.getMonthValue(), "yyyy-MM-dd");
+            xLabels.add(calendar.get(Calendar.MONTH)+1+"月");
         }
         chartManager.setBarData(scale,total,"总额",R.color.blue);
         List<List<Integer>> broken_line = new ArrayList<>();
@@ -81,13 +86,9 @@ public class ReportChannelTwoActivity extends BaseActivity<ReportPresenter, Repo
         List<Integer> colors = new ArrayList<>();
         colors.add(R.color.red);
         colors.add(R.color.yellow);
-        List<String> xlabel = new ArrayList<>();
-        for(int j = 1;j <= scale.size();j++) {
-            xlabel.add(j+"月");
-        }
         chartManager.setDrawFilled(false);
         chartManager.setLineData(scale,broken_line,labels,colors,YAxis.AxisDependency.RIGHT);
-        chartManager.showCombinedChart(combinedChart,xlabel);
+        chartManager.showCombinedChart(combinedChart,xLabels);
     }
     @Override
     public StatusLayout getStatusLayout() {

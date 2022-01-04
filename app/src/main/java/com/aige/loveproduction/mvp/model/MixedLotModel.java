@@ -29,7 +29,7 @@ public class MixedLotModel implements MixedLotContract.Model {
     }
 
     @Override
-    public Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(WonoAsk ask) {
+    public Observable<BaseBean<ScanCodeBean>> getMessageByWono(WonoAsk ask) {
         return getApi().getMessageByWono(ask);
     }
 }

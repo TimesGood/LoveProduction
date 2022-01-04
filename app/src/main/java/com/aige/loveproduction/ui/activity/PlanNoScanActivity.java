@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
+import com.aige.loveproduction.bean.PlanNoMessageBean;
 import com.aige.loveproduction.ui.adapter.WorkScanAdapter;
 import com.aige.loveproduction.ui.customui.viewgroup.WrapRecyclerView;
 import com.aige.loveproduction.base.BaseBean;
@@ -38,7 +40,7 @@ import java.util.List;
 
 public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoScanContract.View>
         implements PlanNoScanContract.View,View.OnClickListener, StatusAction {
-    private TextView find_edit;
+    private EditText find_edit;
     private ImageView image_camera,find_img;
     private WorkScanAdapter adapter;
     private WrapRecyclerView recyclerview_data;
@@ -66,9 +68,9 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
     protected void initData() {
         setCenterTitle("批次扫描");
         find_edit.setHint("直接扫描、或输入批次号");
-        image_camera.setOnClickListener(this);
-        find_img.setOnClickListener(this);
+        setOnClickListener(image_camera,find_img);
         find_edit.requestFocus();
+        find_edit.setSelection(find_edit.length());//光标置尾
         find_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -164,21 +166,8 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
                 soundUtils.playSound(1,0);
                 return;
             }
-
             mPresenter.getWonoByBatchNo(input,opId,getAsk());
         }
-    }
-    @Override
-    public void onGetWonoByBatchNoSuccess(BaseBean<List<TransferBean>> bean) {
-        if(bean.getCode() == 0) {
-//            System.out.println("-----------------------");
-//            System.out.println(bean);
-        }else{
-            recyclerview_data.setAdapter(null);
-            soundUtils.playSound(1,0);
-            showToast(bean.getMsg());
-        }
-
     }
     public WonoAsk getAsk() {
         String machineId = SharedPreferencesUtils.getValue(this, MachineSettings, "machineId");
@@ -197,16 +186,15 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
         return ask;
     }
     @Override
-    public void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean) {
-        List<ScanCodeBean> data = bean.getData();
+    public void onGetMessageByWonoSuccess(List<ScanCodeBean> beans) {
         adapter = new WorkScanAdapter(this);
-        adapter.setData(data);
+        adapter.setData(beans);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerview_data.setLayoutManager(manager);
         recyclerview_data.setAdapter(adapter);
-        for(ScanCodeBean scanBean : data) {
-            if(!"扫描成功".equals(scanBean.getMessage())) {
+        for(ScanCodeBean scanBean : beans) {
+            if(scanBean.getCode() != 0) {
                 soundUtils.playSound(1,0);
                 return;
             }
@@ -216,22 +204,23 @@ public class PlanNoScanActivity extends BaseActivity<PlanNoScanPresenter,PlanNoS
 
     @Override
     public void showLoading() {
-        recyclerview_data.setVisibility(View.GONE);
         showLoadings();
+        recyclerview_data.setVisibility(View.GONE);
+        recyclerview_data.setAdapter(null);
     }
 
     @Override
     public void hideLoading() {
-        recyclerview_data.setVisibility(View.VISIBLE);
         showComplete();
+        recyclerview_data.setVisibility(View.VISIBLE);
         mAnimation.alphaTran(recyclerview_data,300);
     }
 
     @Override
     public void onError(String message) {
         showEmpty();
-        soundUtils.playSound(1,0);
         showToast(message);
+        soundUtils.playSound(1,0);
     }
 
     @Override

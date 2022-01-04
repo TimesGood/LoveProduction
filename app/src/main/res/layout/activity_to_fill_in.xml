@@ -252,15 +252,16 @@
                     android:textColor="@color/black"
                     android:gravity="end|center_vertical"
                     android:layout_marginBottom="5dp"/>
+
                 <Spinner
                     android:id="@+id/type"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:entries="@array/to_fill_in"
                     android:layout_alignTop="@+id/type_to"
                     android:layout_toEndOf="@+id/type_to"
                     android:background="@drawable/layer_spinner"
-                    android:theme="@style/Spinner_text"/>
+                    android:entries="@array/to_fill_in"
+                    android:theme="@style/Spinner_text" />
                 <TextView
                     android:id="@+id/cause_to"
                     android:layout_width="100dp"
@@ -270,15 +271,16 @@
                     android:textColor="@color/black"
                     android:gravity="end|center_vertical"
                     android:layout_marginBottom="5dp"/>
+
                 <Spinner
                     android:id="@+id/cause"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:entries="@array/to_fill_in"
                     android:layout_alignTop="@+id/cause_to"
                     android:layout_toEndOf="@+id/cause_to"
                     android:background="@drawable/layer_spinner"
-                    android:theme="@style/Spinner_text"/>
+                    android:entries="@array/to_fill_in"
+                    android:theme="@style/Spinner_text" />
                 <TextView
                     android:id="@+id/discoverer_to"
                     android:layout_width="100dp"
@@ -308,15 +310,16 @@
                     android:textColor="@color/black"
                     android:gravity="end|center_vertical"
                     android:layout_marginBottom="5dp"/>
+
                 <Spinner
                     android:id="@+id/post_responsibility"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:entries="@array/post_responsibility"
                     android:layout_alignTop="@+id/post_responsibility_to"
                     android:layout_toEndOf="@+id/post_responsibility_to"
                     android:background="@drawable/layer_spinner"
-                    android:theme="@style/Spinner_text"/>
+                    android:entries="@array/post_responsibility"
+                    android:theme="@style/Spinner_text" />
                 <TextView
                     android:id="@+id/responsible_to"
                     android:layout_width="100dp"

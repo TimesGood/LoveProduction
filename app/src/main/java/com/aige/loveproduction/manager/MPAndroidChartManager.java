@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * 报表绘制管理
+ * 柱形图、折线图、混合图（柱形、折线）已经配置好，其他图形官网自个找
  * @author 张文科
  */
 public class MPAndroidChartManager {
@@ -69,8 +70,8 @@ public class MPAndroidChartManager {
         float barWidth = (1f-groupSpace) / barAmount - barSpace;//柱子宽度
         data.setBarWidth(barWidth);//柱子的宽度
         data.groupBars(0, groupSpace, barSpace);//分组
-        setMarkView(barChart);
         barChart.setData(data);
+        setMarkView(barChart);
     }
 
     /**
@@ -88,7 +89,7 @@ public class MPAndroidChartManager {
      * @param label 柱形名称
      * @param color 柱形颜色
      */
-    public void setBarData(List<Integer> xAxisValues,List<Integer> yAxisValues,String label,int color) {
+    public void setBarData(List<Byte> xAxisValues,List<Integer> yAxisValues,String label,int color) {
         barData = new BarData();
         ArrayList<BarEntry> entries = new ArrayList<>();
         for (int i = 0; i < yAxisValues.size(); i++) {
@@ -107,7 +108,7 @@ public class MPAndroidChartManager {
      * @param colours 每组颜色值
      * @return
      */
-    public void setBarData(List<Integer> xAxisValues,List<List<Integer>> yAxisValues,List<String> labels,List<Integer> colours){
+    public void setBarData(List<Byte> xAxisValues,List<List<Integer>> yAxisValues,List<String> labels,List<Integer> colours){
         barData = new BarData();
         for (int i = 0; i < yAxisValues.size(); i++) {
             ArrayList<BarEntry> entries = new ArrayList<>();
@@ -200,7 +201,7 @@ public class MPAndroidChartManager {
      * @param label 柱形名称
      * @param color 柱形颜色
      */
-    public void setLineData(List<Integer> xAxisValues, List<Integer> yAxisValues, String label, int color, YAxis.AxisDependency axisDependency) {
+    public void setLineData(List<Byte> xAxisValues, List<Integer> yAxisValues, String label, int color, YAxis.AxisDependency axisDependency) {
         lineData = new LineData();
         ArrayList<Entry> entries = new ArrayList<>();
         for (int i = 0; i < yAxisValues.size(); i++) {
@@ -218,7 +219,7 @@ public class MPAndroidChartManager {
      * @param labels 柱形名称
      * @param colours 每组颜色值
      */
-    public void setLineData(List<Integer> xAxisValues, List<List<Integer>> yAxisValues,
+    public void setLineData(List<Byte> xAxisValues, List<List<Integer>> yAxisValues,
                                  List<String> labels, List<Integer> colours,YAxis.AxisDependency axisDependency){
         lineData = new LineData();
         for (int i = 0; i < yAxisValues.size(); i++) {
@@ -293,7 +294,7 @@ public class MPAndroidChartManager {
      * 设置折线图是否填充
      */
     public void setDrawFilled(boolean flag){
-        this.drawFilled = false;
+        this.drawFilled = flag;
     }
 
     //*****************************************************绘制混合图表*******************************************************
@@ -301,21 +302,21 @@ public class MPAndroidChartManager {
     /**
      * 绘制混合报表
      * @param combinedChart 混合对象
-     * @param values X刻度表示
+     * @param xLabels X刻度表示
      */
-    public void showCombinedChart(CombinedChart combinedChart,List<String> values) {
+    public void showCombinedChart(CombinedChart combinedChart,List<String> xLabels) {
         initCombinedChart(combinedChart);
         CombinedData data = new CombinedData();
         BarData barData = getBarData();
-        barData.setBarWidth(0.5f);
+        barData.setBarWidth(0.5f);//柱形宽度调整一下
         data.setData(barData);
         data.setData(getLineData());
-        IndexAxisValueFormatter indexAxisValueFormatter = new IndexAxisValueFormatter(values);
+        IndexAxisValueFormatter indexAxisValueFormatter = new IndexAxisValueFormatter(xLabels);
         xAxis.setValueFormatter(indexAxisValueFormatter);
-        xAxis.setAxisMinimum(-0.5f);//最小刻度
-        xAxis.setAxisMaximum((float) (values.size()-0.5));
-        xAxis.setLabelCount(values.size() - 1, false);
-        xAxis.setDrawGridLines(false);
+        xAxis.setAxisMinimum(-0.5f);//最小刻度左边留白一点
+        xAxis.setAxisMaximum((float) (xLabels.size()-0.5));//右边留白一点
+        xAxis.setLabelCount(xLabels.size() - 1, false);//显示刻度数
+        xAxis.setDrawGridLines(false);//取消网格显示
         rightAxis.setDrawGridLines(false);
         setMarkView(combinedChart);
         combinedChart.setData(data);

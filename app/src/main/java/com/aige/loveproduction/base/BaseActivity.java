@@ -51,7 +51,7 @@ public abstract class BaseActivity<P extends BasePresenter,V extends IBaseView> 
      * 使用这个需要我们的类实现LifecycleOwner接口，而Android的AppCompatActivity已经实现了此类，所以我们直接this使用即可
      */
     @Override
-    public <T> AutoDisposeConverter<T> bindAutoDispose() {
+    public <P> AutoDisposeConverter<P> bindAutoDispose() {
         return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider
                 .from(this, Lifecycle.Event.ON_DESTROY));
     }

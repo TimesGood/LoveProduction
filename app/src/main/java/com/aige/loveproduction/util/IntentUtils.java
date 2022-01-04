@@ -16,7 +16,7 @@ import com.aige.loveproduction.BuildConfig;
 import java.io.File;
 
 /**
- * 对一些页面跳转的一些封装
+ * 打开某些文件需要其他应用程序打开的跳转操作
  */
 
 public class IntentUtils {
@@ -109,8 +109,6 @@ public class IntentUtils {
 
     /**
      * 跳转到pdf文件选择
-     * @param param
-     * @return
      */
     static Intent getPdfFileIntent(File param,Context context) {
         Intent intent = new Intent("android.intent.action.VIEW");
@@ -135,8 +133,6 @@ public class IntentUtils {
 
     /**
      * 跳转到音频选择界面
-     * @param param
-     * @return
      */
     static Intent getAudioFileIntent(File param,Context context) {
         Intent intent = new Intent("android.intent.action.VIEW");
@@ -150,8 +146,6 @@ public class IntentUtils {
 
     /**
      * 跳转到视频选择界面
-     * @param param
-     * @return
      */
     static Intent getVideoFileIntent(File param,Context context) {
         Intent intent = new Intent("android.intent.action.VIEW");

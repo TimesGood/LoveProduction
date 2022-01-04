@@ -2,6 +2,7 @@ package com.aige.loveproduction.mvp.model;
 
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.PlanNoMessageBean;
+import com.aige.loveproduction.bean.ScanCodeBean;
 import com.aige.loveproduction.bean.TransferBean;
 import com.aige.loveproduction.bean.WonoAsk;
 import com.aige.loveproduction.mvp.contract.PlanNoScanContract;
@@ -28,7 +29,7 @@ public class PlanNoScanModel implements PlanNoScanContract.Model {
     }
 
     @Override
-    public Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(WonoAsk ask) {
+    public Observable<BaseBean<ScanCodeBean>> getMessageByWono(WonoAsk ask) {
         return getApi().getMessageByWono(ask);
     }
 }

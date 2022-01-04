@@ -10,6 +10,8 @@ public class ScanCodeBean {
     private String totalCnt;
     private String totalArea;
     private String message;
+    private int code;
+    private String msg;
 
 
     public String getBatchno() {
@@ -83,6 +85,22 @@ public class ScanCodeBean {
         this.wono = wono;
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     @Override
     public String toString() {
         return "ScanCodeBean{" +
@@ -94,7 +112,9 @@ public class ScanCodeBean {
                 ", weiSaoCount='" + weiSaoCount + '\'' +
                 ", totalCnt='" + totalCnt + '\'' +
                 ", totalArea='" + totalArea + '\'' +
-                ", message='" + message +
+                ", message='" + message + '\'' +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
                 '}';
     }
 }

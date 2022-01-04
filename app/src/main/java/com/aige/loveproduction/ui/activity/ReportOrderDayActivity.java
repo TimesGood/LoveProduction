@@ -67,15 +67,16 @@ public class ReportOrderDayActivity extends BaseActivity<ReportPresenter, Report
         List<Integer> direct = new ArrayList<>();
         List<Integer> channel_one = new ArrayList<>();
         List<Integer> channel_tow = new ArrayList<>();
-        List<Integer> scale = new ArrayList<>();
-        int i = 0;
+        List<Byte> scale = new ArrayList<>();
+        List<String> xLabels = new ArrayList<>();
+        byte i = 0;
         for (ReportBean bean : beans) {
             if("直营".equals(bean.getProjectName())) direct.add(bean.getDayCount());
             if("渠道1部".equals(bean.getProjectName())) channel_one.add(bean.getDayCount());
             if("渠道2部".equals(bean.getProjectName())) {
                 channel_tow.add(bean.getDayCount());
                 scale.add(i);
-                i++;
+                xLabels.add(++i+"日");
             }
         }
         List<List<Integer>> broken_line = new ArrayList<>();
@@ -90,12 +91,9 @@ public class ReportOrderDayActivity extends BaseActivity<ReportPresenter, Report
         colors.add(R.color.blue);
         colors.add(R.color.red);
         colors.add(R.color.yellow);
-        List<String> xlabel = new ArrayList<>();
-        for(int j = 1;j <= scale.size();j++) {
-            xlabel.add(j+"日");
-        }
+
         chartManager.setLineData(scale,broken_line,labels,colors,YAxis.AxisDependency.LEFT);
-        chartManager.showLineChart(lineChart,xlabel);
+        chartManager.showLineChart(lineChart,xLabels);
     }
 
     @Override

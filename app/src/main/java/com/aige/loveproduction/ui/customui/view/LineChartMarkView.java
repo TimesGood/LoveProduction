@@ -14,6 +14,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.utils.MPPointF;
 
+import java.math.BigDecimal;
+
 public class LineChartMarkView extends MarkerView {
     private final TextView mark_label_to,mark_label,mark_x_to,mark_x,mark_y_to,mark_y;
     private Context mContext;
@@ -37,12 +39,18 @@ public class LineChartMarkView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
+        //获取组名称描述
+        String label = getChartView().getData().getDataSetForEntry(e).getLabel();
+        mark_label.setText(label);
+        //获取x轴上的刻度描述
         XAxis xAxis = getChartView().getXAxis();
         IndexAxisValueFormatter indexAxisValueFormatter = (IndexAxisValueFormatter) xAxis.getValueFormatter();
-        IDataSet dataSet = getChartView().getData().getDataSetForEntry(e);
-        mark_label.setText(dataSet.getLabel());
-        mark_x.setText(indexAxisValueFormatter.getFormattedValue(e.getX()));
-        mark_y.setText(String.valueOf(e.getY()));
+        String xLabel = indexAxisValueFormatter.getFormattedValue((int) e.getX());
+        mark_x.setText(xLabel);
+        //获取y轴上的值
+        //把科学计数法转为正常数值
+        BigDecimal bd = new BigDecimal(e.getY());
+        mark_y.setText(bd.toPlainString());
         super.refreshContent(e, highlight);
     }
 

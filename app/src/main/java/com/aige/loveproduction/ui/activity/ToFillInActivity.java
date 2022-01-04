@@ -35,7 +35,7 @@ import com.aige.loveproduction.ui.customui.StatusLayout;
 import com.aige.loveproduction.ui.dialogin.LoadingDialog;
 import com.aige.loveproduction.ui.dialogin.MessageDialog;
 import com.aige.loveproduction.permission.Permission;
-import com.aige.loveproduction.util.FileUtil;
+import com.aige.loveproduction.util.IOUtil;
 import com.aige.loveproduction.util.IntentUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -189,7 +189,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
         }else if(id == R.id.find_img) {
             requestReady(find_edit.getText().toString());
         }else if(id == R.id.submit_button) {
-            if(examineData()) {
+            if(examineData(false)) {
                 ToFillInAsk ask = getAsk();
                 mPresenter.submitData(ask);
             }else{
@@ -210,22 +210,24 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
             });
         }
     }
-    //检查数据是否填写完整
-    private boolean examineData() {
+    //检查数据是否填写完整,并且是否清除文本框中的内容
+    private boolean examineData(boolean isClear) {
+        boolean flag = true;
         int childCount = data_body.getChildCount();
         for (int i = 0; i < childCount;i++) {
             View childAt = data_body.getChildAt(i);
             if(childAt instanceof EditText) {
                 EditText text = ((EditText) childAt);
+                if(isClear) text.setText("");
                 if(text.getId() == R.id.responsible) continue;
                 if(text.getText().toString().isEmpty()) {
                     text.requestFocus();
-                    return false;
+                    flag = false;
                 }
 
             }
         }
-        return true;
+        return flag;
     }
     private void requestReady(String input){
         find_edit.setText("");
@@ -238,6 +240,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
     }
     @Override
     public void showLoading() {
+        examineData(true);
         showLoadings();
     }
 
@@ -328,16 +331,19 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
         ask.setArea(area.getText().toString());
         ask.setUnitPrice(price.getText().toString());
         ask.setTotal(amount.getText().toString());
+        //类型
         ask.setCategory(type.getSelectedItem().toString());
-        ask.setDepartment(cause.getSelectedItem().toString());
-        ask.setReason(post_responsibility.getSelectedItem().toString());
+        //部门
+        ask.setDepartment(post_responsibility.getSelectedItem().toString());
+        //原因
+        ask.setReason(cause.getSelectedItem().toString());
         ask.setFinder(discoverer.getText().toString());
         ask.setOperator(responsible.getText().toString());
         ask.setColor(mat_name.getText().toString());
         ask.setDetailName(plate_name.getText().toString());
         ArrayList<String> list = new ArrayList<>();
         select_image_list.forEach(v ->{
-            list.add(FileUtil.imageToBase64(v));
+            list.add(IOUtil.imageToBase64(v));
         });
         ask.setImgBase64(list);
         return ask;

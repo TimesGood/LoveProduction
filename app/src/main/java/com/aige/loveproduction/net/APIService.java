@@ -74,7 +74,7 @@ public interface APIService {
     //工单扫描获取扫描结果
     @Headers({HostType.CONNECT_TIMEOUT+":30", HostType.READ_TIMEOUT+":30", HostType.WRITE_TIMEOUT+":30"})
     @POST("/api/ScanQRcode/Scan_WorkOrder")
-    Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(@Body WonoAsk body);
+    Observable<BaseBean<ScanCodeBean>> getMessageByWono(@Body WonoAsk body);
 
     //发货验证
     @POST("/api/ScanQRcode/Scan_SendGoodsVerification")
@@ -104,6 +104,8 @@ public interface APIService {
     //获取MPR文件
     @GET("/api/Paperless/Folder/GetMPRByBarCode")
     Observable<BaseBean<List<DownloadBean>>> getMPRByBatchNo(@Query("BarCode") String barcode);
+    @GET("/api/Paperless/Folder/GetMPRByBarCodeV2Ip10")
+    Observable<BaseBean<List<String>>> getMPRByBatchNoV2(@Query("BarCode") String barcode);
 
     //转运扫描获取列表
     @GET("/api/EBAP/Transport/TransportVerification")
@@ -132,7 +134,7 @@ public interface APIService {
 
 
 
-    /*报表*/
+    /*******************************************报表****************************************************************/
     //月回款统计
     @POST("/api/EBAP/Dashboard/QueryReportChannelMonthTotal")
     Observable<BaseBean<List<ReportBean>>> getReportRefundMonth(@Body RequestBody body);

@@ -32,6 +32,7 @@ import com.aige.loveproduction.util.IntentUtils;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.ViewfinderView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -118,14 +119,18 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
 
     @Override
     public void showLoading() {
-        grid_item.setVisibility(View.GONE);
         showLoadings();
+        hideKeyboard(find_edit);
+        recyclerview_data.setVisibility(View.GONE);
+        recyclerview_data.setAdapter(null);
+        grid_item.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoading() {
-        grid_item.setVisibility(View.VISIBLE);
         showComplete();
+        recyclerview_data.setVisibility(View.VISIBLE);
+        grid_item.setVisibility(View.VISIBLE);
         mAnimation.alphaTran(recyclerview_data,300);
     }
 
@@ -194,9 +199,9 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
         }
     }
 
-    private void requestReady(int request,String input) {
+    private void requestReady(int type,String input) {
         find_edit.setText("");
-        if(request == 0) {
+        if(type == 0) {
             if(input.isEmpty()) {
                 showToast("请输入包装码");
                 soundUtils.playSound(1,0);
@@ -209,7 +214,7 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
             input_temp = input;
             String userName = SharedPreferencesUtils.getValue(this, LoginInfo, "userName");
             mPresenter.transportScan(input_temp,userName);
-        }else if(request == 1) {
+        }else if(type == 1) {
             mPresenter.transportSubmit(input);
         }
     }
@@ -218,11 +223,9 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
         return findViewById(R.id.status_layout);
     }
 
-    private TransportBean beanList;
     @Override
     public void onGetTransport(TransportBean bean) {
         if (bean == null) return;
-        beanList = bean;
         TransportBean.TransportBeans transportBeans = bean.getList().get(0);
         transport_temp = transportBeans.getPackageCode();
         if(transport_temp.length() > 9) {
@@ -268,12 +271,6 @@ public class TransfersActivity extends BaseActivity<TransfersPresenter, Transfer
         }
         //扫描不管成功还是失败，都执行获取列表
         mPresenter.getTransportVerification(input_temp);
-    }
-    private int getPosition(String packageCode){
-        for(int i = 0; i < beanList.getList().size(); i++) {
-            if(packageCode.equals(beanList.getList().get(i).getPackageCode())) return i;
-        }
-        return -1;
     }
     @Override
     public void onSubmitSuccess(BaseBean bean) {

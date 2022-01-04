@@ -13,11 +13,8 @@ import androidx.core.content.ContextCompat;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.ui.adapter.LogAdapter;
 import com.aige.loveproduction.bean.HistoryLog;
-import com.aige.loveproduction.util.FileUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -50,20 +47,5 @@ public class HistoryLogActivity extends AppCompatActivity {
         toolbar_title.setNavigationOnClickListener(v -> HistoryLogActivity.this.finish());
         adapter = new LogAdapter(this);
         ebl = new ArrayList<>();
-        FileUtil fileUtil = new FileUtil(this);
-        String read = null;
-        try {
-            read = fileUtil.readFrom("scanLog/log.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if(read != null) {
-            System.out.println(read);
-            String[] split = read.split("#");
-            List<String> list = Arrays.asList(split);
-            System.out.println(list.get(0));
-            adapter.setDate(list);
-            log_listview.setAdapter(adapter);
-        }
     }
 }

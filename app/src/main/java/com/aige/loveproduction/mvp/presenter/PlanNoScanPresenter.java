@@ -7,6 +7,7 @@ import com.aige.loveproduction.bean.TransferBean;
 import com.aige.loveproduction.bean.WonoAsk;
 import com.aige.loveproduction.mvp.contract.PlanNoScanContract;
 import com.aige.loveproduction.mvp.model.PlanNoScanModel;
+import com.aige.loveproduction.net.BaseObserver;
 import com.aige.loveproduction.net.RxScheduler;
 import com.aige.loveproduction.base.BasePresenter;
 
@@ -14,178 +15,98 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 public class PlanNoScanPresenter extends BasePresenter<PlanNoScanContract.View,PlanNoScanModel> implements PlanNoScanContract.Presenter {
-    private List<ScanCodeBean> scanCodeBeanList;
-    private BaseBean<List<ScanCodeBean>> scanCodeBeans;
-    //记录请求的数据列表数量
-    private int wonoSize = 0;
+    private static final List<ScanCodeBean> listBeans = new ArrayList<>();
     @Override
     public PlanNoScanModel bindModel() {
         return new PlanNoScanModel();
     }
-
+    private WonoAsk newAsk(WonoAsk ask) {
+        WonoAsk newAsk = new WonoAsk();
+        newAsk.setScanCode(ask.getScanCode());
+        newAsk.setOperationType(ask.getOperationType());
+        newAsk.setEmployeeId(ask.getEmployeeId());
+        newAsk.setUserName(ask.getUserName());
+        newAsk.setWorkGroupId(ask.getWorkGroupId());
+        newAsk.setMachineId(ask.getMachineId());
+        newAsk.setOperationId(ask.getOperationId());
+        return newAsk;
+    }
     @Override
     public void getWonoByBatchNo(String batchNo, String opId, WonoAsk ask) {
         checkViewAttached();
         mModel.getWonoByBatchNo(batchNo,opId,ask).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<List<TransferBean>>>() {
+                .subscribe(new BaseObserver<List<TransferBean>>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onStart(Disposable d) {
                         mView.showLoading();
                     }
+
                     @Override
-                    public void onNext(@NonNull BaseBean<List<TransferBean>> transferBeanBaseBean) {
-
-                        scanCodeBeanList = new ArrayList<>();
-                        scanCodeBeans = new BaseBean<>();
-                        if(transferBeanBaseBean.getCode() == 0) {
-                            mView.onGetWonoByBatchNoSuccess(transferBeanBaseBean);
-                            List<TransferBean> data = transferBeanBaseBean.getData();
-                            wonoSize = data.size();
-                            for(TransferBean bean : data) {
-                                try {
-                                    Thread.sleep(100);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                ask.setScanCode(bean.getWono());
-                                getMessageByWono(ask);
-                            }
-                        }else{
-                            mView.hideLoading();
-                            mView.onError(transferBeanBaseBean.getMsg());
-                        }
-
-
+                    public void onSuccess(List<TransferBean> response) {
+                        listBeans.clear();
+                        getMessageByWono(response,ask);
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        mView.hideLoading();
-                        analysisThrowable(e);
-
+                    public void onError(String message) {
+                        mView.onError(message);
                     }
 
                     @Override
-                    public void onComplete() {
-
+                    public void onNormalEnd() {
+//                        mView.hideLoading();
                     }
                 });
     }
-
+    //聚合请求
     @Override
-    public void getMessageByWono(WonoAsk ask) {
+    public void getMessageByWono(List<TransferBean> beans,WonoAsk ask) {
         checkViewAttached();
-
-        mModel.getMessageByWono(ask).compose(RxScheduler.Obs_io_main())
+        Observable<BaseBean<ScanCodeBean>>[] arr = new Observable[beans.size()];
+        for (int i = 0; i < beans.size();i++) {
+            WonoAsk wonoAsk = newAsk(ask);
+            wonoAsk.setScanCode(beans.get(i).getWono());
+            arr[i] = mModel.getMessageByWono(wonoAsk);
+        }
+        Observable.concatArray(arr).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<PlanNoMessageBean>>() {
+                .subscribe(new BaseObserver<ScanCodeBean>() {
                     @Override
-                    public void onSubscribe(@NonNull Disposable d) {
+                    public void onStart(Disposable d) {
+                        setDisposable(d);
                     }
-                    @Override
-                    public void onNext(@NonNull BaseBean<PlanNoMessageBean> bean) {
-                        if(bean.getCode() == 0) {
-                            PlanNoMessageBean data = bean.getData();
-                            ScanCodeBean scanCodeBean = new ScanCodeBean();
-                            scanCodeBean.setWono(data.getWono());
-                            scanCodeBean.setTotalArea(String.valueOf(data.getTotalArea()));
-                            scanCodeBean.setOrderId(data.getOrderId());
-                            if(data.getCode() == 0) {
-                                scanCodeBean.setMessage("扫描成功");
-                            }else{
-                                scanCodeBean.setMessage(data.getMsg());
-                            }
 
-                            scanCodeBean.setPlanNo(data.getPlanNo());
-                            scanCodeBean.setTotalCnt(String.valueOf(data.getTotalCnt()));
-                            scanCodeBeanList.add(scanCodeBean);
+                    @Override
+                    public void onSuccess(ScanCodeBean response) {
+                        if(response.getCode() == 0) {
+                            response.setMessage("扫描成功");
                         }else{
-                            ScanCodeBean scanCodeBean = new ScanCodeBean();
-                            scanCodeBean.setWono(ask.getScanCode());
-                            scanCodeBean.setMessage("异常");
-                            scanCodeBeanList.add(scanCodeBean);
+                            response.setMessage(response.getMsg());
                         }
-                        if(scanCodeBeanList.size() == wonoSize) {
-                            scanCodeBeans.setData(scanCodeBeanList);
+                        listBeans.add(response);
+                        if(response.getWono().equals(beans.get(beans.size()-1).getWono())) {
                             mView.hideLoading();
-                            mView.onGetMessageByWonoSuccess(scanCodeBeans);
+                            mView.onGetMessageByWonoSuccess(listBeans);
                         }
                     }
 
                     @Override
-                    public void onError(@NonNull Throwable e) {
-                        ScanCodeBean scanCodeBean = new ScanCodeBean();
-                        scanCodeBean.setWono(ask.getScanCode());
-                        scanCodeBean.setMessage("异常");
-                        scanCodeBeanList.add(scanCodeBean);
-                        if(scanCodeBeanList.size() == wonoSize) {
-                            scanCodeBeans.setData(scanCodeBeanList);
-                            mView.hideLoading();
-                            mView.onGetMessageByWonoSuccess(scanCodeBeans);
-                        }
+                    public void onError(String message) {
+                        mView.onError(message);
+                        mView.hideLoading();
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onNormalEnd() {
 
                     }
                 });
-//        mModel.getPlanNoMessage(ask, index).doOnNext(new Consumer<BaseBean<PlanNoMessageBean>>() {
-//            @Override
-//            public void accept(BaseBean<PlanNoMessageBean> bean) throws Throwable {
-//                if (bean.getCode() == 0) {
-//                    PlanNoMessageBean message_data = bean.getData();
-//                    for (int i = 0; i < wonoSize; i++) {
-//                        if (temporary_data.getData().get(i).getWono().equals(message_data.getWono())) {
-//                            if (message_data.getCode() == 0) {
-//                                temporary_data.getData().get(i).setMessage("扫描成功");
-//                            } else {
-//                                flag = false;
-//                                temporary_data.getData().get(i).setMessage(message_data.getMsg());
-//                            }
-//                            break;
-//                        }
-//                    }
-//                } else {
-//                    mView.hideLoading();
-//                }
-//            }
-//        }).observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<BaseBean<PlanNoMessageBean>>() {
-//                    @Override
-//                    public void accept(BaseBean<PlanNoMessageBean> bean) throws Throwable {
-//                        execute++;
-//                        if (bean.getCode() == 0) {
-//                            if (execute == wonoSize) {
-//                                if (!flag) temporary_data.setCode(3);
-//                                mView.onGetPlanNoScanList(temporary_data);
-//                                mView.hideLoading();
-//                            }
-//                        }
-//
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Throwable {
-//                        execute++;
-//                        flag = false;
-//                        if (throwable instanceof SocketTimeoutException) {
-//                            temporary_data.getData().get(index).setMessage("扫描超时");
-//                        } else {
-//                            temporary_data.getData().get(index).setMessage("异常");
-//                        }
-//                        if (execute == wonoSize) {
-//                            if (!flag) temporary_data.setCode(3);
-//                            mView.onGetPlanNoScanList(temporary_data);
-//                            mView.hideLoading();
-//                        }
-//                    }
-//                });
     }
-
 }

@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Observable;
 public interface MixedLotContract {
     interface Model extends IBaseModel {
         Observable<BaseBean<List<ScanCodeBean>>> getHunPiByBatchNo(String batchN0, String opId, String solutionName,WonoAsk ask);
-        Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(WonoAsk ask);
+        Observable<BaseBean<ScanCodeBean>> getMessageByWono(WonoAsk ask);
     }
     interface View extends IBaseView {
         void onGetHunPiByBatchNoSuccess(List<ScanCodeBean> bean);

@@ -22,7 +22,9 @@ public class TransfersPresenter extends BasePresenter<TransfersContract.View, Tr
         return new TransfersModel();
     }
 
-
+    /**
+     * 扫描获取列表
+     */
     @Override
     public void getTransportVerification(String packageCode) {
         checkViewAttached();
@@ -53,6 +55,9 @@ public class TransfersPresenter extends BasePresenter<TransfersContract.View, Tr
                 });
     }
 
+    /**
+     * 扫描扫描列表上的包装
+     */
     @Override
     public void transportScan(String packageCode, String transportName) {
         checkViewAttached();
@@ -82,29 +87,11 @@ public class TransfersPresenter extends BasePresenter<TransfersContract.View, Tr
 
                     }
                 });
-//                .subscribe(new BaseObserver() {
-//                    @Override
-//                    public void onStart(Disposable d) {
-//                        setDisposable(d);
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Object response) {
-//                        mView.onScanSuccess(null);
-//                    }
-//
-//                    @Override
-//                    public void onError(String message) {
-//                        mView.onError(methodName,message);
-//                    }
-//
-//                    @Override
-//                    public void onNormalEnd() {
-//
-//                    }
-//                });
     }
 
+    /**
+     * 提交
+     */
     @Override
     public void transportSubmit(String packageCode) {
         checkViewAttached();

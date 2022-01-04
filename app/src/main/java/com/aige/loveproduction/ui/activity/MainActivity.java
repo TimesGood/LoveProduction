@@ -55,7 +55,6 @@ public class MainActivity extends AppActivity implements BottomNavigationView.On
     @Override
     protected void initView() {
         mViewPager = findViewById(R.id.main_body);
-
     }
 
     @Override
@@ -74,33 +73,33 @@ public class MainActivity extends AppActivity implements BottomNavigationView.On
         home_navigation.setItemIconTintList(null);
         // 屏蔽底部导航栏长按文本提示
         Menu menu = home_navigation.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
+        for (byte i = 0; i < menu.size(); i++) {
             home_navigation.findViewById(menu.getItem(i).getItemId()).setOnLongClickListener(v -> true);
         }
-        onNewIntent(getIntent());
+//        onNewIntent(getIntent());
     }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        int index = fragmentPagerAdapter.getFragmentIndex(getSerializable("index"));
-        if(index == -1) return;
-        mViewPager.setCurrentItem(index);
-        switch (index) {
-            case 0:
-                home_navigation.setSelectedItemId(R.id.home);
-                setCenterTitle("首页");
-                break;
-            case 1:
-                home_navigation.setSelectedItemId(R.id.report);
-                setCenterTitle("报表");
-                break;
-            case 2:
-                home_navigation.setSelectedItemId(R.id.user);
-                setCenterTitle("个人中心");
-                break;
-        }
-    }
+//
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        int index = fragmentPagerAdapter.getFragmentIndex(getSerializable("index"));
+//        if(index == -1) return;
+//        mViewPager.setCurrentItem(index);
+//        switch (index) {
+//            case 0:
+//                home_navigation.setSelectedItemId(R.id.home);
+//                setCenterTitle("首页");
+//                break;
+//            case 1:
+//                home_navigation.setSelectedItemId(R.id.report);
+//                setCenterTitle("报表");
+//                break;
+//            case 2:
+//                home_navigation.setSelectedItemId(R.id.user);
+//                setCenterTitle("个人中心");
+//                break;
+//        }
+//    }
 
     //双击返回手机返回键，关闭软件
     protected long exitTime;

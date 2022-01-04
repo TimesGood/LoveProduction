@@ -15,6 +15,7 @@ import com.aige.loveproduction.mvp.contract.ReportContract;
 import com.aige.loveproduction.mvp.presenter.ApplyPresenter;
 import com.aige.loveproduction.mvp.presenter.ReportPresenter;
 import com.aige.loveproduction.ui.customui.StatusLayout;
+import com.aige.loveproduction.util.FormatDateUtil;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
@@ -32,6 +33,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReportRefundMonthActivity extends BaseActivity<ReportPresenter, ReportContract.View>
@@ -86,8 +88,9 @@ public class ReportRefundMonthActivity extends BaseActivity<ReportPresenter, Rep
         List<Integer> direct = new ArrayList<>();
         List<Integer> channel_one = new ArrayList<>();
         List<Integer> channel_tow = new ArrayList<>();
-        List<Integer> scale = new ArrayList<>();
-        int i = 0;
+        List<Byte> scale = new ArrayList<>();
+        List<String> xLabels = new ArrayList<>();
+        byte i = 0;
         for (ReportBean bean : beans) {
             if("直营".equals(bean.getProjectName())) direct.add((int) bean.getMonthTotal());
             if("渠道1部".equals(bean.getProjectName())) channel_one.add((int) bean.getMonthTotal());
@@ -95,6 +98,8 @@ public class ReportRefundMonthActivity extends BaseActivity<ReportPresenter, Rep
                 channel_tow.add((int) bean.getMonthTotal());
                 scale.add(i);
                 i++;
+                Calendar calendar = FormatDateUtil.FormatDate("yyyy-MM", bean.getMonthValue(), "yyyy-MM-dd");
+                xLabels.add(calendar.get(Calendar.MONTH)+1+"月");
             }
         }
         List<List<Integer>> broken_line = new ArrayList<>();
@@ -109,12 +114,8 @@ public class ReportRefundMonthActivity extends BaseActivity<ReportPresenter, Rep
         colors.add(R.color.blue);
         colors.add(R.color.red);
         colors.add(R.color.yellow);
-        List<String> xlabel = new ArrayList<>();
-        for(int j = 1;j <= scale.size();j++) {
-            xlabel.add(j+"月");
-        }
         chartManager.setBarData(scale,broken_line,labels,colors);
-        chartManager.showBarChart(barChart,xlabel);
+        chartManager.showBarChart(barChart,xLabels);
     }
 
     @Override

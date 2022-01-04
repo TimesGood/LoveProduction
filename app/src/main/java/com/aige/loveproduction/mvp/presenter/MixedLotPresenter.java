@@ -72,27 +72,23 @@ public class MixedLotPresenter extends BasePresenter<MixedLotContract.View,Mixed
         checkViewAttached();
         mModel.getMessageByWono(ask).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<PlanNoMessageBean>>() {
+                .subscribe(new Observer<BaseBean<ScanCodeBean>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                     }
                     @Override
-                    public void onNext(@NonNull BaseBean<PlanNoMessageBean> bean) {
+                    public void onNext(@NonNull BaseBean<ScanCodeBean> bean) {
                         if(bean.getCode() == 0) {
-                            PlanNoMessageBean data = bean.getData();
-                            ScanCodeBean scanCodeBean = new ScanCodeBean();
-                            scanCodeBean.setWono(data.getWono());
-                            scanCodeBean.setTotalArea(String.valueOf(data.getTotalArea()));
-                            scanCodeBean.setOrderId(data.getOrderId());
+                            ScanCodeBean data = bean.getData();
                             if(data.getCode() == 0) {
-                                scanCodeBean.setMessage("扫描成功");
+                                data.setMessage("扫描成功");
                             }else{
-                                scanCodeBean.setMessage(data.getMsg());
+                                data.setMessage(data.getMsg());
                             }
 
-                            scanCodeBean.setPlanNo(data.getPlanNo());
-                            scanCodeBean.setTotalCnt(String.valueOf(data.getTotalCnt()));
-                            scanCodeBeanList.add(scanCodeBean);
+                            data.setPlanNo(data.getPlanNo());
+                            data.setTotalCnt(String.valueOf(data.getTotalCnt()));
+                            scanCodeBeanList.add(data);
                         }else{
                             ScanCodeBean scanCodeBean = new ScanCodeBean();
                             scanCodeBean.setWono(ask.getScanCode());

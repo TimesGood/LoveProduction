@@ -4,6 +4,7 @@ package com.aige.loveproduction.mvp.presenter;
 
 import com.aige.loveproduction.base.BaseBean;
 import com.aige.loveproduction.bean.PlanNoMessageBean;
+import com.aige.loveproduction.bean.ScanCodeBean;
 import com.aige.loveproduction.bean.WonoAsk;
 import com.aige.loveproduction.mvp.contract.WorkScanContract;
 import com.aige.loveproduction.mvp.model.WorkScanModel;
@@ -28,14 +29,14 @@ public class WorkScanPresenter extends BasePresenter<WorkScanContract.View,WorkS
         checkViewAttached();
         mModel.getMessageByWono(ask).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
-                .subscribe(new Observer<BaseBean<PlanNoMessageBean>>() {
+                .subscribe(new Observer<BaseBean<ScanCodeBean>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         mView.showLoading();
                     }
 
                     @Override
-                    public void onNext(@NonNull BaseBean<PlanNoMessageBean> bean) {
+                    public void onNext(@NonNull BaseBean<ScanCodeBean> bean) {
                         mView.onGetMessageByWonoSuccess(bean);
                     }
 

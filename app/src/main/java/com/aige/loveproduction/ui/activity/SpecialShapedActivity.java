@@ -229,8 +229,8 @@ public class SpecialShapedActivity extends BaseActivity<SpecialShapedPresenter, 
 
     private void getGridView(List<String> bean) {
         int childCount = grid_data.getChildCount();
-        int j = 0;
-        for(int i = 0 ;i < childCount;i++) {
+        byte j = 0;
+        for(byte i = 0 ;i < childCount;i++) {
             if(i%2 != 0 && grid_data.getChildAt(i) instanceof TextView) {
                 ((TextView) grid_data.getChildAt(i)).setText(bean.get(j));
                 j++;

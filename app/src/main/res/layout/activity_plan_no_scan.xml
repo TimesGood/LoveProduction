@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background">
-
         <include
             layout="@layout/title_include"
             android:layout_width="match_parent"
@@ -23,15 +22,11 @@
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
         <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <include layout="@layout/recyclerview_data_include"/>
         </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
-
-
     </com.aige.loveproduction.ui.customui.StatusLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-

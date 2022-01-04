@@ -32,8 +32,8 @@ public class RxScheduler {
         return new FlowableTransformer<T, T>() {
             @Override
             public @NonNull Publisher<T> apply(@NonNull Flowable<T> upstream) {
-                return upstream.subscribeOn(Schedulers.io())//切换到io()线程，执行请求网络请求
-                        .observeOn(AndroidSchedulers.mainThread());//切换到主线程，处理请求结果
+                return upstream.subscribeOn(Schedulers.io())//指定被观察者在哪个线程执行
+                        .observeOn(AndroidSchedulers.mainThread());//指定观察者在哪个线程观察
             }
         };
     }

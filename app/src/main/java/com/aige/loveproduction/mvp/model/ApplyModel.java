@@ -21,4 +21,9 @@ public class ApplyModel implements ApplyContract.Model {
     public Observable<ResponseBody> getFile(String url) {
         return getApi().getFile(url);
     }
+
+    @Override
+    public Observable<BaseBean<List<String>>> getMPRByBatchNoV2(String barcode) {
+        return getApi().getMPRByBatchNoV2(barcode);
+    }
 }

@@ -16,15 +16,16 @@ import io.reactivex.rxjava3.core.Observable;
 public interface PlanNoScanContract {
     interface Model extends IBaseModel {
         Observable<BaseBean<List<TransferBean>>> getWonoByBatchNo(String batchNo, String opId,WonoAsk ask);
-        Observable<BaseBean<PlanNoMessageBean>> getMessageByWono(WonoAsk ask);
+        Observable<BaseBean<ScanCodeBean>> getMessageByWono(WonoAsk ask);
     }
     interface View extends IBaseView {
-        void onGetWonoByBatchNoSuccess(BaseBean<List<TransferBean>> bean);
-        void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean);
+//        void onGetWonoByBatchNoSuccess(BaseBean<List<TransferBean>> bean);
+//        void onGetMessageByWonoSuccess(BaseBean<List<ScanCodeBean>> bean);
+        void onGetMessageByWonoSuccess(List<ScanCodeBean> bean);
     }
     interface Presenter extends IBasePresenter<View> {
         void getWonoByBatchNo(String batchNo, String opId,WonoAsk ask);
-        void getMessageByWono(WonoAsk ask);
-
+//        void getMessageByWono(WonoAsk ask);
+        void getMessageByWono(List<TransferBean> beans,WonoAsk ask);
     }
 }

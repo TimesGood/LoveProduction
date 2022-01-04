@@ -81,4 +81,33 @@ public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyModel
                     }
                 });
     }
+
+    @Override
+    public void getMPRByBatchNoV2(String barcode) {
+        mModel.getMPRByBatchNoV2(barcode).compose(RxScheduler.Obs_io_main())
+                .to(mView.bindAutoDispose())
+                .subscribe(new BaseObserver<List<String>>(){
+                    @Override
+                    public void onStart(Disposable d) {
+                        setDisposable(d);
+                        mView.showLoading();
+                    }
+
+                    @Override
+                    public void onSuccess(List<String> response) {
+                        mView.onGetMPRByBatchNoV2Success(response);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        mView.hideLoading();
+                        mView.onError(message);
+                    }
+
+                    @Override
+                    public void onNormalEnd() {
+                        mView.hideLoading();
+                    }
+                });
+    }
 }

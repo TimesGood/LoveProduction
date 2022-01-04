@@ -59,7 +59,7 @@ public class SSSettingActivity extends AppActivity {
             }
         });
         int childCount = radio.getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        for (byte i = 0; i < childCount; i++) {
             RadioButton radioButton = (RadioButton) radio.getChildAt(i);
             boolean workgroupSettings = SharedPreferencesUtils.getBoolean(SSSettingActivity.this, "sssetting", radioButton.getText().toString());
             radioButton.setChecked(workgroupSettings);

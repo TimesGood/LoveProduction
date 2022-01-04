@@ -84,23 +84,28 @@ public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter
 
     @Override
     public void showLoading() {
-        grid_item.setVisibility(View.GONE);
         showLoadings();
+        hideKeyboard(find_edit);
+        recyclerview_data.setVisibility(View.GONE);
+        recyclerview_data.setAdapter(null);
+        grid_item.setVisibility(View.GONE);
     }
 
     @Override
     public void hideLoading() {
-        grid_item.setVisibility(View.VISIBLE);
         showComplete();
+        recyclerview_data.setVisibility(View.VISIBLE);
+        grid_item.setVisibility(View.VISIBLE);
         mAnimation.alphaTran(recyclerview_data,300);
     }
 
     @Override
     public void onError(String message) {
-        soundUtils.playSound(1,0);
         showToast(message);
-        recyclerview_data.setAdapter(null);
         showEmpty();
+        soundUtils.playSound(1,0);
+
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
@@ -171,7 +176,6 @@ public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter
         return findViewById(R.id.loading);
     }
 
-    private int count = 0;
     @Override
     public void onGetTransport(TransportBean bean) {
         if(bean == null) return;
@@ -211,11 +215,10 @@ public class TransferVerifyActivity extends BaseActivity<TransferVerifyPresenter
     }
     private boolean confirmStatus(TransportBean bean) {
         boolean flag = false;
-        count = 0;
         for (TransportBean.TransportBeans beans : bean.getList()) {
             if(!(beans.getConfirmDate() == null || "".equals(beans.getConfirmDate()))) {
                 flag = true;
-                count++;
+                break;
             }
         }
         return flag;

@@ -23,6 +23,10 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     public void onNext(@NonNull BaseBean<T> response) {
         //返回数据状态为0时，才返回数据，否则以异常处理
         if(response.getCode() == 0) {
+            T data = response.getData();
+            if(data == null || "[]".equals(data.toString())) {
+                onError("空数据");
+            }
             onSuccess(response.getData());
         }else{
             onError(response.getMsg());

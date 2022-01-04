@@ -147,7 +147,7 @@ public class WrapRecyclerView extends RecyclerView {
             }else if(position >= headerViewCount + itemCount) {
                 return FOOTER_VIEW_TYPE;
             }
-            int adapterIndex = position - itemCount;//当前调用位置减去头部的数量，就是原适配器的索引了
+            int adapterIndex = position - headerViewCount;//当前调用位置减去头部的数量，就是原适配器的索引了
             //返回原适配器所定义的类型
             return mAdapter.getItemViewType(adapterIndex);
         }

@@ -1,9 +1,5 @@
 package com.aige.loveproduction.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,23 +13,27 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.StatusAction;
-import com.aige.loveproduction.ui.adapter.PlateAdapter;
-import com.aige.loveproduction.ui.customui.viewgroup.WrapRecyclerView;
+import com.aige.loveproduction.base.BaseActivity;
 import com.aige.loveproduction.bean.PlateBean;
 import com.aige.loveproduction.bean.PlateWrapBean;
 import com.aige.loveproduction.mvp.contract.PlateFindContract;
+import com.aige.loveproduction.mvp.presenter.PlateFindPresenter;
+import com.aige.loveproduction.permission.Permission;
+import com.aige.loveproduction.ui.adapter.PlateAdapter;
 import com.aige.loveproduction.ui.customui.StatusLayout;
 import com.aige.loveproduction.ui.customui.view.RecycleViewDivider;
-import com.aige.loveproduction.mvp.presenter.PlateFindPresenter;
-import com.aige.loveproduction.base.BaseActivity;
+import com.aige.loveproduction.ui.customui.viewgroup.WrapRecyclerView;
 import com.aige.loveproduction.ui.dialogin.MessageDialog;
-import com.aige.loveproduction.permission.Permission;
 import com.aige.loveproduction.util.IntentUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 
 import org.jetbrains.annotations.NotNull;
 
@@ -51,8 +51,7 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
     private TextView barcode,plate_name,material,matname,size,operator,supplier;
     private EditText find_edit;
     private ImageView image_camera,find_img;
-    private LinearLayout recyclerview_body;
-    private WrapRecyclerView recyclerview_data;//列表组件
+    private RecyclerView recyclerview_data;//列表组件
     private PlateAdapter adapter;
     private final StringBuilder builder = new StringBuilder();
     private String temporary_find_edit;
@@ -81,7 +80,7 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
         operator = findViewById(R.id.operator);
         supplier = findViewById(R.id.supplier);
         recyclerview_title = findViewById(R.id.recyclerview_title);
-        recyclerview_body = findViewById(R.id.recyclerview_body);
+        recyclerview_data = findViewById(R.id.recyclerview_data);
     }
 
     @Override
@@ -105,6 +104,7 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
         });
 
         recyclerview_title.setVisibility(View.GONE);
+        recyclerview_data.addItemDecoration(new RecycleViewDivider(this, LinearLayoutManager.HORIZONTAL,1,getColor(R.color.black)));
     }
 
     /**
@@ -160,29 +160,29 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
 //        //分组后循环渲染列表
 //        collect.forEach((k,v) -> setRecyclerviewData(v));
         //他要按服务器传过来的数据顺序进行分组排列，罢了罢了，上面lambda函数不能用了，改吧
-        List<PlateBean> beanList = new ArrayList<>();
         StringBuilder newStr = new StringBuilder();
-        for(int i = 0;i < bean.getPlateBeans().size();i++) {
+        List<PlateBean> plateBeans = bean.getPlateBeans();
+        for(byte i = 0;i < bean.getPlateBeans().size();i++) {
             PlateBean plateBean = bean.getPlateBeans().get(i);
             newStr.delete(0,newStr.length());
             newStr.append(plateBean.getSolutionConfigName())
                     .append(plateBean.getPlanNo())
                     .append(plateBean.getApS_Code());
-            if(i != 0 && !builder.toString().equals(newStr.toString())) {
-                setRecyclerviewData(beanList);
-                beanList = new ArrayList<>();
-            }
-            beanList.add(plateBean);
-            if(i == bean.getPlateBeans().size()-1) {
-                setRecyclerviewData(beanList);
-                break;
+            if(!builder.toString().equals(newStr.toString())) {
+                plateBeans.add(i,null);
             }
             builder.delete(0,builder.length());
             builder.append(plateBean.getSolutionConfigName())
                     .append(plateBean.getPlanNo())
                     .append(plateBean.getApS_Code());
         }
-        PlateBean plateBean = bean.getPlateBeans().get(0);
+        adapter = new PlateAdapter(this);
+        adapter.setData(bean.getPlateBeans());
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerview_data.setLayoutManager(manager);
+        recyclerview_data.setAdapter(adapter);
+        PlateBean plateBean = bean.getPlateBeans().get(1);
         plate_name.setText(plateBean.getDetailName());
         material.setText(plateBean.getMatProducer());
         matname.setText(plateBean.getMatname());
@@ -194,43 +194,16 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
         operator.setText(bean.getNickName());
         supplier.setText(plateBean.getSupplier());
     }
-    private void setRecyclerviewData(List<PlateBean> bean) {
-        adapter = new PlateAdapter(this);
-        adapter.setData(bean);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerview_data = new WrapRecyclerView(this);
-        recyclerview_data.setNestedScrollingEnabled(false);//静止滑动事件
-        recyclerview_data.setLayoutManager(manager);
-        recyclerview_data.setAdapter(adapter);
-        //头部
-        View inflate = LayoutInflater.from(this).inflate(R.layout.plate_find_head_item, recyclerview_data,false);
-        TextView plate_item_title = inflate.findViewById(R.id.plate_item_title);
-        TextView head_planNo_text = inflate.findViewById(R.id.head_planNo_text);
-        TextView head_plan_data = inflate.findViewById(R.id.head_plan_data);
-        PlateBean plateBean = bean.get(0);
-        plate_item_title.setText(plateBean.getSolutionConfigName());
-        String planNo_Aps = plateBean.getPlanNo()+"-"+plateBean.getApS_Code();
-        head_planNo_text.setText(planNo_Aps);
-        head_plan_data.setText(plateBean.getPlanEndDate());
-
-        recyclerview_data.addItemDecoration(new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL,1,getColor(R.color.item_line)));
-        recyclerview_data.addHeaderView(inflate);
-        recyclerview_data.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        recyclerview_body.addView(recyclerview_data);
-    }
     private void hideTest() {
-        plate_name.setText("");
-        material.setText("");
-        matname.setText("");
-        size.setText("");
-        operator.setText("");
-        supplier.setText("");
+        for(int i = 1;i < recyclerview_title.getChildCount();i++){
+            if(i%2 == 0 && recyclerview_title.getChildAt(i) instanceof TextView) {
+                ((TextView) recyclerview_title.getChildAt(i)).setText("");
+            }
+        }
     }
     @Override
     public void showLoading() {
         recyclerview_title.setVisibility(View.GONE);
-        recyclerview_body.removeAllViews();
         hideTest();
         showLoadings();
     }
@@ -239,7 +212,6 @@ public class PlateFindActivity extends BaseActivity<PlateFindPresenter,PlateFind
     public void hideLoading() {
         showComplete();
         recyclerview_title.setVisibility(View.VISIBLE);
-        recyclerview_body.setAnimation(AnimationUtils.loadAnimation(this,R.anim.ios_in_window));
     }
 
     @Override

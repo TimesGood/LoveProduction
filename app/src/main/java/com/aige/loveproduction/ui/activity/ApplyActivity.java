@@ -16,13 +16,14 @@ import com.aige.loveproduction.R;
 import com.aige.loveproduction.base.BaseActivity;
 import com.aige.loveproduction.base.BaseDialog;
 import com.aige.loveproduction.bean.DownloadBean;
+import com.aige.loveproduction.listener.OnWriteFileListener;
 import com.aige.loveproduction.mvp.contract.ApplyContract;
 import com.aige.loveproduction.mvp.presenter.ApplyPresenter;
 import com.aige.loveproduction.ui.customui.view.DrawMprView;
 import com.aige.loveproduction.ui.dialogin.LoadingDialog;
 import com.aige.loveproduction.ui.dialogin.MessageDialog;
 import com.aige.loveproduction.permission.Permission;
-import com.aige.loveproduction.util.FileUtil;
+import com.aige.loveproduction.util.IOUtil;
 import com.aige.loveproduction.util.FileViewerUtils;
 import com.aige.loveproduction.util.IntentUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -31,11 +32,6 @@ import com.google.zxing.integration.android.IntentResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -184,89 +180,65 @@ public class ApplyActivity extends BaseActivity<ApplyPresenter, ApplyContract.Vi
         if (input.isEmpty()) {
             showToast("请输入批次号");
         } else {
-            mPresenter.getMPRByBatchNo(input);
+            mPresenter.getMPRByBatchNoV2(input);
         }
     }
+
+
     @Override
     public void onGetMPRByBatchNoSuccess(List<DownloadBean> beans) {
-        DownloadBean downloadBean = beans.get(0);
-        mFile = new File(getExternalCacheDir() + "/mprFile/"+downloadBean.getFileName());
-
+//        DownloadBean downloadBean = beans.get(0);
+//        mFile = new File(getExternalCacheDir() + "/mprFile/"+downloadBean.getFileName());
     }
 
     @Override
     public void onGetFileSuccess(ResponseBody body) {
-        FileViewerUtils.createOrExistsDir(FileViewerUtils.getFilePath(mFile));
-        //下载监听
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                writeFile2Disk(body, mFile);
-            }
-        }).start();
+//        FileViewerUtils.createOrExistsDir(FileViewerUtils.getFilePath(mFile));
+//        //下载监听
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                IOUtil.writeResponseBody(body, mFile, new OnWriteFileListener() {
+//                    @Override
+//                    public void onSuccess(String path) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                parseFile(mFile);
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onFail(Throwable e) {
+//                        showToast("文件下载过程异常");
+//                    }
+//                });
+//            }
+//        }).start();
     }
-    //下载文件并显示进度
-    private void writeFile2Disk(ResponseBody response, File file) {
-        //downloadListener.onStart();
-        long currentLength = 0;
-        OutputStream os = null;
-        if (response == null) {
-            //downloadListener.onFailure("资源错误！");
-            return;
-        }
-        InputStream is = response.byteStream();
-        //获取流总长度
-        long totalLength = response.contentLength();
-        try {
-            os = new FileOutputStream(file);
-            int len;
-            byte[] buff = new byte[1024];
-            while ((len = is.read(buff)) != -1) {
-                os.write(buff, 0, len);
-                currentLength += len;
-                //downloadListener.onProgress((int) (100 * currentLength / totalLength));
-                if ((int) (100 * currentLength / totalLength) == 100) {
-                    //downloadListener.onFinish(file);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            parseFile(file);
-                        }
-                    });
-                }
-            }
-        } catch (FileNotFoundException e) {
-            //downloadListener.onFailure("未找到文件！");
-            e.printStackTrace();
-        } catch (IOException e) {
-            //downloadListener.onFailure("IO错误！");
-            e.printStackTrace();
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+
     private void parseFile(File file) {
-        Map<String, List<Map<String, Float>>> data = FileUtil.readMprFile(file);
-        if(data == null) {
-            showToast("文件解析错误");
-            return;
-        }
-        apply_view.setData(data);
+//        Map<String, List<Map<String, Float>>> data = IOUtil.readMprFile(file);
+//        if(data == null) {
+//            showToast("文件解析错误");
+//            return;
+//        }
+//        apply_view.setData(data);
 //        apply_view.setRectangle_color(R.color.draw_sky_blue);
 //        apply_view.setCutting_color(R.color.draw_gray);
 //        apply_view.setBohrVert_color(R.color.draw_gray);
     }
+
+    @Override
+    public void onGetMPRByBatchNoV2Success(List<String> beans) {
+        if(beans == null || "[]".equals(beans.toString())) {
+            showToast("无板件数据");
+            return;
+        }
+        Map<String, List<Map<String, Float>>> stringListMap = IOUtil.readMprFile(beans);
+        apply_view.setData(stringListMap);
+    }
+
+
 }

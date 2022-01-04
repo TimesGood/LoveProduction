@@ -342,7 +342,7 @@ public class FactorySettingsActivity extends BaseActivity<FactorySettingPresente
         if (machineDatas == null || workgroupDatas == null || handlerData == null) return false;
         //*****************机器*****************
         int childCount = machineRadio.getChildCount();
-        for (int i = 0; i < childCount; i++) {
+        for (byte i = 0; i < childCount; i++) {
             RadioButton rb = (RadioButton) machineRadio.getChildAt(i);
             if (rb.isChecked()) {
                 machineDatas.forEach(v -> {
@@ -359,7 +359,7 @@ public class FactorySettingsActivity extends BaseActivity<FactorySettingPresente
 
         //******************工作组******************
         int workgroupCount = workgroupRadio.getChildCount();
-        for (int i = 0; i < workgroupCount; i++) {
+        for (byte i = 0; i < workgroupCount; i++) {
             RadioButton rb = (RadioButton) workgroupRadio.getChildAt(i);
             if (rb.isChecked()) {
                 workgroupDatas.forEach(v -> {
@@ -373,8 +373,8 @@ public class FactorySettingsActivity extends BaseActivity<FactorySettingPresente
         }
         //*******************操作人********************
         int handlerCount = handlerRadio.getChildCount();
-        StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < handlerCount; i++) {
+        final StringBuffer buffer = new StringBuffer();
+        for (byte i = 0; i < handlerCount; i++) {
             View childline = handlerRadio.getChildAt(i);
             if (childline instanceof CheckBox) {
                 CheckBox cb = (CheckBox) childline;
@@ -427,7 +427,7 @@ public class FactorySettingsActivity extends BaseActivity<FactorySettingPresente
             View mRadio = findViewById(machineRadio.getCheckedRadioButtonId());
             View wRadio = findViewById(workgroupRadio.getCheckedRadioButtonId());
             CheckBox hRadio = null;
-            for (int i = 0; i < handlerRadio.getChildCount(); i++) {
+            for (byte i = 0; i < handlerRadio.getChildCount(); i++) {
                 CheckBox box = (CheckBox) handlerRadio.getChildAt(i);
                 if (box.isChecked()) {
                     hRadio = box;

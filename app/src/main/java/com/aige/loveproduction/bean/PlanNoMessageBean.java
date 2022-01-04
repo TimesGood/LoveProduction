@@ -6,8 +6,12 @@ public class PlanNoMessageBean {
     private String orderId;
     private String wono;
     private int totalCnt;
-    private double totalArea;
+    private float totalArea;
     private String planNo;
+    private String batchno;
+    private String saoMiaoCount;
+    private String weiSaoCount;
+    private String message;
 
     public int getCode() {
         return code;
@@ -49,11 +53,11 @@ public class PlanNoMessageBean {
         this.totalCnt = totalCnt;
     }
 
-    public double getTotalArea() {
+    public float getTotalArea() {
         return totalArea;
     }
 
-    public void setTotalArea(double totalArea) {
+    public void setTotalArea(float totalArea) {
         this.totalArea = totalArea;
     }
 
@@ -63,6 +67,38 @@ public class PlanNoMessageBean {
 
     public void setPlanNo(String planNo) {
         this.planNo = planNo;
+    }
+
+    public String getBatchno() {
+        return batchno;
+    }
+
+    public void setBatchno(String batchno) {
+        this.batchno = batchno;
+    }
+
+    public String getSaoMiaoCount() {
+        return saoMiaoCount;
+    }
+
+    public void setSaoMiaoCount(String saoMiaoCount) {
+        this.saoMiaoCount = saoMiaoCount;
+    }
+
+    public String getWeiSaoCount() {
+        return weiSaoCount;
+    }
+
+    public void setWeiSaoCount(String weiSaoCount) {
+        this.weiSaoCount = weiSaoCount;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override
