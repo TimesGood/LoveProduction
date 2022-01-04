@@ -1,4 +1,4 @@
- ##结构：
+ # 结构：
  |———assets：存放静态资源
  |———filters
  |   |———debug：debug环境配置文件
@@ -19,20 +19,20 @@
  |   |   |———util：工具类
  |———jniLibs：so文件
  |———res：资源文件
-##action
+# action
 处理每个页面可能都会使用到的一些操作的封装
 
 
-##customui
+# customui
 自定义一些组件，如果需要自定义组件，请在该目录下创建自定义
 
-##adapter
+# adapter
 业务需要，配置适配器，处理不同形式的数据，如需增加适配器，请继承AppAdapter，其中AppAdapter继承于BaseAdapter
 BaseAdapter：ListView有内置的一些监听事件，但是RecycleView却没有，所以在BaseAdapter中主要对监听事件进行了一些封装，
 当然也统一了一些数据绑定的入口onBindView
 AppAdapter：主要对要适配的数据进行处理，把RecycleView.Adapter<?>原来比较繁琐配置适配器数据进行统一，
 增加对外添加、修改、删除、插入等对数据条目的处理
-##mvp，增加业务
+# mvp，增加业务
 1、当你需要增加一个页面，并且该页面需要请求网络获取数据时，你需要在mvp/contract之下创建一个契约类，该类之下需创建三个接口
 例：
 public interface DemoContract {
