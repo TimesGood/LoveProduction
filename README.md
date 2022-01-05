@@ -34,6 +34,7 @@ AppAdapter：主要对要适配的数据进行处理，把RecycleView.Adapter<?>
 # mvp，增加业务
 1、当你需要增加一个页面，并且该页面需要请求网络获取数据时，你需要在mvp/contract之下创建一个契约类，该类之下需创建三个接口  
 例：  
+```
 public interface DemoContract {  
     interface Model extends IBaseModel {  
         //获取数据  
@@ -48,17 +49,21 @@ public interface DemoContract {
         void getXXX(String param);  
     }  
 }  
+```
 2、在APIService之下添加要请求的接口，并配置一些参数  
 @GET("/api/Paperless/Folder/GetMPRByBarCode")  
 Observable<BaseBean<?>> getXXX(@Query("BarCode") String param);  
 3、创建Model实例实现DemoContract中的Model  
+```
 public class DemoModel implements DemoContract.Model {  
     @Override  
     public Observable<BaseBean<?>> getXXX(String param) {  
         return getApi().getXXX(param);  
     }  
 }  
+```
 4、创建Presenter实例实现DemoContract中的Presenter，并继承BasePresenter<DemoContract.View, DemoModel>  
+```
 public class DemoPresenter extends BasePresenter<DemoContract.View, DemoModel> implements DemoContract.Presenter{  
     @Override  
     public ApplyModel bindModel() {  
@@ -91,5 +96,9 @@ public class DemoPresenter extends BasePresenter<DemoContract.View, DemoModel> i
                 });  
     }  
 }  
-5、最后在Activity中把默认继承AppCompActivity的改为继承BaseActivity<DemoPresenter, DemoContract.View>并实现DemoContract.View  
-把该写的东西写上，需要进行网络请求的地方调用mPresenter.getXXX(param)即可，接收请求回来的数据就在onXXXSuccess(data)中获取  
+```
+5、最后在Activity中把默认继承AppCompActivity的改为继承BaseActivity<DemoPresenter, DemoContract.View>并实现DemoContract.View
+把该写的东西写上，需要进行网络请求的地方调用mPresenter.getXXX(param)即可，接收请求回来的数据就在onXXXSuccess(data)中获取 
+
+# 我是文本
+
