@@ -9,19 +9,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.SharePreferencesAction;
 import com.aige.loveproduction.base.AppFragment;
+import com.aige.loveproduction.ui.activity.MprActivity;
 import com.aige.loveproduction.ui.activity.MainActivity;
 import com.aige.loveproduction.ui.adapter.HomeAdapter;
 import com.aige.loveproduction.base.BaseAdapter;
 import com.aige.loveproduction.bean.HomeBean;
 import com.aige.loveproduction.enums.PermissionEnum;
-import com.aige.loveproduction.ui.activity.ApplyActivity;
 import com.aige.loveproduction.ui.activity.CreateTaskActivity;
 import com.aige.loveproduction.ui.activity.InStorageActivity;
 import com.aige.loveproduction.ui.activity.MixedLotActivity;
 import com.aige.loveproduction.ui.activity.MoveStorageActivity;
 import com.aige.loveproduction.ui.activity.OutStorageActivity;
 import com.aige.loveproduction.ui.activity.PlateFindActivity;
-import com.aige.loveproduction.ui.activity.PreviewActivity;
 import com.aige.loveproduction.ui.activity.SendOutActivity;
 import com.aige.loveproduction.ui.activity.SendOutVerifyActivity;
 import com.aige.loveproduction.ui.activity.SpecialShapedActivity;
@@ -177,7 +176,7 @@ public class HomeFragment extends AppFragment<MainActivity> implements BaseAdapt
                 startActivity(TransferVerifyActivity.class);
                 break;
             case 14 :
-                startActivity(ApplyActivity.class);
+                startActivity(MprActivity.class);
                 break;
             case 15:
                 startActivity(CreateTaskActivity.class);
@@ -186,7 +185,7 @@ public class HomeFragment extends AppFragment<MainActivity> implements BaseAdapt
                 startActivity(ToFillInActivity.class);
                 break;
             case 17:
-                startActivity(PreviewActivity.class);
+                startActivity(MprActivity.class);
         }
     }
 }

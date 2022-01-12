@@ -6,7 +6,9 @@ import android.view.View;
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.base.BaseDialog;
 
-
+/**
+ * 加载等待弹窗
+ */
 public class LoadingDialog {
     public static class Builder extends CommonDialog.Builder<Builder> {
         private OnListener mListener;

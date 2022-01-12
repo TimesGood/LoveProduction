@@ -11,7 +11,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Observable;
 import okhttp3.ResponseBody;
 
-public interface ApplyContract {
+public interface MprContract {
     interface Model extends IBaseModel {
         Observable<BaseBean<List<DownloadBean>>> getMPRByBatchNo(String barcode);
         Observable<ResponseBody> getFile(String url);

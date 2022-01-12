@@ -1,8 +1,5 @@
 package com.aige.loveproduction.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.aige.loveproduction.R;
@@ -10,29 +7,14 @@ import com.aige.loveproduction.action.StatusAction;
 import com.aige.loveproduction.base.BaseActivity;
 import com.aige.loveproduction.bean.ReportBean;
 import com.aige.loveproduction.manager.MPAndroidChartManager;
-import com.aige.loveproduction.mvp.contract.ApplyContract;
 import com.aige.loveproduction.mvp.contract.ReportContract;
-import com.aige.loveproduction.mvp.presenter.ApplyPresenter;
 import com.aige.loveproduction.mvp.presenter.ReportPresenter;
 import com.aige.loveproduction.ui.customui.StatusLayout;
 import com.aige.loveproduction.util.FormatDateUtil;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.DataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 

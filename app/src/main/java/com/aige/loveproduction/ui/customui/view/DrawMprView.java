@@ -2,6 +2,7 @@ package com.aige.loveproduction.ui.customui.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -16,38 +17,47 @@ import androidx.annotation.Nullable;
 
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.action.ResourcesAction;
+import com.aige.loveproduction.enums.MprPosition;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 张文科
  * 板件渲染
  * 自定义图形图形渲染
  * 支持拖拽、缩放，双击图形置中
+ * 本来想分图形组件管理的，但我时间不多了，算了吧
  */
 public class DrawMprView extends View implements ResourcesAction {
     //坐标
     private final RectF mRectF;
+    private final PointF mPointF = new PointF();
     //画笔
     private final Paint mPaint;
     //储存主图形的宽高
-    private float mWidth = 0f,mHeight = 0f,viewWidth,viewHeight;
+    private float masterX = 0f,masterY = 0f,finalMasterX,finalMasterY,viewWidth,viewHeight;
     //外面传递的图形参数
     private Map<String,List<Map<String,Float>>> oldMapData;
     private Map<String,List<Map<String,Float>>> newMapData;
+    private Map<String,List<Map<String,Float>>> mapData;
+    //临时存储的数据
+    private Map<String,Float> filter = new HashMap<>();
     //缩放比例
     private float scale = 1f;
     //图形初始坐标
     private float centerX = 0f,centerY = 0f;
     private final PointF centerPoint = new PointF();
-    //**********************************默认颜色属性****************************************************
+    //**********************************初始设置****************************************************
     private int rectangle_color = getColor(R.color.draw_brown);
     private int cutting_color = getColor(R.color.draw_green);
     private int bohrHoriz_color = getColor(R.color.white);
     private int bohrVert_color = getColor(R.color.white);
+    private boolean showXY = false;
     //*********************************************************************************************
     //**********************************以下是实现图形移动、缩放功能的属性***********************************
     //触摸的不同状态的表示：
@@ -97,6 +107,7 @@ public class DrawMprView extends View implements ResourcesAction {
         setCustom();
         //深度克隆
         newMapData = cloneData(oldMapData,1f);
+        mapData = cloneData(oldMapData,1f);
         //恢复初始状态
         initProperty();
         //刷新，重新绘制
@@ -111,14 +122,14 @@ public class DrawMprView extends View implements ResourcesAction {
     }
     //设置图形的显示居中
     private void setCenter() {
-        List<Map<String, Float>> rectangle = newMapData.get("rectangle");
-        if(rectangle == null) throw new NullPointerException("主视图不能为空!");
-        rectangle.get(0).forEach((k,v) -> {
-            if("BSX".equals(k)) mWidth = v;
-            if("BSY".equals(k)) mHeight = v;
+        List<Map<String, Float>> master = newMapData.get("master");
+        if(master == null) throw new NullPointerException("主视图不能为空!");
+        master.get(0).forEach((k,v) -> {
+            if("BSX".equals(k)) masterX = finalMasterX = v;
+            if("BSY".equals(k)) masterY = finalMasterY = v;
         });
-        centerX = viewWidth/2-mWidth/2;
-        centerY = viewHeight/2+mHeight/2;
+        centerX = viewWidth/2-masterX/2;
+        centerY = viewHeight/2+masterY/2;
         centerPoint.set(centerX,centerY);
     }
     /**
@@ -130,6 +141,8 @@ public class DrawMprView extends View implements ResourcesAction {
         cusMap.put("offsetX",50f);
         cusMap.put("offsetY",12f);
         cusMap.put("strokeWidth",2f);
+        cusMap.put("masterLine",100f);
+        cusMap.put("edge",20f);
         List<Map<String,Float>> list = new ArrayList<>();
         list.add(cusMap);
         oldMapData.put("customProperty",list);
@@ -210,29 +223,29 @@ public class DrawMprView extends View implements ResourcesAction {
     //解析整理数据，绘制要绘制的图形
     private void parseData(Canvas canvas) {
         if(newMapData == null) return;
-        List<Map<String, Float>> rectangle = newMapData.get("rectangle");
-        List<Map<String, Float>> cutting1 = newMapData.get("Cutting1");
-        List<Map<String, Float>> bohrVert1 = newMapData.get("BohrVert1");
-        List<Map<String, Float>> bohrVert2 = newMapData.get("BohrVert2");
-        List<Map<String, Float>> bohrHoriz1 = newMapData.get("BohrHoriz1");
+        List<Map<String, Float>> master = newMapData.get("master");
+        List<Map<String, Float>> bohrVert = newMapData.get("bohrVert");
+        List<Map<String, Float>> bohrVertCross = newMapData.get("bohrVertCross");
+        List<Map<String, Float>> bohrHoriz = newMapData.get("bohrHoriz");
+        List<Map<String, Float>> cutting = newMapData.get("cutting");
         List<Map<String, Float>> property = newMapData.get("customProperty");
         Map<String, Float> propertyMap = property.get(0);
         //绘制主视图
-        if(rectangle != null) {
-            rectangle.get(0).forEach((k,v) -> {
-                if("BSX".equals(k)) mWidth = v;
-                if("BSY".equals(k)) mHeight = v;
+        if(master != null) {
+            master.get(0).forEach((k,v) -> {
+                if("BSX".equals(k)) masterX = v;
+                if("BSY".equals(k)) masterY = v;
             });
-            centerX = viewWidth/2-mWidth/2;
-            centerY = viewHeight/2+mHeight/2;
+            centerX = viewWidth/2-masterX/2;
+            centerY = viewHeight/2+masterY/2;
             initPaint();
             mPaint.setColor(getRectangle_color());
-            drawRectangle(canvas,centerPoint.x, centerPoint.y, mWidth, mHeight);
+            drawRectangle(canvas,centerPoint.x, centerPoint.y, masterX, masterY);
         }
         //绘制切割线
-        if(cutting1 != null) {
+        if(cutting != null) {
             byte pathCount = 1;
-            for(Map<String, Float> map : cutting1) {
+            for(Map<String, Float> map : cutting) {
                 int size = map.size()/2;
                 initPaint();
                 mPaint.setColor(getCutting_color());
@@ -241,7 +254,7 @@ public class DrawMprView extends View implements ResourcesAction {
                 if(size == 2) {
                     //当坐标只有两个时，那是弧形切割面
                     drawPathQuad(canvas,map);
-                }else if(pathCount == cutting1.size()){
+                }else if(pathCount == cutting.size()){
                     //取最后一组切面，绘制最终切割描边
                     drawPath(canvas,map,propertyMap.get("textSize"),propertyMap.get("offsetX"),propertyMap.get("offsetY"),false,true);
                 }
@@ -249,43 +262,43 @@ public class DrawMprView extends View implements ResourcesAction {
             }
         }
         //绘制侧面钉子
-        if(bohrHoriz1 != null) {
+        if(bohrHoriz != null) {
             initPaint();
             mPaint.setColor(getBohrHoriz_color());
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setStrokeWidth(1f);
-            for(Map<String, Float> map : bohrHoriz1) {
+            for(Map<String, Float> map : bohrHoriz) {
                 Float[] floats = parseMap(map);
                 drawNail(canvas,floats[0],floats[1],floats[2],floats[3]);
             }
         }
         byte index;
         //绘制表面钉子
-        if(bohrVert1 != null) {
+        if(bohrVert != null) {
             index = 0;
-            for(Map<String, Float> map : bohrVert1) {
+            for(Map<String, Float> map : bohrVert) {
                 Float[] floats = parseMap(map);
                 initPaint();
                 if(firstDraw) {
                     textList1.add(index,printCoordinate(floats[0],floats[1]));
                 }
                 mPaint.setColor(getBohrVert_color());
-                drawText(canvas, textList1.get(index), propertyMap.get("textSize"), floats[0], floats[1], 0f, floats[2]);
+                drawText(canvas, textList1.get(index), propertyMap.get("textSize"), floats[0], floats[1], 0f, floats[2],showXY);
                 drawArc(canvas,0,360,floats[2],floats[0],floats[1]);
                 index++;
             }
         }
         //绘制表面十字钉
-        if(bohrVert2 != null) {
+        if(bohrVertCross != null) {
             index = 0;
-            for(Map<String, Float> map : bohrVert2) {
+            for(Map<String, Float> map : bohrVertCross) {
                 Float[] floats = parseMap(map);
                 initPaint();
                 if(firstDraw) {
                     textList2.add(index,printCoordinate(floats[0],floats[1]));
                 }
                 mPaint.setColor(getBohrVert_color());
-                drawText(canvas, textList2.get(index), propertyMap.get("textSize"), floats[0], floats[1], 0f, floats[2]);
+                drawText(canvas, textList2.get(index), propertyMap.get("textSize"), floats[0], floats[1], 0f, floats[2],showXY);
                 drawArc(canvas,0,360,floats[2],floats[0],floats[1]);
                 mPaint.setStyle(Paint.Style.STROKE);
                 mPaint.setStrokeWidth(1f);
@@ -297,6 +310,12 @@ public class DrawMprView extends View implements ResourcesAction {
                 index++;
             }
         }
+        //绘制距离线
+        initPaint();
+        mPaint.setStrokeWidth(1f);
+        drawDistanceMasterLine(canvas,propertyMap.get("textSize"),propertyMap.get("masterLine"),propertyMap.get("edge"));
+        drawDistanceBohrLine(canvas,bohrHoriz,propertyMap.get("textSize"),propertyMap.get("masterLine"),propertyMap.get("edge"));
+        drawDistanceCuttingLine(canvas,cutting.get(cutting.size()-1),propertyMap.get("textSize"),propertyMap.get("masterLine")/2,propertyMap.get("edge"));
         //已经绘制过一次，改变绘制状态
         firstDraw = false;
     }
@@ -347,9 +366,182 @@ public class DrawMprView extends View implements ResourcesAction {
         mRectF.right = xy.x+width/2;
         mRectF.top = xy.y-height/2;
         canvas.drawRect(mRectF,mPaint);
-
     }
 
+    /**
+     * 绘制主图形距离线
+     * @param textSize 文字大小
+     * @param masterLine 主图形线
+     * @param edge 线距中间缺口大小
+     */
+    private void drawDistanceMasterLine(Canvas canvas,float textSize,float masterLine,float edge){
+        //master距线
+        drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterY),textSize,0,0,0,masterY);
+        drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterX),textSize,0,masterY,masterX,masterY);
+        drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterY),textSize,masterX,0,masterX,masterY);
+        drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterX),textSize,0,0,masterX,0);
+    }
+
+    /**
+     *
+     * @param data 距离线数据
+     * @param textSize 字体大小
+     * @param masterLine 主图形线距
+     * @param edge 线距中间缺口大小
+     */
+    private void drawDistanceBohrLine(Canvas canvas,List<Map<String,Float>> data,float textSize,float masterLine,float edge) {
+
+        List<Map<String, Float>> bohrHoriz = mapData.get("bohrHoriz");
+        float ave = masterLine / 10;
+        float step = ave;
+        for(int i = 0;i < data.size();i++) {
+            Float[] floats = parseMap(data.get(i));
+            Float[] finalF = parseMap(bohrHoriz.get(i));
+            MprPosition position = getPosition(floats[0], floats[1]);
+            switch (position) {
+                case LEFT:
+                    drawLineWrap(canvas,step,edge,String.valueOf(finalF[1]),textSize,0,0,floats[0],floats[1]);
+                    break;
+                case TOP:
+                    drawLineWrap(canvas,step,edge,String.valueOf(finalF[0]),textSize,0,masterY,floats[0],floats[1]);
+                    break;
+                case RIGHT:
+                    drawLineWrap(canvas,step,edge,String.valueOf(finalF[1]),textSize,masterX,0,floats[0],floats[1]);
+                    break;
+                case BOTTOM:
+                    drawLineWrap(canvas,step,edge,String.valueOf(finalF[0]),textSize,0,0,floats[0],floats[1]);
+                    break;
+            }
+            step += ave;
+            if(i < data.size()-1) {
+                Float[] next = parseMap(data.get(i + 1));
+                MprPosition nextPosition = getPosition(next[0], next[1]);
+                if(nextPosition != position) {
+                    step = masterLine / 10;
+                }
+            }
+        }
+    }
+    private void drawDistanceCuttingLine(Canvas canvas,Map<String,Float> data,float textSize,float masterLine,float edge) {
+        List<Map<String, Float>> cutting = mapData.get("cutting");
+        Map<String, Float> finalCutting = cutting.get(cutting.size() - 1);
+        float lastX = 0;
+        float lastY = 0;
+        byte index = 0;
+        for(byte i = 0;i < data.size()/2;i++) {
+            float x = data.get("X"+i);
+            float y = data.get("Y"+i);
+            MprPosition position = getPosition(x, y);
+            switch (position) {
+                case LEFT:
+                case TOP:
+                case RIGHT:
+                case BOTTOM:
+                    index++;
+                    if(index % 2 == 0) {
+                        MprPosition position1 = getPosition(lastX, lastY, x, y);
+                        switch (position1) {
+                            case LEFT_BOTTOM:
+                                drawLineWrap(canvas,masterLine,edge,String.valueOf(finalCutting.get("Y"+(i-1))),textSize,0,0,lastX,lastY);
+                                drawLineWrap(canvas,masterLine,edge,String.valueOf(finalCutting.get("X"+i)),textSize,0,0,x,y);
+                                break;
+                            case LEFT_TOP:
+                                if(lastX == 0) {
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterY-finalCutting.get("Y"+(i-1))),textSize,0,masterY,lastX,lastY);
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalCutting.get("X"+i)),textSize,0,masterY,x,y);
+                                }else{
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalCutting.get("X"+(i-1))),textSize,0,masterY,lastX,lastY);
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterY-finalCutting.get("Y"+i)),textSize,0,masterY,x,y);
+                                }
+                                break;
+                            case RIGHT_BOTTOM:
+                                if(lastY == 0) {
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterX-finalCutting.get("X"+(i-1))),textSize,masterX,0,lastX,lastY);
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalCutting.get("Y"+i)),textSize,masterX,0,x,y);
+                                }else{
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalCutting.get("Y"+i)),textSize,masterX,0,lastX,lastY);
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterX-finalCutting.get("X"+(i-1))),textSize,masterX,0,x,y);
+                                }
+                                break;
+                            case RIGHT_TOP:
+                                if(lastY == masterY) {
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterX-finalCutting.get("X"+(i-1))),textSize,lastX,lastY,masterX,masterY);
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterY-finalCutting.get("Y"+i)),textSize,x,y,masterX,masterY);
+                                }else{
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterY-finalCutting.get("Y"+(i-1))),textSize,lastX,lastY,masterX,masterY);
+                                    drawLineWrap(canvas,masterLine,edge,String.valueOf(finalMasterX-finalCutting.get("X"+(i))),textSize,x,y,masterX,masterY);
+                                }
+
+                                break;
+                        }
+                    }
+                    lastX = x;
+                    lastY = y;
+                    break;
+            }
+        }
+    }
+
+
+    /**
+     * 绘制距离线
+     * @param masterLine 中间空格
+     * @param textSize 字体大小
+     * @param startX 开始X坐标
+     * @param startY 开始Y坐标
+     * @param stopX 结束X坐标
+     * @param stopY 结束Y坐标
+     */
+    private void drawLineWrap(Canvas canvas,float masterLine,float edge,String text,float textSize,float startX,float startY,float stopX,float stopY){
+        float pointX;
+        float pointY;
+        switch (getPosition(startX, startY, stopX, stopY)) {
+            case LEFT:
+                startX -= masterLine;
+                stopX -= masterLine;
+                pointY = startY+(stopY-startY)/2;
+                if(edge > pointY) edge = stopY/3;
+                drawLine(canvas,startX,startY,stopX,pointY-edge);
+                drawLine(canvas,stopX,stopY,startX,pointY+edge);
+                drawLine(canvas,startX,startY,startX+masterLine,startY);
+                drawLine(canvas,stopX,stopY,stopX+masterLine,stopY);
+                drawTextOnPath(canvas,text,textSize,0,pointY,masterLine,MprPosition.LEFT,true);
+                break;
+            case TOP:
+                startY += masterLine;
+                stopY += masterLine;
+                pointX = startX+(stopX-startX)/2;
+                if(edge > pointX) edge = stopX/3;
+                drawLine(canvas,startX,startY,pointX-edge,stopY);
+                drawLine(canvas,stopX,stopY,pointX+edge,stopY);
+                drawLine(canvas,startX,startY,startX,startY-masterLine);
+                drawLine(canvas,stopX,stopY,stopX,stopY-masterLine);
+                drawTextOnPath(canvas,text,textSize,pointX,startY,masterLine,MprPosition.TOP,true);
+                break;
+            case RIGHT:
+                startX += masterLine;
+                stopX += masterLine;
+                pointY = startY+(stopY-startY)/2;
+                if(edge > pointY) edge = stopY/3;
+                drawLine(canvas,startX,startY,stopX,pointY-edge);
+                drawLine(canvas,stopX,stopY,stopX,pointY+edge);
+                drawLine(canvas,startX,startY,startX-masterLine,startY);
+                drawLine(canvas,stopX,stopY,stopX-masterLine,stopY);
+                drawTextOnPath(canvas,text,textSize,startX,pointY,masterLine,MprPosition.RIGHT,true);
+                break;
+            case BOTTOM:
+                startY -= masterLine;
+                stopY -= masterLine;
+                pointX = startX+(stopX-startX)/2;
+                if(edge > pointX) edge = stopX/3;
+                drawLine(canvas,startX,startY,pointX-edge,stopY);
+                drawLine(canvas,stopX,stopY,pointX+edge,stopY);
+                drawLine(canvas,startX,startY,startX,startY+masterLine);
+                drawLine(canvas,stopX,stopY,stopX,stopY+masterLine);
+                drawTextOnPath(canvas,text,textSize,pointX,0,masterLine,MprPosition.BOTTOM,true);
+                break;
+        }
+    }
     /**
      * 绘制侧钉子
      * @param x 钉子打入点x轴
@@ -360,30 +552,32 @@ public class DrawMprView extends View implements ResourcesAction {
     private void drawNail(Canvas canvas,float x,float y,float d,float depth) {
         PointF xy = getXY(x, y);
         d /= 2;
-        if(x==0) {
-            //当钉子在左
-            mRectF.left = xy.x;
-            mRectF.bottom = xy.y-d;
-            mRectF.right = xy.x+depth;
-            mRectF.top = xy.y+d;
-        }else if(y == 0) {
-            //当钉子在下
-            mRectF.left = xy.x-d;
-            mRectF.bottom = xy.y-depth;
-            mRectF.right = xy.x+d;
-            mRectF.top = xy.y;
-        }else if(x == mWidth){
-            //当钉子在右
-            mRectF.left = xy.x-depth;
-            mRectF.bottom = xy.y-d;
-            mRectF.right = xy.x;
-            mRectF.top = xy.y+d;
-        }else if(y == mHeight) {
-            //当钉子在上
-            mRectF.left = xy.x-d;
-            mRectF.bottom = xy.y;
-            mRectF.right = xy.x+d;
-            mRectF.top = xy.y+depth;
+        switch (getPosition(x,y)) {
+            case LEFT:
+                mRectF.left = xy.x;
+                mRectF.bottom = xy.y-d;
+                mRectF.right = xy.x+depth;
+                mRectF.top = xy.y+d;
+                break;
+            case TOP:
+                mRectF.left = xy.x-d;
+                mRectF.bottom = xy.y;
+                mRectF.right = xy.x+d;
+                mRectF.top = xy.y+depth;
+
+                break;
+            case RIGHT:
+                mRectF.left = xy.x-depth;
+                mRectF.bottom = xy.y-d;
+                mRectF.right = xy.x;
+                mRectF.top = xy.y+d;
+                break;
+            case BOTTOM:
+                mRectF.left = xy.x-d;
+                mRectF.bottom = xy.y-depth;
+                mRectF.right = xy.x+d;
+                mRectF.top = xy.y;
+                break;
         }
         canvas.drawRect(mRectF,mPaint);
     }
@@ -415,15 +609,55 @@ public class DrawMprView extends View implements ResourcesAction {
      * @param offsetX X轴偏移 正向右偏移，负向左偏移
      * @param offsetY Y轴偏移 正向上偏移，负向下偏移
      */
-    private void drawText(Canvas canvas,String text,float size,float x,float y,float offsetX,float offsetY) {
+    private void drawText(Canvas canvas,String text,float size,float x,float y,float offsetX,float offsetY,boolean isShow) {
+        if(!isShow) return;
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setTextSize(size);//字体大小
         mPaint.setTextAlign(Paint.Align.CENTER);
-        //获取文字的高度
+        //获取文字垂直中心点
         Paint.FontMetrics fontMetrics=mPaint.getFontMetrics();
         float distance=(fontMetrics.bottom - fontMetrics.top)/2 - fontMetrics.bottom;
         PointF xy = getXY(x, y);
         canvas.drawText(text,xy.x+offsetX,xy.y+distance-offsetY,mPaint);
+    }
+    private final Path pathText = new Path();
+
+    /**
+     * 根据路径绘制文字
+     * @param text 文字
+     * @param size 文字大小
+     * @param x 文字x轴
+     * @param y 文字y轴
+     * @param textWidth 文字
+     * @param position 位置
+     * @param isShow 是否显示
+     */
+    private void drawTextOnPath(Canvas canvas,String text,float size,float x,float y,float textWidth,MprPosition position,boolean isShow) {
+        pathText.reset();
+        if(!isShow) return;
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setTextSize(size);//字体大小
+        mPaint.setTextAlign(Paint.Align.CENTER);
+        PointF xy = getXY(x, y);
+        switch (position) {
+            case LEFT:
+                pathText.moveTo(xy.x-textWidth, xy.y+textWidth);
+                pathText.lineTo(xy.x-textWidth, xy.y-textWidth);
+                break;
+            case TOP:
+                pathText.moveTo(xy.x-textWidth, xy.y);
+                pathText.lineTo(xy.x+textWidth, xy.y);
+                break;
+            case RIGHT:
+                pathText.moveTo(xy.x, xy.y-textWidth);
+                pathText.lineTo(xy.x, xy.y+textWidth);
+                break;
+            case BOTTOM:
+                pathText.moveTo(xy.x+textWidth, xy.y+textWidth);
+                pathText.lineTo(xy.x-textWidth, xy.y+textWidth);
+                break;
+        }
+        canvas.drawTextOnPath(text, pathText, 0, 0, mPaint);
     }
 
     /**
@@ -435,8 +669,10 @@ public class DrawMprView extends View implements ResourcesAction {
      */
     private void drawLine(Canvas canvas,float startX,float startY,float stopX,float stopY) {
         PointF startXY = getXY(startX, startY);
+        float sX = startXY.x;
+        float sY = startXY.y;
         PointF stopXY = getXY(stopX, stopY);
-        canvas.drawLine(startXY.x,startXY.y,stopXY.x,stopXY.y,mPaint);
+        canvas.drawLine(sX,sY,stopXY.x,stopXY.y,mPaint);
     }
 
     private final Path mPath = new Path();
@@ -462,13 +698,11 @@ public class DrawMprView extends View implements ResourcesAction {
                 mPath.lineTo(xy.x,xy.y);
             }
             if(firstDraw) pathList.add(i,printCoordinate(x,y));
-            //是否显示坐标
-            if (!showXY) continue;
             //字体位置
             if(x == 0 && y != 0 || (x != 0 && y != 0)) {
-                drawText(canvas,pathList.get(i),size,x,y,0,offsetY);
+                drawText(canvas,pathList.get(i),size,x,y,0,offsetY,showXY);
             } else if(x != 0 && y == 0 || (x == 0 && y == 0)) {
-                drawText(canvas,pathList.get(i),size,x,y,0,-offsetY);
+                drawText(canvas,pathList.get(i),size,x,y,0,-offsetY,showXY);
             }
         }
         //是否填充所画路径
@@ -493,18 +727,35 @@ public class DrawMprView extends View implements ResourcesAction {
         Float y1 = map.get("Y1");
         if(x0 == null||y0 == null||x1 == null||y1 == null) return;
         float abs = Math.abs(x0 - x1);
-        PointF xy0 = getXY(x0, y0);
-        PointF xy1 = getXY(x1, y1);
         PointF xy = null;
-        if((x0 == 0 && y0 != 0 && x1 != 0 && y1 == 0) || (x1 == 0 && y1 != 0 && x0 != 0 && y0 == 0)) {
-            xy = getXY(x0, y0-abs);
-        }else if((x0 != 0 && y0 == 0 && x1 != 0 && y1 != 0) || (x1 != 0 && y1 == 0 && x0 != 0 && y0 != 0)) {
-            xy = getXY(x0+abs, y0);
-        }else if((x0 != 0 && y0 != 0 && x1 != 0 && y1 != 0)) {
-            xy = getXY(x0, y0+abs);
-        }else {
-            xy = getXY(x0-abs, y0);
+        switch (getPosition(x0,y0,x1,y1)) {
+            case LEFT_BOTTOM:
+                xy = getXY(x0, y0-abs);
+                break;
+            case LEFT_TOP:
+                xy = getXY(x0-abs, y0);
+                break;
+            case RIGHT_BOTTOM:
+                xy = getXY(x0+abs, y0);
+                break;
+            case RIGHT_TOP:
+                xy = getXY(x0, y0+abs);
+                break;
+            default:
+                xy = getXY(x0, y0-abs);
+                break;
         }
+//        if((x0 == 0 && y0 != 0 && x1 != 0 && y1 == 0) || (x1 == 0 && y1 != 0 && x0 != 0 && y0 == 0)) {
+//            xy = getXY(x0, y0-abs);
+//        }else if((x0 != 0 && y0 == 0 && x1 != 0 && y1 != 0) || (x1 != 0 && y1 == 0 && x0 != 0 && y0 != 0)) {
+//            xy = getXY(x0+abs, y0);
+//        }else if((x0 != 0 && y0 != 0 && x1 != 0 && y1 != 0)) {
+//            xy = getXY(x0, y0+abs);
+//        }else {
+//            xy = getXY(x0-abs, y0);
+//        }
+        PointF xy0 = getNewXY(x0, y0);
+        PointF xy1 = getNewXY(x1, y1);
         mPath.moveTo(xy0.x, xy0.y);
         // 二次贝塞尔曲线
         mPath.quadTo(xy.x, xy.y, xy1.x, xy1.y);
@@ -514,6 +765,11 @@ public class DrawMprView extends View implements ResourcesAction {
      * 根据传递过来的xy轴坐标，转换为当前画布实际坐标
      */
     private PointF getXY(float x,float y) {
+        mPointF.x = centerPoint.x+x;
+        mPointF.y = centerPoint.y-y;
+        return mPointF;
+    }
+    private PointF getNewXY(float x,float y) {
         return new PointF(centerPoint.x+x,centerPoint.y-y);
     }
     @Override
@@ -592,6 +848,7 @@ public class DrawMprView extends View implements ResourcesAction {
         invalidate();
         return true;
     }
+    //*****************************************计算一些东西***********************************************
     /**
      * 计算两个触摸点之间的距离
      */
@@ -609,8 +866,59 @@ public class DrawMprView extends View implements ResourcesAction {
         return new PointF(x / 2, y / 2);
     }
 
+    /**
+     * 获取一个点在主图形边上的位置
+     * @return 0：右边，1：上面，2：右边，3：下边
+     */
+    private MprPosition getPosition(float x,float y) {
+        if(x == 0 && y != 0 && y != masterY) return MprPosition.LEFT;
+        if(
+                (x != 0 && y == masterY && x != masterX)
+                ||(x != 0 && y != 0 && y == masterY && x != masterX)
+        ) return MprPosition.TOP;
+        if(
+                (x == masterX && y != 0 && y != masterY)
+                ||(x != 0 && y != 0 && x == masterX && y != masterY)
 
-    //*************************************暴露给外面调整颜色***************************************
+        ) return MprPosition.RIGHT;
+        if(x != 0 && y == 0 && x != masterX) return MprPosition.BOTTOM;
+        return MprPosition.NULL;
+    }
+
+    /**
+     * 获取两点在主图形边上的位置
+     * 只能获取位于主图形边上的点位
+     * @return 0：右边，1：上面，2：右边，3：下边
+     */
+    private MprPosition getPosition(float startX,float startY,float stopX,float stopY) {
+        MprPosition start = getPosition(startX, startY);
+        MprPosition stop = getPosition(stopX, stopY);
+        if(startX == stopX && stopX == 0) return MprPosition.LEFT;
+        if(startY == stopY && stopY == masterY) return MprPosition.TOP;
+        if(startX == stopX && stopX == masterX) return MprPosition.RIGHT;
+        if(startY == stopY && stopY == 0) return MprPosition.BOTTOM;
+        if(
+                (start == MprPosition.LEFT && stop == MprPosition.BOTTOM)
+                ||(start == MprPosition.BOTTOM && stop == MprPosition.LEFT)
+        ) return MprPosition.LEFT_BOTTOM;
+        if(
+                (start == MprPosition.LEFT && stop == MprPosition.TOP)
+                ||(start == MprPosition.TOP && stop == MprPosition.LEFT)
+        ) return MprPosition.LEFT_TOP;
+        if(
+                (start == MprPosition.TOP && stop == MprPosition.RIGHT)
+                ||(start == MprPosition.RIGHT && stop == MprPosition.TOP)
+        ) return MprPosition.RIGHT_TOP;
+        if(
+                (start == MprPosition.RIGHT && stop == MprPosition.BOTTOM)
+                ||(start == MprPosition.BOTTOM && stop == MprPosition.RIGHT)
+        ) return MprPosition.RIGHT_BOTTOM;
+
+        return MprPosition.NULL;
+    }
+
+
+    //*************************************暴露给外面***************************************
     public int getRectangle_color() {
         return rectangle_color;
     }
@@ -641,5 +949,9 @@ public class DrawMprView extends View implements ResourcesAction {
 
     public void setBohrVert_color(@ColorRes int bohrVert_color) {
         this.bohrVert_color = getColor(bohrVert_color);
+    }
+    /**是否显示坐标*/
+    public void setShowXY(boolean param) {
+        this.showXY = param;
     }
 }

@@ -28,9 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author 张文科
  * 报表绘制管理
  * 柱形图、折线图、混合图（柱形、折线）已经配置好，其他图形官网自个找
- * @author 张文科
  */
 public class MPAndroidChartManager {
     private YAxis leftAxis;//左侧Y轴

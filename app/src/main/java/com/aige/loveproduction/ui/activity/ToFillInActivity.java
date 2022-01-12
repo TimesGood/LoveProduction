@@ -50,7 +50,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
         implements ToFillInContract.View, StatusAction, BaseAdapter.OnChildClickListener,
         ImageSelectActivity.OnPhotoSelectListener{
     private Spinner type,cause,post_responsibility;
-    private EditText barcode,plate_name,materials,mat_name,f_leng,f_width,thk,area,price,amount,discoverer,responsible,find_edit;
+    private EditText barcode,plate_name,materials,mat_name,f_leng,f_width,thk,area,price,amount,discoverer,responsible,find_edit,remark;
     private Button submit_button;
     private ImageView image_camera,find_img;
     private RelativeLayout data_body;
@@ -76,6 +76,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
         image_camera = findViewById(R.id.image_camera);
         find_img = findViewById(R.id.find_img);
         find_edit = findViewById(R.id.find_edit);
+        remark = findViewById(R.id.remark);
         submit_button = findViewById(R.id.submit_button);
         barcode = findViewById(R.id.barcode);
         materials = findViewById(R.id.materials);
@@ -191,6 +192,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
         }else if(id == R.id.submit_button) {
             if(examineData(false)) {
                 ToFillInAsk ask = getAsk();
+                System.out.println(ask);
                 mPresenter.submitData(ask);
             }else{
                 showToast("请填写完整");
@@ -219,7 +221,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
             if(childAt instanceof EditText) {
                 EditText text = ((EditText) childAt);
                 if(isClear) text.setText("");
-                if(text.getId() == R.id.responsible) continue;
+                if(text.getId() == R.id.responsible || text.getId() == R.id.remark) continue;
                 if(text.getText().toString().isEmpty()) {
                     text.requestFocus();
                     flag = false;
@@ -341,6 +343,7 @@ public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInCo
         ask.setOperator(responsible.getText().toString());
         ask.setColor(mat_name.getText().toString());
         ask.setDetailName(plate_name.getText().toString());
+        ask.setRemak(remark.getText().toString());
         ArrayList<String> list = new ArrayList<>();
         select_image_list.forEach(v ->{
             list.add(IOUtil.imageToBase64(v));

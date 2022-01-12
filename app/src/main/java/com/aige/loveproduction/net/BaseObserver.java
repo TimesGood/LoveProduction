@@ -12,7 +12,8 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import retrofit2.HttpException;
 
 /**
- * 自定义Observer，对请求回来的数据进行一些业务上的处理
+ * 对网络请求结果进行处理，把code非0的都当做异常处理
+ * 接口统一一下吧，某些接口code非0但还是要数据回去，这就烦人了
  */
 public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     @Override
@@ -23,10 +24,10 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     public void onNext(@NonNull BaseBean<T> response) {
         //返回数据状态为0时，才返回数据，否则以异常处理
         if(response.getCode() == 0) {
-            T data = response.getData();
-            if(data == null || "[]".equals(data.toString())) {
-                onError("空数据");
-            }
+//            T data = response.getData();
+//            if(data == null || "[]".equals(data.toString())) {
+//                onError("空数据");
+//            }
             onSuccess(response.getData());
         }else{
             onError(response.getMsg());

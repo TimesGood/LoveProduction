@@ -66,8 +66,8 @@ public class ToFillInBean {
         private String detailName;
         private String matname;
         private String matProducer;
-        private int fleng;
-        private int fwidth;
+        private float fleng;
+        private float fwidth;
         private int thk;
         private float area;
         private float total;
@@ -105,19 +105,19 @@ public class ToFillInBean {
             return matProducer;
         }
 
-        public void setFleng(int fleng) {
+        public void setFleng(float fleng) {
             this.fleng = fleng;
         }
 
-        public int getFleng() {
+        public float getFleng() {
             return fleng;
         }
 
-        public void setFwidth(int fwidth) {
+        public void setFwidth(float fwidth) {
             this.fwidth = fwidth;
         }
 
-        public int getFwidth() {
+        public float getFwidth() {
             return fwidth;
         }
 

@@ -94,8 +94,9 @@ au      thorities：{app的包名}.provider
         <activity android:name=".ui.activity.ImageSelectActivity" /><!-- 图片选择 -->
         <activity android:name=".ui.activity.CameraActivity" /><!-- 拍摄、录屏 -->
         <activity android:name=".ui.activity.FactorySettingsActivity" /><!-- 工厂设置界面 -->
-        <activity android:name=".ui.activity.ImagePreviewActivity" />
-        <activity android:name=".ui.activity.PlateFindActivityTest" /><!-- 图片预览 -->
+        <activity android:name=".ui.activity.ImagePreviewActivity" /><!-- 图片预览 -->
+        <activity android:name=".ui.activity.PlateFindActivityTest" />
+        <activity android:name=".ui.activity.MprActivity" android:screenOrientation="landscape"  />
     </application>
 <!--  在判断相机是否可用时，需要添加相应跳转地址  -->
     <queries>

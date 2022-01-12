@@ -17,7 +17,7 @@ import com.aige.loveproduction.base.AppActivity;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
 
 /**
- * 检验混单页面
+ * 检验混单
  */
 public class ExamineActivity extends AppActivity {
     private SwitchCompat in_stock_but,out_stock_but;

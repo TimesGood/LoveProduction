@@ -1,8 +1,8 @@
 package com.aige.loveproduction;
 
 
-import com.aige.loveproduction.test.A;
-import com.aige.loveproduction.test.C;
+import com.aige.loveproduction.mpr.A;
+import com.aige.loveproduction.mpr.C;
 
 import org.junit.Test;
 

@@ -11,7 +11,7 @@ import com.aige.loveproduction.base.BaseDialog;
 
 
 /**
- *    desc   : 消息对话框
+ * 消息对话框
  */
 public final class MessageDialog {
 

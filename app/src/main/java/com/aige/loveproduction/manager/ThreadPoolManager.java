@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- *线程池管理类
+ * 线程池管理，全局使用的线程池
  */
 public final class ThreadPoolManager extends ThreadPoolExecutor {
 

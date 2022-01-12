@@ -31,6 +31,8 @@ BaseAdapter：ListView有内置的一些监听事件，但是RecycleView却没�
 当然也统一了一些数据绑定的入口onBindView  
 AppAdapter：主要对要适配的数据进行处理，把RecycleView.Adapter<?>原来比较繁琐配置适配器数据进行统一，  
 增加对外添加、修改、删除、插入等对数据条目的处理  
+# net  
+本应用使用的是OkHttp+Retrofit+RxJava的框架搭建，在net目录下主要对这些框架进行整合，统一网络请求的形式
 # mvp，增加业务
 1、当你需要增加一个页面，并且该页面需要请求网络获取数据时，你需要在mvp/contract之下创建一个契约类，该类之下需创建三个接口  
 例：  
@@ -99,6 +101,4 @@ public class DemoPresenter extends BasePresenter<DemoContract.View, DemoModel> i
 ```
 5、最后在Activity中把默认继承AppCompActivity的改为继承BaseActivity<DemoPresenter, DemoContract.View>并实现DemoContract.View
 把该写的东西写上，需要进行网络请求的地方调用mPresenter.getXXX(param)即可，接收请求回来的数据就在onXXXSuccess(data)中获取 
-
-# 我是文本
 

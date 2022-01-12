@@ -9,10 +9,7 @@
     <com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.aige.loveproduction.test.WrapRecyclerView
-            android:id="@+id/recyclerview_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <include layout="@layout/recyclerview_data_include"/>
     </com.aige.loveproduction.ui.customui.viewgroup.DampNestedScrollView>
 
 </LinearLayout>

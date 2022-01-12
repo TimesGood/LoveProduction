@@ -1,21 +1,15 @@
 package com.aige.loveproduction.mvp.presenter;
 
 import com.aige.loveproduction.base.BasePresenter;
-import com.aige.loveproduction.bean.DownloadBean;
 import com.aige.loveproduction.bean.ReportBean;
-import com.aige.loveproduction.mvp.contract.ApplyContract;
 import com.aige.loveproduction.mvp.contract.ReportContract;
-import com.aige.loveproduction.mvp.model.ApplyModel;
 import com.aige.loveproduction.mvp.model.ReportModel;
 import com.aige.loveproduction.net.BaseObserver;
 import com.aige.loveproduction.net.RxScheduler;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
-import okhttp3.ResponseBody;
 
 public class ReportPresenter extends BasePresenter<ReportContract.View, ReportModel> implements ReportContract.Presenter{
     @Override

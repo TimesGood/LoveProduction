@@ -2,8 +2,8 @@ package com.aige.loveproduction.mvp.presenter;
 
 import com.aige.loveproduction.base.BasePresenter;
 import com.aige.loveproduction.bean.DownloadBean;
-import com.aige.loveproduction.mvp.contract.ApplyContract;
-import com.aige.loveproduction.mvp.model.ApplyModel;
+import com.aige.loveproduction.mvp.contract.MprContract;
+import com.aige.loveproduction.mvp.model.MprModel;
 import com.aige.loveproduction.net.BaseObserver;
 import com.aige.loveproduction.net.RxScheduler;
 
@@ -14,10 +14,10 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import okhttp3.ResponseBody;
 
-public class ApplyPresenter extends BasePresenter<ApplyContract.View, ApplyModel> implements ApplyContract.Presenter{
+public class MprPresenter extends BasePresenter<MprContract.View, MprModel> implements MprContract.Presenter{
     @Override
-    public ApplyModel bindModel() {
-        return new ApplyModel();
+    public MprModel bindModel() {
+        return new MprModel();
     }
 
     @Override

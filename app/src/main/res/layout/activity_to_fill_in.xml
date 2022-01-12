@@ -117,15 +117,16 @@
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:background="@drawable/shape_edit_enabled"/>
+
                 <TextView
                     android:id="@+id/f_leng_to"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:layout_below="@+id/mat_name_to"
-                    android:text="@string/f_leng"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
                     android:gravity="end|center_vertical"
-                    android:layout_marginBottom="5dp"/>
+                    android:text="@string/k_leng"
+                    android:textColor="@color/black" />
                 <EditText
                     android:id="@+id/f_leng"
                     android:layout_width="match_parent"
@@ -143,7 +144,7 @@
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:layout_below="@+id/f_leng_to"
-                    android:text="@string/f_width"
+                    android:text="@string/k_width"
                     android:textColor="@color/black"
                     android:gravity="end|center_vertical"
                     android:layout_marginBottom="5dp"/>
@@ -262,6 +263,7 @@
                     android:background="@drawable/layer_spinner"
                     android:entries="@array/to_fill_in"
                     android:theme="@style/Spinner_text" />
+
                 <TextView
                     android:id="@+id/cause_to"
                     android:layout_width="100dp"
@@ -320,15 +322,16 @@
                     android:background="@drawable/layer_spinner"
                     android:entries="@array/post_responsibility"
                     android:theme="@style/Spinner_text" />
+
                 <TextView
                     android:id="@+id/responsible_to"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:layout_below="@+id/post_responsibility_to"
-                    android:text="@string/responsible"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
                     android:gravity="end|center_vertical"
-                    android:layout_marginBottom="5dp"/>
+                    android:text="@string/responsible"
+                    android:textColor="@color/black" />
                 <EditText
                     android:id="@+id/responsible"
                     android:layout_width="match_parent"
@@ -351,10 +354,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/select_image"
+                        android:overScrollMode="never"
                         tools:layoutManager="GridLayoutManager"
                         tools:listitem="@layout/image_select_item"
-                        tools:spanCount="3"
-                        android:overScrollMode="never"/>
+                        tools:spanCount="3" />
+
                     <TextView
                         android:id="@+id/select_image"
                         android:layout_width="100dp"
@@ -362,12 +366,34 @@
                         android:layout_alignTop="@+id/select_images"
                         android:layout_alignBottom="@+id/select_images"
                         android:gravity="end|center_vertical"
-                        android:textSize="14sp"
                         android:text="@string/select_image"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
-
+                <TextView
+                    android:id="@+id/remark_to"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/select_image_layout"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/remark_to"
+                    android:textColor="@color/black"
+                    android:gravity="end|center_vertical"
+                    android:layout_marginBottom="5dp"/>
+                <EditText
+                    android:id="@+id/remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="35dp"
+                    android:hint="@string/remark"
+                    android:layout_alignTop="@+id/remark_to"
+                    android:layout_toEndOf="@+id/remark_to"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/shape_while_grey_stroke"/>
 
                 <Button
                     android:id="@+id/submit_button"
@@ -376,7 +402,7 @@
                     android:layout_marginEnd="150dp"
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="50dp"
-                    android:layout_below="@+id/select_image_layout"
+                    android:layout_below="@+id/remark"
                     android:layout_centerHorizontal="true"
                     android:text="@string/submit"
                     android:textColor="@color/white"

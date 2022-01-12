@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-
+/**
+ * 手机端内置小型数据库
+ */
 public class OrderDBHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;//数据库版本
     private static final String DB_NAME = "Production.db";

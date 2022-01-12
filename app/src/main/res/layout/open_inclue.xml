@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/open_main"
+android:layout_width="match_parent"
+android:layout_height="50dp"
+android:background="@drawable/shape_while"
+android:layout_marginBottom="1dp">
+<TextView
+    android:id="@+id/open_describe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_marginStart="10dp"
+    android:textColor="@color/black"
+    android:textSize="17sp" />
+<androidx.appcompat.widget.SwitchCompat
+    android:id="@+id/open_switch"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:theme="@style/SwitchCompat.Control"
+    android:layout_marginEnd="10dp" />
+</RelativeLayout>

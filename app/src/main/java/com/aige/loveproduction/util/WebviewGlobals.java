@@ -1,7 +1,7 @@
 package com.aige.loveproduction.util;
 
 /**
- * @Used  全局变量和公共方法
+ * 全局变量和公共方法
  */
 public class WebviewGlobals {
 

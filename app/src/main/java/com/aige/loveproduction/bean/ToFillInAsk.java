@@ -30,6 +30,7 @@ public class ToFillInAsk {
     private String operator;
     private List<String> imgBase64;
     private String detailName;
+    private String remak;
 
     public String getDetailName() {
         return detailName;
@@ -167,6 +168,14 @@ public class ToFillInAsk {
         this.imgBase64 = imgBase64;
     }
 
+    public String getRemak() {
+        return remak;
+    }
+
+    public void setRemak(String remak) {
+        this.remak = remak;
+    }
+
     @Override
     public String toString() {
         return "ToFillInAsk{" +
@@ -185,8 +194,9 @@ public class ToFillInAsk {
                 ", department='" + department + '\'' +
                 ", finder='" + finder + '\'' +
                 ", operator='" + operator + '\'' +
-                ", ImgBase64=" + imgBase64 +
+                ", imgBase64=" + imgBase64 +
                 ", detailName='" + detailName + '\'' +
+                ", remak='" + remak + '\'' +
                 '}';
     }
 }

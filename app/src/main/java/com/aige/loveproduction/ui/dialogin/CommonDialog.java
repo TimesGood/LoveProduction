@@ -14,7 +14,7 @@ import com.aige.loveproduction.R;
 import com.aige.loveproduction.base.BaseDialog;
 
 /**
- *    desc   : 项目通用 Dialog 布局封装
+ * 项目通用 Dialog 布局封装
  */
 public final class CommonDialog {
 

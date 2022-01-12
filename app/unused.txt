@@ -4356,7 +4356,6 @@ androidx.core.view.ViewCompat:
     public static int getMeasuredWidthAndState(android.view.View)
     public static int getNextClusterForwardId(android.view.View)
     public static int getOverScrollMode(android.view.View)
-    public static android.view.ViewParent getParentForAccessibility(android.view.View)
     public static float getPivotX(android.view.View)
     public static float getPivotY(android.view.View)
     public static float getRotation(android.view.View)
@@ -4651,7 +4650,6 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat:
     private static final java.lang.String SPANS_START_KEY
     private static final java.lang.String TOOLTIP_TEXT_KEY
     public void <init>(java.lang.Object)
-    public void addChild(android.view.View)
     public boolean canOpenPopup()
     public java.util.List findAccessibilityNodeInfosByText(java.lang.String)
     public java.util.List findAccessibilityNodeInfosByViewId(java.lang.String)
@@ -4682,7 +4680,6 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat:
     public androidx.core.view.accessibility.AccessibilityNodeInfoCompat getTraversalBefore()
     public androidx.core.view.accessibility.AccessibilityWindowInfoCompat getWindow()
     public int getWindowId()
-    public boolean isAccessibilityFocused()
     public boolean isContentInvalid()
     public boolean isContextClickable()
     public boolean isDismissable()
@@ -4692,7 +4689,6 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat:
     public boolean isMultiLine()
     public boolean isScreenReaderFocusable()
     public boolean isTextEntryKey()
-    public boolean isVisibleToUser()
     public static androidx.core.view.accessibility.AccessibilityNodeInfoCompat obtain(android.view.View,int)
     public boolean performAction(int)
     public boolean refresh()
@@ -4710,12 +4706,9 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat:
     public void setLabeledBy(android.view.View)
     public void setLabeledBy(android.view.View,int)
     public void setLiveRegion(int)
-    public void setLongClickable(boolean)
     public void setMovementGranularities(int)
     public void setMultiLine(boolean)
     public void setPassword(boolean)
-    public void setSelected(boolean)
-    public void setSource(android.view.View)
     public void setTextEntryKey(boolean)
     public void setTextSelection(int,int)
     public void setTooltipText(java.lang.CharSequence)
@@ -5009,17 +5002,11 @@ androidx.customview.widget.ViewDragHelper:
     private static final java.lang.String TAG
     public void abort()
     protected boolean canScroll(android.view.View,boolean,int,int,int,int)
-    public boolean checkTouchSlop(int)
-    public boolean checkTouchSlop(int,int)
     public void flingCapturedView(int,int,int,int)
     public int getActivePointerId()
-    public android.view.View getCapturedView()
-    public int getEdgeSize()
     public float getMinVelocity()
     public boolean isEdgeTouched(int)
     public boolean isEdgeTouched(int,int)
-    public void setEdgeTrackingEnabled(int)
-    public void setMinVelocity(float)
 androidx.documentfile.R
 androidx.documentfile.provider.DocumentFile
 androidx.documentfile.provider.DocumentsContractApi19
@@ -5037,17 +5024,52 @@ androidx.drawerlayout.R$string
 androidx.drawerlayout.R$style
 androidx.drawerlayout.R$styleable
 androidx.drawerlayout.R
-androidx.drawerlayout.widget.DrawerLayout$1
-androidx.drawerlayout.widget.DrawerLayout$AccessibilityDelegate
-androidx.drawerlayout.widget.DrawerLayout$ChildAccessibilityDelegate
-androidx.drawerlayout.widget.DrawerLayout$DrawerListener
-androidx.drawerlayout.widget.DrawerLayout$LayoutParams
-androidx.drawerlayout.widget.DrawerLayout$SavedState$1
-androidx.drawerlayout.widget.DrawerLayout$SavedState
+androidx.drawerlayout.widget.DrawerLayout$LayoutParams:
+    private static final int FLAG_IS_CLOSING
+    private static final int FLAG_IS_OPENED
+    private static final int FLAG_IS_OPENING
+    public void <init>(int,int,int)
 androidx.drawerlayout.widget.DrawerLayout$SimpleDrawerListener
-androidx.drawerlayout.widget.DrawerLayout$ViewDragCallback$1
-androidx.drawerlayout.widget.DrawerLayout$ViewDragCallback
-androidx.drawerlayout.widget.DrawerLayout
+androidx.drawerlayout.widget.DrawerLayout:
+    private static final boolean ALLOW_EDGE_LOCK
+    private static final boolean CHILDREN_DISALLOW_INTERCEPT
+    private static final int DEFAULT_SCRIM_COLOR
+    private static final int DRAWER_ELEVATION
+    public static final int LOCK_MODE_LOCKED_CLOSED
+    public static final int LOCK_MODE_LOCKED_OPEN
+    public static final int LOCK_MODE_UNDEFINED
+    public static final int LOCK_MODE_UNLOCKED
+    private static final int MIN_DRAWER_MARGIN
+    private static final int MIN_FLING_VELOCITY
+    private static final int PEEK_DELAY
+    public static final int STATE_DRAGGING
+    public static final int STATE_IDLE
+    public static final int STATE_SETTLING
+    private static final java.lang.String TAG
+    private static final float TOUCH_SLOP_SENSITIVITY
+    private androidx.drawerlayout.widget.DrawerLayout$DrawerListener mListener
+    public void <init>(android.content.Context)
+    public void addDrawerListener(androidx.drawerlayout.widget.DrawerLayout$DrawerListener)
+    public void closeDrawer(int)
+    public void closeDrawer(int,boolean)
+    public float getDrawerElevation()
+    public android.graphics.drawable.Drawable getStatusBarBackgroundDrawable()
+    public boolean isDrawerOpen(int)
+    public boolean isDrawerVisible(int)
+    public void openDrawer(int)
+    public void openDrawer(int,boolean)
+    public void removeDrawerListener(androidx.drawerlayout.widget.DrawerLayout$DrawerListener)
+    public void setDrawerElevation(float)
+    public void setDrawerListener(androidx.drawerlayout.widget.DrawerLayout$DrawerListener)
+    public void setDrawerLockMode(int)
+    public void setDrawerLockMode(int,android.view.View)
+    public void setDrawerShadow(int,int)
+    public void setDrawerShadow(android.graphics.drawable.Drawable,int)
+    public void setDrawerTitle(int,java.lang.CharSequence)
+    public void setScrimColor(int)
+    public void setStatusBarBackground(int)
+    public void setStatusBarBackground(android.graphics.drawable.Drawable)
+    public void setStatusBarBackgroundColor(int)
 androidx.exifinterface.R
 androidx.exifinterface.media.ExifInterface$ByteOrderedDataOutputStream
 androidx.exifinterface.media.ExifInterface$ExifAttribute:
@@ -8873,9 +8895,56 @@ com.aige.loveproduction.manager.ActivityManager:
 com.aige.loveproduction.manager.AppManager
 com.aige.loveproduction.manager.MPAndroidChartManager:
     public void setLineData(java.util.List,java.util.List,java.lang.String,int,com.github.mikephil.charting.components.YAxis$AxisDependency)
-com.aige.loveproduction.mvp.contract.ApplyContract$Model
-com.aige.loveproduction.mvp.contract.ApplyContract$Presenter
-com.aige.loveproduction.mvp.contract.ApplyContract
+com.aige.loveproduction.mpr.MprBohrData:
+    public com.aige.loveproduction.mpr.MprBohrData cloneData(com.aige.loveproduction.mpr.MprMaster)
+    public synthetic bridge com.aige.loveproduction.mpr.MprData cloneData(com.aige.loveproduction.mpr.MprMaster)
+    public com.aige.loveproduction.enums.MprPosition getPosition()
+    public void setPosition2(com.aige.loveproduction.enums.MprPosition)
+com.aige.loveproduction.mpr.MprColor:
+    public int getCutting_curve()
+    public void setBohrHoriz(int)
+    public void setBohrVert(int)
+    public void setBohrVertCross(int)
+    public void setCutting(int)
+    public void setCutting_curve(int)
+    public void setCutting_distance_line(int)
+    public void setMaster(int)
+    public void setMaster_distance_line(int)
+com.aige.loveproduction.mpr.MprCuttingData:
+    public com.aige.loveproduction.mpr.MprData cloneData(com.aige.loveproduction.mpr.MprMaster)
+    public java.util.Map getFinalMap()
+com.aige.loveproduction.mpr.MprData:
+    public abstract com.aige.loveproduction.mpr.MprData cloneData(com.aige.loveproduction.mpr.MprMaster)
+    public com.aige.loveproduction.enums.MprPosition getPosition()
+    public void parsePosition()
+com.aige.loveproduction.mpr.MprDataWrap:
+    public com.aige.loveproduction.mpr.MprDataWrap cloneData()
+    public java.util.List getBohrHoriz()
+    public java.util.List getBohrVert()
+    public java.util.List getBohrVertCross()
+    public java.util.List getCutting()
+    public com.aige.loveproduction.mpr.MprCuttingData getMprCuttingData(int)
+    private static synthetic void lambda$cloneData$4(java.util.List,com.aige.loveproduction.mpr.MprMaster,com.aige.loveproduction.mpr.MprData)
+    private static synthetic void lambda$cloneData$5(java.util.List,com.aige.loveproduction.mpr.MprMaster,com.aige.loveproduction.mpr.MprData)
+    private static synthetic void lambda$cloneData$6(java.util.List,com.aige.loveproduction.mpr.MprMaster,com.aige.loveproduction.mpr.MprData)
+    private static synthetic void lambda$cloneData$7(java.util.List,com.aige.loveproduction.mpr.MprMaster,com.aige.loveproduction.mpr.MprData)
+    public void setExtraModul(com.aige.loveproduction.mpr.MprExtraData)
+com.aige.loveproduction.mpr.MprExtraData:
+    public com.aige.loveproduction.mpr.MprData cloneData(com.aige.loveproduction.mpr.MprMaster)
+    public void setMasterDistance(float)
+    public void setOffsetX(float)
+    public void setOffsetY(float)
+    public void setStrokeWidth(float)
+    public void setTextDistance(float)
+    public void setTextSize(float)
+com.aige.loveproduction.mpr.MprMaster:
+    public com.aige.loveproduction.mpr.MprData cloneData(com.aige.loveproduction.mpr.MprMaster)
+com.aige.loveproduction.mpr.MprView:
+    private static final int DRAG
+    private static final int MAX_LONG_PRESS_TIME
+    private static final int NONE
+    private static final int ZOOM
+    public void <init>(android.content.Context)
 com.aige.loveproduction.mvp.contract.CreateTaskContract$Model
 com.aige.loveproduction.mvp.contract.CreateTaskContract$Presenter
 com.aige.loveproduction.mvp.contract.CreateTaskContract
@@ -8894,6 +8963,9 @@ com.aige.loveproduction.mvp.contract.MixedLotContract
 com.aige.loveproduction.mvp.contract.MoveStorageContract$Model
 com.aige.loveproduction.mvp.contract.MoveStorageContract$Presenter
 com.aige.loveproduction.mvp.contract.MoveStorageContract
+com.aige.loveproduction.mvp.contract.MprContract$Model
+com.aige.loveproduction.mvp.contract.MprContract$Presenter
+com.aige.loveproduction.mvp.contract.MprContract
 com.aige.loveproduction.mvp.contract.OutStorageContract$Model
 com.aige.loveproduction.mvp.contract.OutStorageContract$Presenter
 com.aige.loveproduction.mvp.contract.OutStorageContract
@@ -8953,53 +9025,14 @@ com.aige.loveproduction.permission.Permissions$Group
 com.aige.loveproduction.permission.Permissions
 com.aige.loveproduction.sqlite.DBManager
 com.aige.loveproduction.sqlite.OrderDBHelper
-com.aige.loveproduction.test.AppAdapter:
-    public void addData(java.util.List)
-    public void addItemData(int,java.lang.Object)
-    public void addItemData(java.lang.Object)
-    public void clearData()
-    public java.util.List getData()
-    public void removeItemData(int)
-    public void removeItemData(java.lang.Object)
-    public void setItemData(int,java.lang.Object)
-com.aige.loveproduction.test.BaseAdapter$OnChildLongClickListener:
-    public abstract void onChildLongClick()
-com.aige.loveproduction.test.BaseAdapter:
-    public void setChildClickListener(int,com.aige.loveproduction.test.BaseAdapter$OnChildClickListener)
-    public void setOnChildLongClickListener(int,com.aige.loveproduction.test.BaseAdapter$OnChildLongClickListener)
-    public void setOnItemClickListener(com.aige.loveproduction.test.BaseAdapter$OnItemClickListener)
-    public void setOnItemLongClickListener(com.aige.loveproduction.test.BaseAdapter$OnItemLongClickListener)
-com.aige.loveproduction.test.WrapRecyclerView$1:
-    final synthetic com.aige.loveproduction.test.WrapRecyclerView this$0
-    final synthetic androidx.recyclerview.widget.RecyclerView$LayoutManager val$layoutManager
-    void <init>(com.aige.loveproduction.test.WrapRecyclerView,androidx.recyclerview.widget.RecyclerView$LayoutManager)
-    public int getSpanSize(int)
-com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter:
-    private static final int FOOTER_VIEW_TYPE
-    private static final int HEADER_VIEW_TYPE
-    static synthetic void access$200(com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter,android.view.View)
-    static synthetic void access$300(com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter,android.view.View)
-    private void addFooterView(android.view.View)
-    private void addHeaderView(android.view.View)
-com.aige.loveproduction.test.WrapRecyclerView:
-    public void <init>(android.content.Context)
-    public void <init>(android.content.Context,android.util.AttributeSet,int)
-    static synthetic com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter access$400(com.aige.loveproduction.test.WrapRecyclerView)
-    static synthetic androidx.recyclerview.widget.RecyclerView$Adapter access$600(com.aige.loveproduction.test.WrapRecyclerView)
-    public void addFooterView(int)
-    public void addFooterView(android.view.View)
-    public void addHeaderView(int)
-    public void addHeaderView(android.view.View)
-    public void adjustSpanSize()
-com.aige.loveproduction.ui.activity.ApplyActivity:
-    private java.io.File mFile
-    private void parseFile(java.io.File)
 com.aige.loveproduction.ui.activity.ExamineActivity:
     private static final java.lang.String VAG
 com.aige.loveproduction.ui.activity.ImageSelectActivity:
     public static void start(com.aige.loveproduction.base.AppActivity,com.aige.loveproduction.ui.activity.ImageSelectActivity$OnPhotoSelectListener)
 com.aige.loveproduction.ui.activity.MainActivity:
     public static void start(android.content.Context)
+com.aige.loveproduction.ui.activity.MprActivity:
+    private void parseFile(java.io.File)
 com.aige.loveproduction.ui.activity.PreviewActivity:
     private com.aige.loveproduction.ui.adapter.ViewPagerAdapter adapter
     private com.google.android.material.tabs.TabLayout tab_layout
@@ -9030,11 +9063,16 @@ com.aige.loveproduction.ui.customui.view.DrawMprView:
     private static final int NONE
     private static final int ZOOM
     public void <init>(android.content.Context)
-    private void drawLine(android.graphics.Canvas,float,float,float,float)
+    private void initProperty()
+    private synthetic void lambda$setCenter$0(java.lang.String,java.lang.Float)
     public void setBohrHoriz_color(int)
     public void setBohrVert_color(int)
+    private void setCenter()
+    private void setCustom()
     public void setCutting_color(int)
+    public void setData(java.util.Map)
     public void setRectangle_color(int)
+    public void setShowXY(boolean)
 com.aige.loveproduction.ui.customui.view.RecycleViewDivider:
     public void <init>(android.content.Context,int,int)
 com.aige.loveproduction.ui.customui.view.SmartTextView:
@@ -9135,7 +9173,7 @@ com.aige.loveproduction.util.FormatDateUtil:
     public void <init>()
 com.aige.loveproduction.util.IOUtil:
     public void <init>()
-    public static java.util.Map readMprFile(java.io.File)
+    public static com.aige.loveproduction.mpr.MprDataWrap readMprFile(java.io.File)
     public static void writeResponseBody(okhttp3.ResponseBody,java.io.File,com.aige.loveproduction.listener.OnWriteFileListener)
 com.aige.loveproduction.util.IntentUtils:
     static final java.lang.String IS_DOCUMENT
@@ -21153,16 +21191,20 @@ androidx.core.graphics.BlendModeColorFilterCompat:
     public static void updateNodes(androidx.core.graphics.PathParser$PathDataNode[],androidx.core.graphics.PathParser$PathDataNode[])
 androidx.core.graphics.BlendModeCompat$r8$EnumUnboxingUtility:
     public static synthetic synchronized int[] $VALUES$method$androidx$core$graphics$BlendModeCompat()
+    public static synthetic synchronized int[] $VALUES$method$com$aige$loveproduction$enums$MprPosition()
     public static synthetic synchronized int[] $VALUES$method$com$aige$loveproduction$enums$PermissionEnum()
     public static synthetic synchronized int[] $VALUES$method$com$airbnb$lottie$model$content$Mask$MaskMode()
     public static synthetic synchronized int[] $VALUES$method$io$reactivex$rxjava3$core$BackpressureStrategy()
     public static int[] androidx$core$graphics$BlendModeCompat$s$values()
+    public static int com$aige$loveproduction$enums$MprPosition$s$valueOf(java.lang.String)
+    public static int[] com$aige$loveproduction$enums$MprPosition$s$values()
     public static int com$aige$loveproduction$enums$PermissionEnum$s$valueOf(java.lang.String)
     public static int[] com$aige$loveproduction$enums$PermissionEnum$s$values()
     public static int[] com$airbnb$lottie$model$content$Mask$MaskMode$s$values()
     public static int[] com$airbnb$lottie$model$content$PolystarShape$Type$s$values()
     public static int com$airbnb$lottie$model$content$ShapeTrimPath$Type$s$forId(int)
     public static int[] io$reactivex$rxjava3$core$BackpressureStrategy$s$values()
+    public static synthetic int valueOfcom$aige$loveproduction$enums$MprPosition(java.lang.String)
     public static synthetic int valueOfcom$aige$loveproduction$enums$PermissionEnum(java.lang.String)
 androidx.core.graphics.BlendModeCompat
 androidx.core.graphics.BlendModeUtils$1
@@ -21407,6 +21449,7 @@ androidx.core.view.ViewCompat:
     static androidx.core.view.AccessibilityDelegateCompat getOrCreateAccessibilityDelegateCompat(android.view.View)
     public static int getPaddingEnd(android.view.View)
     public static int getPaddingStart(android.view.View)
+    public static android.view.ViewParent getParentForAccessibility(android.view.View)
     public static java.lang.String getTransitionName(android.view.View)
     public static int getWindowSystemUiVisibility(android.view.View)
     public static float getZ(android.view.View)
@@ -21476,12 +21519,10 @@ androidx.core.view.accessibility.AccessibilityEventCompat
 androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat:
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_ACCESSIBILITY_FOCUS
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_CLEAR_ACCESSIBILITY_FOCUS
-    public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_CLEAR_FOCUS
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_CLEAR_SELECTION
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_CONTEXT_CLICK
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_COPY
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_CUT
-    public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_FOCUS
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_HIDE_TOOLTIP
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_LONG_CLICK
     public static final androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityActionCompat ACTION_MOVE_WINDOW
@@ -21507,6 +21548,7 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat$AccessibilityAction
     public java.lang.CharSequence getLabel()
 androidx.core.view.accessibility.AccessibilityNodeInfoCompat:
     static void <clinit>()
+    public void addChild(android.view.View)
     private void addSpanLocationToExtras(android.text.style.ClickableSpan,android.text.Spanned,int)
     private void clearExtrasSpans()
     public java.util.List getActionList()
@@ -21517,12 +21559,17 @@ androidx.core.view.accessibility.AccessibilityNodeInfoCompat:
     public java.lang.String getViewIdResourceName()
     private boolean hasSpans()
     private int idForClickableSpan(android.text.style.ClickableSpan,android.util.SparseArray)
+    public boolean isAccessibilityFocused()
     public boolean isCheckable()
     public boolean isClickable()
     public boolean isFocused()
     public boolean isLongClickable()
     public boolean isSelected()
+    public boolean isVisibleToUser()
     private void removeCollectedSpans(android.view.View)
+    public void setLongClickable(boolean)
+    public void setSelected(boolean)
+    public void setSource(android.view.View)
 androidx.core.view.accessibility.AccessibilityNodeProviderCompat:
     public java.util.List findAccessibilityNodeInfosByText()
 androidx.core.view.accessibility.AccessibilityRecordCompat
@@ -21655,7 +21702,7 @@ androidx.customview.widget.FocusStrategy:
     private static int majorAxisDistanceToFarEdge(int,android.graphics.Rect,android.graphics.Rect)
     private static int majorAxisDistanceToFarEdgeRaw(int,android.graphics.Rect,android.graphics.Rect)
 androidx.customview.widget.ViewDragHelper:
-    private int mTrackingEdges
+    public boolean checkTouchSlop(int,int)
     private void clearMotionHistory()
     private int computeSettleDuration(android.view.View,int,int,int,int)
     private float distanceInfluenceForSnapDuration(float)
@@ -21663,8 +21710,54 @@ androidx.customview.widget.ViewDragHelper:
     private void ensureMotionHistorySizeForId(int)
     private int getEdgesTouched(int,int)
     public boolean isCapturedViewUnder(int,int)
-    public boolean isPointerDown(int)
     public boolean isViewUnder(android.view.View,int,int)
+androidx.drawerlayout.widget.DrawerLayout$1:
+    final synthetic androidx.drawerlayout.widget.DrawerLayout this$0
+androidx.drawerlayout.widget.DrawerLayout$AccessibilityDelegate:
+    private void addChildrenForAccessibility(androidx.core.view.accessibility.AccessibilityNodeInfoCompat,android.view.ViewGroup)
+    private void copyNodeInfoNoChildren(androidx.core.view.accessibility.AccessibilityNodeInfoCompat,androidx.core.view.accessibility.AccessibilityNodeInfoCompat)
+androidx.drawerlayout.widget.DrawerLayout$DrawerListener
+androidx.drawerlayout.widget.DrawerLayout$SavedState$1
+androidx.drawerlayout.widget.DrawerLayout$SavedState:
+    public static final android.os.Parcelable$Creator CREATOR
+    static void <clinit>()
+    public void <init>(android.os.Parcel,java.lang.ClassLoader)
+androidx.drawerlayout.widget.DrawerLayout:
+    static final boolean CAN_HIDE_DESCENDANTS
+    private static final boolean SET_DRAWER_SHADOW_FROM_ELEVATION
+    private boolean mDisallowInterceptRequested
+    private java.util.List mListeners
+    private android.graphics.drawable.Drawable mShadowEnd
+    private android.graphics.drawable.Drawable mShadowLeft
+    private android.graphics.drawable.Drawable mShadowLeftResolved
+    private android.graphics.drawable.Drawable mShadowRight
+    private android.graphics.drawable.Drawable mShadowRightResolved
+    private android.graphics.drawable.Drawable mShadowStart
+    private java.lang.CharSequence mTitleLeft
+    private java.lang.CharSequence mTitleRight
+    public void <init>(android.content.Context,android.util.AttributeSet,int)
+    public void closeDrawer(android.view.View,boolean)
+    void dispatchOnDrawerClosed(android.view.View)
+    void dispatchOnDrawerOpened(android.view.View)
+    void dispatchOnDrawerSlide(android.view.View,float)
+    private boolean dispatchTransformedGenericPointerEvent(android.view.MotionEvent,android.view.View)
+    public int getDrawerLockMode(int)
+    public java.lang.CharSequence getDrawerTitle(int)
+    float getDrawerViewOffset(android.view.View)
+    private android.view.MotionEvent getTransformedMotionEvent(android.view.MotionEvent,android.view.View)
+    static java.lang.String gravityToString(int)
+    private static boolean hasOpaqueBackground(android.view.View)
+    private boolean hasPeekingDrawer()
+    private boolean hasVisibleDrawer()
+    public boolean isDrawerOpen(android.view.View)
+    public boolean isDrawerVisible(android.view.View)
+    private boolean isInBoundsOfChild(float,float,android.view.View)
+    private boolean mirror(android.graphics.drawable.Drawable,int)
+    void moveDrawerToOffset(android.view.View,float)
+    public void openDrawer(android.view.View,boolean)
+    private android.graphics.drawable.Drawable resolveLeftShadow()
+    private android.graphics.drawable.Drawable resolveRightShadow()
+    private void resolveShadowDrawables()
 androidx.exifinterface.media.ExifInterface$1:
     final synthetic androidx.exifinterface.media.ExifInterface this$0
 androidx.exifinterface.media.ExifInterface$ByteOrderedDataInputStream:
@@ -22842,6 +22935,7 @@ com.aige.loveproduction.animation.AnimationInterpolator$JellyInterpolator:
     private final float factor
 com.aige.loveproduction.base.BaseDialog$DialogLifecycle:
     private synthetic void lambda$onActivityResumed$0()
+com.aige.loveproduction.enums.MprPosition
 com.aige.loveproduction.enums.PermissionEnum
 com.aige.loveproduction.manager.ActivityManager:
     private java.lang.String mLastInvisibleTag
@@ -22853,10 +22947,50 @@ com.aige.loveproduction.manager.MPAndroidChartManager:
     private void initCombinedChart(com.github.mikephil.charting.charts.CombinedChart)
     private void initLineChart(com.github.mikephil.charting.charts.LineChart)
     private void initLineDataSet(com.github.mikephil.charting.data.LineDataSet,int,com.github.mikephil.charting.components.YAxis$AxisDependency,com.github.mikephil.charting.data.LineDataSet$Mode)
-com.aige.loveproduction.mvp.model.ApplyModel:
-    public io.reactivex.rxjava3.core.Observable getFile(java.lang.String)
-    public io.reactivex.rxjava3.core.Observable getMPRByBatchNo(java.lang.String)
-    public io.reactivex.rxjava3.core.Observable getMPRByBatchNoV2(java.lang.String)
+com.aige.loveproduction.mpr.MprBohrData:
+    private int position
+    public void parsePosition()
+    private void parseXYPosition()
+    private void setFinalData()
+    public void setFinalX(float)
+    public void setFinalY(float)
+com.aige.loveproduction.mpr.MprColor:
+    private int cutting_curve
+com.aige.loveproduction.mpr.MprCuttingData$1
+com.aige.loveproduction.mpr.MprCuttingData:
+    private void initPoint()
+    private synthetic void lambda$setScale$0(float,java.lang.String,java.lang.Float)
+    static synthetic void lambda$setScale$1(float,float[])
+    private void setCoordText()
+com.aige.loveproduction.mpr.MprDataWrap:
+    public float getDistance(float,float,float,float)
+    static synthetic void lambda$scale$0(float,com.aige.loveproduction.mpr.MprData)
+    static synthetic void lambda$scale$1(float,com.aige.loveproduction.mpr.MprData)
+    static synthetic void lambda$scale$2(float,com.aige.loveproduction.mpr.MprData)
+    static synthetic void lambda$scale$3(float,com.aige.loveproduction.mpr.MprData)
+com.aige.loveproduction.mpr.MprExtraData:
+    public float getOffsetX()
+com.aige.loveproduction.mpr.MprMaster$1
+com.aige.loveproduction.mpr.MprMaster:
+    public android.graphics.PointF getMasterLeftBottom()
+    public android.graphics.PointF getMasterLeftTop()
+    public android.graphics.PointF getMasterRightBottom()
+    public android.graphics.PointF getMasterRightTop()
+    private void setFinalMasterX(float)
+    private void setFinalMasterY(float)
+com.aige.loveproduction.mpr.MprView$1
+com.aige.loveproduction.mpr.MprView:
+    static void <clinit>()
+    private void drawDistanceBohrLine(android.graphics.Canvas,float,float,float)
+    private void drawDistanceCuttingLine(android.graphics.Canvas,com.aige.loveproduction.mpr.MprCuttingData,float,float,float)
+    private void drawDistanceMasterLine(android.graphics.Canvas,com.aige.loveproduction.mpr.MprMaster,float,float,float)
+    private void drawNail(android.graphics.Canvas,float,float,float,float,int)
+    private void drawPath(android.graphics.Canvas,com.aige.loveproduction.mpr.MprCuttingData,float,float,boolean,boolean)
+    private void drawPathQuad(android.graphics.Canvas,java.util.Map)
+    private void drawRectangle(android.graphics.Canvas,float,float,float,float)
+    private android.graphics.PointF getNewXY(float,float)
+    private android.graphics.PointF middle(android.view.MotionEvent)
+    private void parseData(android.graphics.Canvas)
 com.aige.loveproduction.mvp.model.CreateTaskModel:
     public io.reactivex.rxjava3.core.Observable getEntityByBarcode(java.lang.String)
     public io.reactivex.rxjava3.core.Observable submitPrint(com.aige.loveproduction.bean.PrintAsk)
@@ -22875,6 +23009,10 @@ com.aige.loveproduction.mvp.model.MixedLotModel:
 com.aige.loveproduction.mvp.model.MoveStorageModel:
     public io.reactivex.rxjava3.core.Observable getBinFind(java.lang.String)
     public io.reactivex.rxjava3.core.Observable getScanPackage(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+com.aige.loveproduction.mvp.model.MprModel:
+    public io.reactivex.rxjava3.core.Observable getFile(java.lang.String)
+    public io.reactivex.rxjava3.core.Observable getMPRByBatchNo(java.lang.String)
+    public io.reactivex.rxjava3.core.Observable getMPRByBatchNoV2(java.lang.String)
 com.aige.loveproduction.mvp.model.OutStorageModel:
     public io.reactivex.rxjava3.core.Observable getBinFind(java.lang.String)
     public io.reactivex.rxjava3.core.Observable getScanPackage(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
@@ -22916,51 +23054,12 @@ com.aige.loveproduction.permission.Permission:
     public java.lang.String[] getNotApplyPermission(java.lang.String[])
     public java.lang.String[] getRefuse(java.lang.String[])
     private synthetic void lambda$applyPermission$0(com.aige.loveproduction.base.BaseDialog)
-com.aige.loveproduction.test.AppAdapter:
-    public int getCount()
-com.aige.loveproduction.test.BaseAdapter$OnChildClickListener
-com.aige.loveproduction.test.BaseAdapter$OnChildLongClickListener
-com.aige.loveproduction.test.BaseAdapter$OnItemClickListener
-com.aige.loveproduction.test.BaseAdapter$OnItemLongClickListener
-com.aige.loveproduction.test.BaseAdapter$ViewHolder:
-    public void <init>(com.aige.loveproduction.test.BaseAdapter,android.view.View)
-    public final android.view.View getItemView()
-    protected int getViewHolderPosition()
-com.aige.loveproduction.test.BaseAdapter:
-    private android.util.SparseArray mChildClickListener
-    private android.util.SparseArray mChildLongClickListener
-    private com.aige.loveproduction.test.BaseAdapter$OnItemClickListener mItemClickListener
-    private com.aige.loveproduction.test.BaseAdapter$OnItemLongClickListener mItemLongClickListener
-    static synthetic com.aige.loveproduction.test.BaseAdapter$OnItemClickListener access$100(com.aige.loveproduction.test.BaseAdapter)
-    static synthetic com.aige.loveproduction.test.BaseAdapter$OnItemLongClickListener access$200(com.aige.loveproduction.test.BaseAdapter)
-    static synthetic android.util.SparseArray access$300(com.aige.loveproduction.test.BaseAdapter)
-    static synthetic android.util.SparseArray access$400(com.aige.loveproduction.test.BaseAdapter)
-    protected androidx.recyclerview.widget.RecyclerView$LayoutManager generateDefaultLayoutManager(android.content.Context)
-    public void onBindViewHolder(com.aige.loveproduction.test.BaseAdapter$ViewHolder,int)
-com.aige.loveproduction.test.TestAdapter:
-    public com.aige.loveproduction.test.TestAdapter$ViewHolder onCreateViewHolder()
-com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter$WrapViewHolder:
-    static void access$800(com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter$WrapViewHolder,int)
-    private void onBindView()
-com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter:
-    private void <init>()
-    private int getFooterViewCount()
-    private int getPosition()
-    private void setReplaceAdapter(androidx.recyclerview.widget.RecyclerView$Adapter)
-com.aige.loveproduction.test.WrapRecyclerView$WrapAdapterDataObserver:
-    private void <init>(com.aige.loveproduction.test.WrapRecyclerView$WrapAdapter)
 com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$2tYEXCBDASEGHWx5NflyMRTeCa8:
     public final void onSelected(java.io.File)
 com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$UsG77F1kZl8l3sQmIv4vLBzFBiA:
     public final void onSelected(com.aige.loveproduction.base.BaseDialog,int,com.aige.loveproduction.bean.AlbumInfo)
 com.aige.loveproduction.ui.activity.AboutActivity:
     private void setSelectItem()
-com.aige.loveproduction.ui.activity.ApplyActivity:
-    private android.widget.FrameLayout main_body
-    protected com.aige.loveproduction.mvp.presenter.ApplyPresenter createPresenter()
-    private synthetic boolean lambda$initData$0(android.widget.TextView,int,android.view.KeyEvent)
-    private synthetic void lambda$onRequestPermissionsResult$1(com.aige.loveproduction.base.BaseDialog)
-    public synthetic void lambda$onRequestPermissionsResult$1$ApplyActivity(com.aige.loveproduction.base.BaseDialog)
 com.aige.loveproduction.ui.activity.CameraActivity$OnCameraListener:
     public void onCancel()
     public abstract void onSelected(java.io.File)
@@ -23032,6 +23131,12 @@ com.aige.loveproduction.ui.activity.MoveStorageActivity:
     public synthetic void lambda$onRequestPermissionsResult$0$MoveStorageActivity(com.aige.loveproduction.base.BaseDialog)
     private synthetic void lambda$requestReady$1(java.lang.String,java.lang.String,java.lang.String,com.aige.loveproduction.base.BaseDialog)
     static synthetic void lambda$setAdapterData$2(com.aige.loveproduction.bean.StorageBean)
+com.aige.loveproduction.ui.activity.MprActivity:
+    protected com.aige.loveproduction.mvp.presenter.MprPresenter createPresenter()
+    private synthetic boolean lambda$initData$0(android.widget.TextView,int,android.view.KeyEvent)
+    private synthetic void lambda$onRequestPermissionsResult$1(com.aige.loveproduction.base.BaseDialog)
+    public synthetic void lambda$onRequestPermissionsResult$1$MprActivity(com.aige.loveproduction.base.BaseDialog)
+    private void setData()
 com.aige.loveproduction.ui.activity.OutStorageActivity:
     protected com.aige.loveproduction.mvp.presenter.OutStoragePresenter createPresenter()
     private synthetic void lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog)
@@ -23048,6 +23153,8 @@ com.aige.loveproduction.ui.activity.PlateFindActivity:
     private void hideTest()
     private synthetic void lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog)
     public synthetic void lambda$onRequestPermissionsResult$0$PlateFindActivity(com.aige.loveproduction.base.BaseDialog)
+com.aige.loveproduction.ui.activity.PreviewActivity:
+    private com.aige.loveproduction.ui.customui.viewgroup.WrapRecyclerView recyclerview_data
 com.aige.loveproduction.ui.activity.QrCodeActivity:
     public void onTorchOff()
     public void onTorchOn()
@@ -23143,6 +23250,8 @@ com.aige.loveproduction.ui.adapter.LogAdapter$1:
 com.aige.loveproduction.ui.adapter.LogAdapter:
     private java.util.List list
     public java.lang.String getItem(int)
+com.aige.loveproduction.ui.adapter.MprSettingAdapter:
+    public com.aige.loveproduction.ui.adapter.MprSettingAdapter$ViewHolder onCreateViewHolder()
 com.aige.loveproduction.ui.adapter.PlateAdapter:
     public com.aige.loveproduction.base.BaseAdapter$ViewHolder onCreateViewHolder(int)
 com.aige.loveproduction.ui.adapter.SendVerifyAdapter:
@@ -23161,23 +23270,50 @@ com.aige.loveproduction.ui.customui.StatusLayout:
     public void <init>(android.content.Context,android.util.AttributeSet,int)
     public void <init>(android.content.Context,android.util.AttributeSet,int,int)
     private void initLayout()
+com.aige.loveproduction.ui.customui.view.-$$Lambda$DrawMprView$5q0xJ6PrBNkL63nksvi7taaq08Y
+com.aige.loveproduction.ui.customui.view.DrawMprView$1
 com.aige.loveproduction.ui.customui.view.DrawMprView:
+    private android.graphics.PointF distance
+    private java.util.Map filter
+    private float finalMasterX
+    private float finalMasterY
+    private java.util.Map mapData
+    private int mode
+    private java.util.Map newMapData
+    private long newTime
+    private static float oldDist
+    private java.util.Map oldMapData
+    private long oldTime
+    private boolean showXY
     static void <clinit>()
+    private java.util.Map cloneData(java.util.Map,float)
+    private float distance(android.view.MotionEvent)
+    private void drawArc(android.graphics.Canvas,float,float,float,float,float)
+    private void drawDistanceBohrLine(android.graphics.Canvas,java.util.List,float,float,float)
+    private void drawDistanceCuttingLine(android.graphics.Canvas,java.util.Map,float,float,float)
+    private void drawDistanceMasterLine(android.graphics.Canvas,float,float,float)
+    private void drawLine(android.graphics.Canvas,float,float,float,float)
+    private void drawLineWrap(android.graphics.Canvas,float,float,java.lang.String,float,float,float,float,float)
     private void drawNail(android.graphics.Canvas,float,float,float,float)
     private void drawPath(android.graphics.Canvas,java.util.Map,float,float,boolean,boolean)
     private void drawPathQuad(android.graphics.Canvas,java.util.Map)
     private void drawRectangle(android.graphics.Canvas,float,float,float,float)
+    private void drawText(android.graphics.Canvas,java.lang.String,float,float,float,float,float,boolean)
+    private void drawTextOnPath(android.graphics.Canvas,java.lang.String,float,float,float,float,int,boolean)
     public int getBohrHoriz_color()
     public int getBohrVert_color()
     public int getCutting_color()
+    private android.graphics.PointF getNewXY(float,float)
+    private int getPosition(float,float)
+    private int getPosition(float,float,float,float)
     public int getRectangle_color()
-    private void initProperty()
+    private android.graphics.PointF getXY(float,float)
     private synthetic void lambda$parseData$1(java.lang.String,java.lang.Float)
-    private synthetic void lambda$setCenter$0(java.lang.String,java.lang.Float)
+    public synthetic void lambda$parseData$1$DrawMprView(java.lang.String,java.lang.Float)
     private android.graphics.PointF middle(android.view.MotionEvent)
     private void parseData(android.graphics.Canvas)
-    private void setCenter()
-    private void setCustom()
+    private java.lang.Float[] parseMap(java.util.Map)
+    private java.lang.String printCoordinate(java.lang.Float,java.lang.Float)
 com.aige.loveproduction.ui.customui.view.RecycleViewDivider:
     public void <init>(android.content.Context,int)
 com.aige.loveproduction.ui.customui.view.SmartTextView:

@@ -22,10 +22,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 /**
- *    author : Android 轮子哥
- *    github : https://github.com/getActivity/AndroidProject
- *    time   : 2019/07/27
- *    desc   : 相册专辑选取对话框
+ * 相册专辑
  */
 public final class AlbumDialog {
 

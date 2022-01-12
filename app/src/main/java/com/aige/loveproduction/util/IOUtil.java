@@ -1,22 +1,22 @@
 package com.aige.loveproduction.util;
 
-import android.content.Context;
-import android.os.Environment;
 import android.util.Base64;
-import android.widget.Toast;
 
 import com.aige.loveproduction.listener.OnWriteFileListener;
+import com.aige.loveproduction.mpr.MprBohrData;
+import com.aige.loveproduction.mpr.MprCuttingData;
+import com.aige.loveproduction.mpr.MprData;
+import com.aige.loveproduction.mpr.MprDataWrap;
+import com.aige.loveproduction.mpr.MprMaster;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,146 +32,6 @@ import okhttp3.ResponseBody;
  * IO流显相关
  */
 public class IOUtil {
-
-    /**
-     * 读取mpr文件
-     */
-    private static byte i;
-    public static Map<String,List<Map<String,Float>>> readMprFile(File file) {
-        if(!file.isFile()) return null;
-        //第一层，图形类型
-        Map<String,List<Map<String,Float>>> maps = new HashMap<>();
-        //第二层，每个类型的图形数量
-        //矩形数值
-        List<Map<String,Float>> list1 = new ArrayList<>();
-        //侧钉子数值
-        List<Map<String,Float>> list2 = new ArrayList<>();
-        //表面钉子数值
-        List<Map<String,Float>> list3 = new ArrayList<>();
-        List<Map<String,Float>> list4 = new ArrayList<>();
-        //切割线
-        List<Map<String,Float>> list5 = new ArrayList<>();
-        //第三层，每个图形属性
-        Map<String,Float> map = null;
-        boolean flag = false;
-        FileReader fr = null;
-        BufferedReader buff = null;
-        try {
-            fr = new FileReader(file);
-            buff = new BufferedReader(fr);
-            String name = null;
-            while (buff.ready()) {
-                String readLine = buff.readLine();
-                //查找图形组件
-                if(readLine.contains("[H")) {
-                    //主图形
-                    map = new HashMap<>();
-                    name = "rectangle";
-                    flag = true;
-                }else if(readLine.contains("BM=\"XP\"") || readLine.contains("BM=\"XM\"") || readLine.contains("BM=\"YM\"")) {
-                    //侧钉子
-                    map = new HashMap<>();
-                    name = "BohrHoriz1";
-                    flag = true;
-                }else if(readLine.contains("BM=\"LS\"")) {
-                    //表面钉子样式1
-                    map = new HashMap<>();
-                    name = "BohrVert1";
-                    flag = true;
-                }else if(readLine.contains("BM=\"LSU\"")) {
-                    //表面钉子样式2
-                    map = new HashMap<>();
-                    name = "BohrVert2";
-                    flag = true;
-                }else if(readLine.contains("$E0")) {
-                    //切割数据
-                    map = new HashMap<>();
-                    name = "Cutting1";
-                    flag = true;
-                    i = 0;
-                }
-                //检索到某图形数据时开启通道
-                if(flag) {
-                    //判断那个图形的通道，并对数据进行整理归纳储存于集合中
-                    if("rectangle".equals(name)) {
-                        flag = parseData(readLine, map, list1);
-                    }else if("BohrHoriz1".equals(name)) {
-                        flag = parseData(readLine, map, list2);
-                    }else if("BohrVert1".equals(name)) {
-                        flag = parseData(readLine, map, list3);
-                    }else if("BohrVert2".equals(name)) {
-                        flag = parseData(readLine, map, list4);
-                    }else if("Cutting1".equals(name)) {
-                        flag = parseData(readLine,map,list5);
-                    }
-                }
-            }
-            //当最终数据通道都关闭时，数据解析成功，反之解析失败
-            if(flag) return null;
-            //解析成功储存数据
-            maps.put("rectangle",list1);
-            maps.put("BohrHoriz1",list2);
-            maps.put("BohrVert1",list3);
-            maps.put("BohrVert2",list4);
-            maps.put("Cutting1",list5);
-            return maps;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if(buff != null) {
-                try {
-                    buff.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(fr != null) {
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * 整理图形数据
-     * @param data 原数据
-     * @param map 以键值对储存对应图形属性
-     * @param list 一个图形的属性整合
-     * @return 当数据正常解析完成返回false关闭通道，此返回值可作为关闭解析通道的值
-     */
-    private static boolean parseData(String data,Map<String,Float> map,List<Map<String,Float>> list) {
-        //矩形数据解析
-        if(data.contains("_BSX=")) map.put("BSX",Float.parseFloat(data.split("=")[1]));
-        if(data.contains("_BSY=")){
-            map.put("BSY",Float.parseFloat(data.split("=")[1]));
-            list.add(map);
-            return false;
-        }
-        //钉子数据解析
-        if (data.contains("XA=")) map.put("XA",patternText(data));
-        if (data.contains("YA=")) map.put("YA",patternText(data));
-        if (data.contains("DU=")) map.put("DU",patternText(data));
-        if (data.contains("TI=")) {
-            map.put("TI",patternText(data));
-            list.add(map);
-            return false;
-        }
-        //切割数据解析
-        if (data.contains("X=") && !data.contains(".X=")) map.put("X"+i,Float.parseFloat(data.split("=")[1]));
-        if (data.contains("Y=") && !data.contains(".Y=")) {
-            map.put("Y"+i,Float.parseFloat(data.split("=")[1]));
-            i++;
-        }
-        if(data.contains("]") || data.contains("[001")) {
-            list.add(map);
-            return false;
-        }
-        return true;
-    }
 
     /**
      * 使用正则表达式截取双引号中的值
@@ -248,25 +108,119 @@ public class IOUtil {
             }
         }
     }
-    //****************************************************************************************************
+    //*****************************************读取Mpr文件*******************************************************
     /**
      * 读取mpr文件
      */
-    public static Map<String,List<Map<String,Float>>> readMprFile(List<String> data) {
-        //第一层，图形类型
-        Map<String,List<Map<String,Float>>> maps = new HashMap<>();
-        //第二层，每个类型的图形数量
-        //矩形数值
-        List<Map<String,Float>> list1 = new ArrayList<>();
+    private static byte i;
+    public static MprDataWrap readMprFile(File file) {
+        if(!file.isFile()) return null;
+        //主图形
+        MprMaster master = new MprMaster();
         //侧钉子数值
-        List<Map<String,Float>> list2 = new ArrayList<>();
+        List<MprData> bohrHoriz = new ArrayList<>();
         //表面钉子数值
-        List<Map<String,Float>> list3 = new ArrayList<>();
-        List<Map<String,Float>> list4 = new ArrayList<>();
+        List<MprData> bohrVert = new ArrayList<>();
+        List<MprData> bohrVertCross = new ArrayList<>();
         //切割线
-        List<Map<String,Float>> list5 = new ArrayList<>();
-        //第三层，每个图形属性
-        Map<String,Float> map = null;
+        List<MprData> cutting = new ArrayList<>();
+        MprData mprData = null;
+        boolean flag = false;
+        FileReader fr = null;
+        BufferedReader buff = null;
+        try {
+            fr = new FileReader(file);
+            buff = new BufferedReader(fr);
+            String name = null;
+            while (buff.ready()) {
+                String readLine = buff.readLine();
+                //查找图形组件
+                if(readLine.contains("[H")) {
+                    //主图形
+                    name = "master";
+                    flag = true;
+                }else if(readLine.contains("BM=\"XP\"") || readLine.contains("BM=\"XM\"") || readLine.contains("BM=\"YM\"")) {
+                    //侧钉子
+                    mprData = new MprBohrData(master);
+                    name = "bohrHoriz";
+                    flag = true;
+                }else if(readLine.contains("BM=\"LS\"")) {
+                    //表面钉子样式1
+                    mprData = new MprBohrData(master);
+                    name = "bohrVert";
+                    flag = true;
+                }else if(readLine.contains("BM=\"LSU\"")) {
+                    //表面钉子样式2
+                    mprData = new MprBohrData(master);
+                    name = "bohrVertCross";
+                    flag = true;
+                }
+                else if(readLine.contains("$E0")) {
+                    //切割数据
+                    mprData = new MprCuttingData(master);
+                    name = "cutting";
+                    flag = true;
+                    i = 0;
+                }
+                //检索到某图形数据时开启通道
+                if(flag) {
+                    //判断那个图形的通道，并对数据进行整理归纳储存于集合中
+                    if("master".equals(name)) {
+                        flag = parseData(readLine, master, null);
+                    }else if("bohrHoriz".equals(name)) {
+                        flag = parseData(readLine, mprData, bohrHoriz);
+                    }else if("bohrVert".equals(name)) {
+                        flag = parseData(readLine, mprData, bohrVert);
+                    }else if("bohrVertCross".equals(name)) {
+                        flag = parseData(readLine, mprData, bohrVertCross);
+                    }
+                    else if("cutting".equals(name)) {
+                        flag = parseData(readLine,mprData,cutting);
+                    }
+                }
+            }
+            //当最终数据通道都关闭时，数据解析成功，反之解析失败
+            if(flag) return null;
+            MprDataWrap wrap = new MprDataWrap();
+            //解析成功储存数据
+            wrap.setMaster(master);
+            wrap.setBohrHoriz(bohrHoriz);
+            wrap.setBohrVert(bohrVert);
+            wrap.setBohrVertCross(bohrVertCross);
+            wrap.setCutting(cutting);
+            wrap.initData();
+            return wrap;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(buff != null) {
+                try {
+                    buff.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+    public static MprDataWrap readMpr(List<String> data) {
+        //主图形
+        MprMaster master = new MprMaster();
+        //侧钉子数值
+        List<MprData> bohrHoriz = new ArrayList<>();
+        //表面钉子数值
+        List<MprData> bohrVert = new ArrayList<>();
+        List<MprData> bohrVertCross = new ArrayList<>();
+        //切割线
+        List<MprData> cutting = new ArrayList<>();
+        MprData mprData = null;
         boolean flag = false;
         Iterator<String> iterator = data.iterator();
         String name = "";
@@ -275,55 +229,87 @@ public class IOUtil {
             //查找图形组件
             if(next.contains("[H")) {
                 //主图形
-                map = new HashMap<>();
-                name = "rectangle";
+                name = "master";
                 flag = true;
             }else if(next.contains("BM=\"XP\"") || next.contains("BM=\"XM\"") || next.contains("BM=\"YM\"")) {
                 //侧钉子
-                map = new HashMap<>();
-                name = "BohrHoriz1";
+                mprData = new MprBohrData(master);
+                name = "bohrHoriz";
                 flag = true;
             }else if(next.contains("BM=\"LS\"")) {
                 //表面钉子样式1
-                map = new HashMap<>();
-                name = "BohrVert1";
+                mprData = new MprBohrData(master);
+                name = "bohrVert";
                 flag = true;
             }else if(next.contains("BM=\"LSU\"")) {
                 //表面钉子样式2
-                map = new HashMap<>();
-                name = "BohrVert2";
+                mprData = new MprBohrData(master);
+                name = "bohrVertCross";
                 flag = true;
-            }else if(next.contains("$E0")) {
+            }
+            else if(next.contains("$E0")) {
                 //切割数据
-                map = new HashMap<>();
-                name = "Cutting1";
+                mprData = new MprCuttingData(master);
+                name = "cutting";
                 flag = true;
                 i = 0;
             }
             //检索到某图形数据时开启通道
             if(flag) {
                 //判断那个图形的通道，并对数据进行整理归纳储存于集合中
-                if("rectangle".equals(name)) {
-                    flag = parseData(next, map, list1);
-                }else if("BohrHoriz1".equals(name)) {
-                    flag = parseData(next, map, list2);
-                }else if("BohrVert1".equals(name)) {
-                    flag = parseData(next, map, list3);
-                }else if("BohrVert2".equals(name)) {
-                    flag = parseData(next, map, list4);
-                }else if("Cutting1".equals(name)) {
-                    flag = parseData(next,map,list5);
+                if("master".equals(name)) {
+                    flag = parseData(next, master, null);
+                }else if("bohrHoriz".equals(name)) {
+                    flag = parseData(next, mprData, bohrHoriz);
+                }else if("bohrVert".equals(name)) {
+                    flag = parseData(next, mprData, bohrVert);
+                }else if("bohrVertCross".equals(name)) {
+                    flag = parseData(next, mprData, bohrVertCross);
+                }
+                else if("cutting".equals(name)) {
+                    flag = parseData(next,mprData,cutting);
                 }
             }
         }
         //当最终数据通道都关闭时，数据解析成功，反之解析失败
         if(flag) return null;
+        MprDataWrap wrap = new MprDataWrap();
         //解析成功储存数据
-        maps.put("rectangle",list1);
-        maps.put("BohrHoriz1",list2);
-        maps.put("BohrVert1",list3);
-        maps.put("BohrVert2",list4);
-        maps.put("Cutting1",list5);
-        return maps;
+        wrap.setMaster(master);
+        wrap.setBohrHoriz(bohrHoriz);
+        wrap.setBohrVert(bohrVert);
+        wrap.setBohrVertCross(bohrVertCross);
+        wrap.setCutting(cutting);
+        wrap.initData();
+        return wrap;
+    }
+    private static boolean parseData(String data, MprData mprData, List<MprData> list) {
+        //矩形数据解析
+        if(data.contains("_BSX=")) ((MprMaster)mprData).setMaster_x(Float.parseFloat(data.split("=")[1]));
+        if(data.contains("_BSY=")){
+            ((MprMaster)mprData).setMaster_y(Float.parseFloat(data.split("=")[1]));
+//            list.add(mprData);
+            return false;
+        }
+        //钉子数据解析
+        if (data.contains("XA=")) ((MprBohrData)mprData).setXA(patternText(data));
+        if (data.contains("YA=")) ((MprBohrData)mprData).setYA(patternText(data));
+        if (data.contains("DU=")) ((MprBohrData)mprData).setDU(patternText(data));
+        if (data.contains("TI=")) {
+            ((MprBohrData)mprData).setTI(patternText(data));
+            list.add(mprData);
+            return false;
+        }
+        //切割数据解析
+        if (data.contains("X=") && !data.contains(".X=") && mprData instanceof MprCuttingData) ((MprCuttingData)mprData).addData("X"+i,Float.parseFloat(data.split("=")[1]));
+        if (data.contains("Y=") && !data.contains(".Y=") && mprData instanceof MprCuttingData) {
+            ((MprCuttingData)mprData).addData("Y"+i,Float.parseFloat(data.split("=")[1]));
+            i++;
+        }
+        if(data.contains("]") || data.contains("[001")) {
+            list.add(mprData);
+            return false;
+        }
+        return true;
     }
 }

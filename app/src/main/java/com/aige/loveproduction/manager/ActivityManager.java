@@ -12,7 +12,7 @@ import androidx.collection.ArrayMap;
 
 
 /**
- *    desc   : Activity 管理类，管理Activity的生命周期
+ * Activity 管理类，管理Activity的生命周期
  */
 public final class ActivityManager implements Application.ActivityLifecycleCallbacks {
 
