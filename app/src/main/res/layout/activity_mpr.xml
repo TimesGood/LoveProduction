@@ -23,14 +23,14 @@
         android:layout_gravity="end"
         android:background="@color/white">
         <include layout="@layout/recyclerview_data_include"/>
-        <ImageView
-            android:id="@+id/image_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/camera_img"
-            android:background="@drawable/ripple_button_blue"
-            android:layout_gravity="bottom|center"
-            android:padding="7dp" />
+<!--        <ImageView-->
+<!--            android:id="@+id/image_camera"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/camera_img"-->
+<!--            android:background="@drawable/ripple_button_blue"-->
+<!--            android:layout_gravity="bottom|center"-->
+<!--            android:padding="7dp" />-->
     </FrameLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

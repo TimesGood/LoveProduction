@@ -45,6 +45,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ToFillInActivity extends BaseActivity<ToFillInPresenter, ToFillInContract.View>
         implements ToFillInContract.View, StatusAction, BaseAdapter.OnChildClickListener,

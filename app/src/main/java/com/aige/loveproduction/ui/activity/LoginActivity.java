@@ -75,7 +75,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginContract.Vie
                 }else if(TextUtils.isEmpty(password)) {//如果密码1控件内没有元素
                     showToast("请输入密码");
                 }else {
-                    mPresenter.getUser(username,password);
+                    mPresenter.login(username,password);
                 }
             }
         });
@@ -87,23 +87,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginContract.Vie
      * @param bean
      */
     @Override
-    public void onGetUserSuccess(BaseBean<UserBean> bean) {
+    public void onLoginSuccess(BaseBean<UserBean> bean) {
         if(bean.getCode() == 0) {
             UserBean data = bean.getData();
             //登录成功后清空设置
-            SharedPreferencesUtils.detailSetting(LoginActivity.this,"workgroupSettings");
-            SharedPreferencesUtils.detailSetting(LoginActivity.this,"machineSettings");
-            SharedPreferencesUtils.detailSetting(LoginActivity.this,"handlerSettings");
+            SharedPreferencesUtils.detailSetting(LoginActivity.this,WorkgroupSettings);
+            SharedPreferencesUtils.detailSetting(LoginActivity.this,MachineSettings);
+            SharedPreferencesUtils.detailSetting(LoginActivity.this,HandlerSettings);
             //储存用户信息及其登录状态
-            SharedPreferencesUtils.saveSetting(this,"loginInfo","userName",data.getUserName());
-            SharedPreferencesUtils.saveSetting(this,"loginInfo","isLogin",true);
-            SharedPreferencesUtils.saveSetting(this,"loginInfo","roleName",data.getRoleName());
+            SharedPreferencesUtils.saveSetting(this,LoginInfo,"userName",data.getUserName());
+            SharedPreferencesUtils.saveSetting(this,LoginInfo,"isLogin",true);
+            SharedPreferencesUtils.saveSetting(this,LoginInfo,"roleName",data.getRoleName());
             MainActivity.start(this, HomeFragment.class);
             LoginActivity.this.finish();
         }else{
             showToast(bean.getMsg());
         }
-
     }
 
     /**

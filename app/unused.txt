@@ -8614,7 +8614,6 @@ com.aige.loveproduction.R$styleable:
     public static final int ShapeableImageView_shapeAppearanceOverlay
     public static final int ShapeableImageView_strokeColor
     public static final int ShapeableImageView_strokeWidth
-    public static final int Slider_android_enabled
     public static final int Slider_android_stepSize
     public static final int Slider_android_value
     public static final int Slider_android_valueFrom
@@ -8907,7 +8906,6 @@ com.aige.loveproduction.mpr.MprColor:
     public void setBohrVertCross(int)
     public void setCutting(int)
     public void setCutting_curve(int)
-    public void setCutting_distance_line(int)
     public void setMaster(int)
     public void setMaster_distance_line(int)
 com.aige.loveproduction.mpr.MprCuttingData:
@@ -9023,7 +9021,6 @@ com.aige.loveproduction.net.RxScheduler:
     public static io.reactivex.rxjava3.core.SingleTransformer Sin_io_main()
 com.aige.loveproduction.permission.Permissions$Group
 com.aige.loveproduction.permission.Permissions
-com.aige.loveproduction.sqlite.DBManager
 com.aige.loveproduction.sqlite.OrderDBHelper
 com.aige.loveproduction.ui.activity.ExamineActivity:
     private static final java.lang.String VAG
@@ -9045,9 +9042,6 @@ com.aige.loveproduction.ui.adapter.FragmentPagerAdapter:
     public void <init>(androidx.fragment.app.Fragment)
     public int getFragmentIndex(java.lang.Class)
     public void setLazyMode(boolean)
-com.aige.loveproduction.ui.adapter.LogAdapter:
-    public void <init>()
-    public void setDate(java.util.List)
 com.aige.loveproduction.ui.adapter.PlateAdapter:
     private static final int item_type
 com.aige.loveproduction.ui.adapter.SendVerifyAdapter$ViewHolder:
@@ -10563,7 +10557,54 @@ com.bumptech.glide.annotation.GlideExtension
 com.bumptech.glide.annotation.GlideModule
 com.bumptech.glide.annotation.GlideOption
 com.bumptech.glide.annotation.GlideType
+com.bumptech.glide.annotation.compiler.AppModuleGenerator
+com.bumptech.glide.annotation.compiler.AppModuleProcessor$1
+com.bumptech.glide.annotation.compiler.AppModuleProcessor$FoundIndexedClassNames
+com.bumptech.glide.annotation.compiler.AppModuleProcessor
+com.bumptech.glide.annotation.compiler.ExtensionProcessor
+com.bumptech.glide.annotation.compiler.GlideAnnotationProcessor
+com.bumptech.glide.annotation.compiler.GlideExtensionValidator$1
+com.bumptech.glide.annotation.compiler.GlideExtensionValidator
+com.bumptech.glide.annotation.compiler.GlideGenerator$1
+com.bumptech.glide.annotation.compiler.GlideGenerator
 com.bumptech.glide.annotation.compiler.Index
+com.bumptech.glide.annotation.compiler.IndexerGenerator
+com.bumptech.glide.annotation.compiler.LibraryModuleProcessor
+com.bumptech.glide.annotation.compiler.ProcessorUtil$1
+com.bumptech.glide.annotation.compiler.ProcessorUtil$2
+com.bumptech.glide.annotation.compiler.ProcessorUtil$3
+com.bumptech.glide.annotation.compiler.ProcessorUtil$FilterPublicMethods
+com.bumptech.glide.annotation.compiler.ProcessorUtil$MethodType
+com.bumptech.glide.annotation.compiler.ProcessorUtil$ToMethod
+com.bumptech.glide.annotation.compiler.ProcessorUtil
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$1
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$2
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$3
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$4
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$5
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$6
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$7
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator$8
+com.bumptech.glide.annotation.compiler.RequestBuilderGenerator
+com.bumptech.glide.annotation.compiler.RequestManagerFactoryGenerator
+com.bumptech.glide.annotation.compiler.RequestManagerGenerator$1
+com.bumptech.glide.annotation.compiler.RequestManagerGenerator$2
+com.bumptech.glide.annotation.compiler.RequestManagerGenerator$3
+com.bumptech.glide.annotation.compiler.RequestManagerGenerator$4
+com.bumptech.glide.annotation.compiler.RequestManagerGenerator
+com.bumptech.glide.annotation.compiler.RequestOptionsExtensionGenerator
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$1
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$2
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$3
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$4
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$MethodAndStaticVar
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$MethodSignature$1
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator$MethodSignature
+com.bumptech.glide.annotation.compiler.RequestOptionsGenerator
+com.bumptech.glide.annotation.compiler.RequestOptionsOverrideGenerator$1
+com.bumptech.glide.annotation.compiler.RequestOptionsOverrideGenerator$2
+com.bumptech.glide.annotation.compiler.RequestOptionsOverrideGenerator$3
+com.bumptech.glide.annotation.compiler.RequestOptionsOverrideGenerator
 com.bumptech.glide.disklrucache.DiskLruCache$Editor:
     public java.lang.String getString(int)
     private java.io.InputStream newInputStream(int)
@@ -11174,6 +11215,164 @@ com.bumptech.glide.provider.ResourceDecoderRegistry:
     public synchronized void prepend(java.lang.String,com.bumptech.glide.load.ResourceDecoder,java.lang.Class,java.lang.Class)
 com.bumptech.glide.provider.ResourceEncoderRegistry:
     public synchronized void prepend(java.lang.Class,com.bumptech.glide.load.ResourceEncoder)
+com.bumptech.glide.repackaged.com.google.common.base.Function
+com.bumptech.glide.repackaged.com.google.common.base.Joiner$1
+com.bumptech.glide.repackaged.com.google.common.base.Joiner$MapJoiner
+com.bumptech.glide.repackaged.com.google.common.base.Joiner
+com.bumptech.glide.repackaged.com.google.common.base.Objects
+com.bumptech.glide.repackaged.com.google.common.base.Preconditions
+com.bumptech.glide.repackaged.com.google.common.base.Predicate
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$1
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$IsEqualToPredicate
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$ObjectPredicate$1
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$ObjectPredicate$2
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$ObjectPredicate$3
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$ObjectPredicate$4
+com.bumptech.glide.repackaged.com.google.common.base.Predicates$ObjectPredicate
+com.bumptech.glide.repackaged.com.google.common.base.Predicates
+com.bumptech.glide.repackaged.com.google.common.base.Strings
+com.bumptech.glide.repackaged.com.google.common.collect.AbstractIndexedListIterator
+com.bumptech.glide.repackaged.com.google.common.collect.AbstractIterator$1
+com.bumptech.glide.repackaged.com.google.common.collect.AbstractIterator$State
+com.bumptech.glide.repackaged.com.google.common.collect.AbstractIterator
+com.bumptech.glide.repackaged.com.google.common.collect.AbstractMapEntry
+com.bumptech.glide.repackaged.com.google.common.collect.BiMap
+com.bumptech.glide.repackaged.com.google.common.collect.ByFunctionOrdering
+com.bumptech.glide.repackaged.com.google.common.collect.CollectPreconditions
+com.bumptech.glide.repackaged.com.google.common.collect.Collections2
+com.bumptech.glide.repackaged.com.google.common.collect.ComparatorOrdering
+com.bumptech.glide.repackaged.com.google.common.collect.DescendingImmutableSortedSet
+com.bumptech.glide.repackaged.com.google.common.collect.FluentIterable$1
+com.bumptech.glide.repackaged.com.google.common.collect.FluentIterable
+com.bumptech.glide.repackaged.com.google.common.collect.Hashing
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableAsList
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableBiMap$Builder
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableBiMap
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableCollection$ArrayBasedBuilder
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableCollection$Builder
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableCollection
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableEntry
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableEnumSet
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableList$1
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableList$Builder
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableList$ReverseImmutableList
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableList$SubList
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableList
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMap$1
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMap$Builder
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMap
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapEntry$NonTerminalImmutableBiMapEntry
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapEntry$NonTerminalImmutableMapEntry
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapEntry
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapEntrySet$RegularEntrySet
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapEntrySet
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapKeySet
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapValues$1
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapValues$2
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableMapValues
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSet$Builder
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSet$Indexed$1
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSet$Indexed
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSet
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSortedAsList
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSortedSet
+com.bumptech.glide.repackaged.com.google.common.collect.ImmutableSortedSetFauxverideShim
+com.bumptech.glide.repackaged.com.google.common.collect.Iterables$6
+com.bumptech.glide.repackaged.com.google.common.collect.Iterables$8
+com.bumptech.glide.repackaged.com.google.common.collect.Iterables
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$11
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$12
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$1
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$2
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$3
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$7
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$8
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators$PeekingImpl
+com.bumptech.glide.repackaged.com.google.common.collect.Iterators
+com.bumptech.glide.repackaged.com.google.common.collect.Lists$TransformingRandomAccessList$1
+com.bumptech.glide.repackaged.com.google.common.collect.Lists$TransformingRandomAccessList
+com.bumptech.glide.repackaged.com.google.common.collect.Lists$TransformingSequentialList$1
+com.bumptech.glide.repackaged.com.google.common.collect.Lists$TransformingSequentialList
+com.bumptech.glide.repackaged.com.google.common.collect.Lists
+com.bumptech.glide.repackaged.com.google.common.collect.Maps$1
+com.bumptech.glide.repackaged.com.google.common.collect.Maps$EntryFunction$1
+com.bumptech.glide.repackaged.com.google.common.collect.Maps$EntryFunction$2
+com.bumptech.glide.repackaged.com.google.common.collect.Maps$EntryFunction
+com.bumptech.glide.repackaged.com.google.common.collect.Maps
+com.bumptech.glide.repackaged.com.google.common.collect.Multiset
+com.bumptech.glide.repackaged.com.google.common.collect.NaturalOrdering
+com.bumptech.glide.repackaged.com.google.common.collect.ObjectArrays
+com.bumptech.glide.repackaged.com.google.common.collect.Ordering
+com.bumptech.glide.repackaged.com.google.common.collect.PeekingIterator
+com.bumptech.glide.repackaged.com.google.common.collect.Platform
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableAsList
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableBiMap$1
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableBiMap$Inverse$InverseEntrySet$1
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableBiMap$Inverse$InverseEntrySet
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableBiMap$Inverse
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableBiMap
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableList
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableMap
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableSet
+com.bumptech.glide.repackaged.com.google.common.collect.RegularImmutableSortedSet
+com.bumptech.glide.repackaged.com.google.common.collect.ReverseNaturalOrdering
+com.bumptech.glide.repackaged.com.google.common.collect.ReverseOrdering
+com.bumptech.glide.repackaged.com.google.common.collect.Sets
+com.bumptech.glide.repackaged.com.google.common.collect.SingletonImmutableBiMap
+com.bumptech.glide.repackaged.com.google.common.collect.SingletonImmutableList
+com.bumptech.glide.repackaged.com.google.common.collect.SingletonImmutableSet
+com.bumptech.glide.repackaged.com.google.common.collect.SortedIterable
+com.bumptech.glide.repackaged.com.google.common.collect.SortedIterables
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$1
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyAbsentBehavior$1
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyAbsentBehavior$2
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyAbsentBehavior$3
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyAbsentBehavior
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyPresentBehavior$1
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyPresentBehavior$2
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyPresentBehavior$3
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyPresentBehavior$4
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyPresentBehavior$5
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists$KeyPresentBehavior
+com.bumptech.glide.repackaged.com.google.common.collect.SortedLists
+com.bumptech.glide.repackaged.com.google.common.collect.TransformedIterator
+com.bumptech.glide.repackaged.com.google.common.collect.TransformedListIterator
+com.bumptech.glide.repackaged.com.google.common.collect.UnmodifiableIterator
+com.bumptech.glide.repackaged.com.google.common.collect.UnmodifiableListIterator
+com.bumptech.glide.repackaged.com.squareup.javapoet.AnnotationSpec$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.AnnotationSpec$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.AnnotationSpec$Visitor
+com.bumptech.glide.repackaged.com.squareup.javapoet.AnnotationSpec
+com.bumptech.glide.repackaged.com.squareup.javapoet.ArrayTypeName
+com.bumptech.glide.repackaged.com.squareup.javapoet.ClassName
+com.bumptech.glide.repackaged.com.squareup.javapoet.CodeBlock$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.CodeBlock$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.CodeBlock
+com.bumptech.glide.repackaged.com.squareup.javapoet.CodeWriter
+com.bumptech.glide.repackaged.com.squareup.javapoet.FieldSpec$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.FieldSpec$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.FieldSpec
+com.bumptech.glide.repackaged.com.squareup.javapoet.JavaFile$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.JavaFile$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.JavaFile
+com.bumptech.glide.repackaged.com.squareup.javapoet.LineWrapper
+com.bumptech.glide.repackaged.com.squareup.javapoet.MethodSpec$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.MethodSpec$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.MethodSpec
+com.bumptech.glide.repackaged.com.squareup.javapoet.ParameterSpec$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.ParameterSpec$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.ParameterSpec
+com.bumptech.glide.repackaged.com.squareup.javapoet.ParameterizedTypeName
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeName$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeName$2
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeName
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeSpec$1
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeSpec$Builder
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeSpec$Kind
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeSpec
+com.bumptech.glide.repackaged.com.squareup.javapoet.TypeVariableName
+com.bumptech.glide.repackaged.com.squareup.javapoet.Util
+com.bumptech.glide.repackaged.com.squareup.javapoet.WildcardTypeName
 com.bumptech.glide.request.BaseRequestOptions:
     private static final int DISK_CACHE_STRATEGY
     private static final int ERROR_ID
@@ -11592,15 +11791,6 @@ com.journeyapps.barcodescanner.camera.DisplayConfiguration:
     public com.journeyapps.barcodescanner.Size getViewfinderSize()
 com.journeyapps.barcodescanner.camera.LegacyPreviewScalingStrategy$1
 com.journeyapps.barcodescanner.camera.LegacyPreviewScalingStrategy
-com.tbruyelle.rxpermissions.BuildConfig
-com.tbruyelle.rxpermissions.R
-com.tbruyelle.rxpermissions2.Permission
-com.tbruyelle.rxpermissions2.RxPermissions$1$1
-com.tbruyelle.rxpermissions2.RxPermissions$1
-com.tbruyelle.rxpermissions2.RxPermissions$2
-com.tbruyelle.rxpermissions2.RxPermissions$3
-com.tbruyelle.rxpermissions2.RxPermissions
-com.tbruyelle.rxpermissions2.RxPermissionsFragment
 io.reactivex.rxjava3.android.MainThreadDisposable
 io.reactivex.rxjava3.android.R
 io.reactivex.rxjava3.android.plugins.RxAndroidPlugins:
@@ -23002,7 +23192,7 @@ com.aige.loveproduction.mvp.model.InStorageModel:
     public io.reactivex.rxjava3.core.Observable getBinFind(java.lang.String)
     public io.reactivex.rxjava3.core.Observable getScanPackage(java.lang.String,java.lang.String,java.lang.String,java.lang.String)
 com.aige.loveproduction.mvp.model.LoginModel:
-    public io.reactivex.rxjava3.core.Observable getUser(java.lang.String,java.lang.String)
+    public io.reactivex.rxjava3.core.Observable login(java.lang.String,java.lang.String)
 com.aige.loveproduction.mvp.model.MixedLotModel:
     public io.reactivex.rxjava3.core.Observable getHunPiByBatchNo(java.lang.String,java.lang.String,java.lang.String)
     public io.reactivex.rxjava3.core.Observable getMessageByWono(com.aige.loveproduction.bean.WonoAsk)
@@ -23087,14 +23277,6 @@ com.aige.loveproduction.ui.activity.FactorySettingsActivity:
     private synthetic void lambda$saveSettings$4(android.widget.RadioButton,com.aige.loveproduction.bean.WorkgroupBean)
     public synthetic void lambda$saveSettings$4$FactorySettingsActivity(android.widget.RadioButton,com.aige.loveproduction.bean.WorkgroupBean)
     private boolean saveSettings()
-com.aige.loveproduction.ui.activity.HistoryLogActivity:
-    private com.aige.loveproduction.ui.adapter.LogAdapter adapter
-    private java.util.List ebl
-    private android.widget.ListView log_listview
-    private void bindViews()
-    private void initUI()
-    private synthetic void lambda$initUI$0(android.view.View)
-    public synthetic void lambda$initUI$0$HistoryLogActivity(android.view.View)
 com.aige.loveproduction.ui.activity.ImagePreviewActivity:
     public static void start(android.content.Context,java.util.List,int)
 com.aige.loveproduction.ui.activity.ImageSelectActivity$OnPhotoSelectListener:
@@ -23245,11 +23427,6 @@ com.aige.loveproduction.ui.adapter.ImageSelectAdapter:
     private boolean flag
     public com.aige.loveproduction.ui.adapter.ImageSelectAdapter$ViewHolder onCreateViewHolder()
     public void setChecked(boolean)
-com.aige.loveproduction.ui.adapter.LogAdapter$1:
-    final synthetic com.aige.loveproduction.ui.adapter.LogAdapter this$0
-com.aige.loveproduction.ui.adapter.LogAdapter:
-    private java.util.List list
-    public java.lang.String getItem(int)
 com.aige.loveproduction.ui.adapter.MprSettingAdapter:
     public com.aige.loveproduction.ui.adapter.MprSettingAdapter$ViewHolder onCreateViewHolder()
 com.aige.loveproduction.ui.adapter.PlateAdapter:

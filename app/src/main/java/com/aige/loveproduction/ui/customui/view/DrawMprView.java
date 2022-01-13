@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
  * 板件渲染
  * 自定义图形图形渲染
  * 支持拖拽、缩放，双击图形置中
- * 本来想分图形组件管理的，但我时间不多了，算了吧
  */
 public class DrawMprView extends View implements ResourcesAction {
     //坐标

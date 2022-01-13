@@ -9,8 +9,13 @@
     <string name="error_request">请求出错，点击重试</string>
     <string name="home_problem">首页界面一片空白没有选项卡？</string>
     <string name="home_problem_content">
-            本软件每个用户都有其不同的权限，您只能查看到对应权限的选项卡，
+        本软件每个用户都有其不同的权限，您只能查看到对应权限的选项卡，
         出现空白的情况应该是您的权限并没有加入本软件清单中
+    </string>
+    <string name="mpr_problem">孔图查看使用</string>
+    <string name="mpr_problem_content">
+        孔图查看界面右侧隐藏有侧边栏，可通过右侧向左滑动呼出菜单。
+        使用者手机开启”全面屏手势“时，可通过右上角向左滑动呼出菜单
     </string>
     <string name="submit">提交</string>
     <string name="plate_code">板件编码：</string>

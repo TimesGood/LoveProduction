@@ -1,5 +1,8 @@
 package com.aige.loveproduction.enums;
 
+/**
+ * Mpr方向枚举
+ */
 public enum MprPosition {
     LEFT,
     TOP,

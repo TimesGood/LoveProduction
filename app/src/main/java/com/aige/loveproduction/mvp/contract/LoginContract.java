@@ -11,12 +11,12 @@ import io.reactivex.rxjava3.core.Observable;
 
 public interface LoginContract {
     interface Model extends IBaseModel {
-        Observable<BaseBean<UserBean>> getUser(String username, String password);
+        Observable<BaseBean<UserBean>> login(String username, String password);
     }
     interface View extends IBaseView {
-        void onGetUserSuccess(BaseBean<UserBean> bean);
+        void onLoginSuccess(BaseBean<UserBean> bean);
     }
     interface Presenter extends IBasePresenter<View> {
-        void getUser(String username,String password);
+        void login(String username,String password);
     }
 }

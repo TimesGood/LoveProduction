@@ -106,7 +106,7 @@ public class MprActivity extends BaseActivity<MprPresenter, MprContract.View> im
     @Override
     protected void initData() {
         setData();
-        setOnClickListener(R.id.image_camera);
+//        setOnClickListener(R.id.image_camera);
         find_edit.requestFocus();
         find_edit.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && v.getText() != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -118,7 +118,7 @@ public class MprActivity extends BaseActivity<MprPresenter, MprContract.View> im
             return true;
         });
         ViewGroup.LayoutParams layoutParams = right_drawer.getLayoutParams();
-        layoutParams.width = CommonUtils.getScreenWidth(this)/3;
+        layoutParams.width = (int) (CommonUtils.getScreenWidth(this)/2.7f);
 
     }
     private void setData(){
@@ -126,9 +126,10 @@ public class MprActivity extends BaseActivity<MprPresenter, MprContract.View> im
         adapter.setMprView(apply_view);
         recyclerview_data.setAdapter(adapter);
         LinearLayout inflate = (LinearLayout)getLayoutInflater().inflate(R.layout.find_include, recyclerview_data,false);
-        inflate.getChildAt(0).setVisibility(View.GONE);
+//        inflate.getChildAt(0).setVisibility(View.GONE);
+
         find_edit = (EditText) inflate.getChildAt(1);
-        setOnClickListener(inflate.getChildAt(2));
+        setOnClickListener(inflate.getChildAt(0),inflate.getChildAt(2));
         recyclerview_data.addHeaderView(inflate);
     }
 
@@ -296,6 +297,7 @@ public class MprActivity extends BaseActivity<MprPresenter, MprContract.View> im
         apply_view.setData(wrap);
         MprColor mprColor = apply_view.getMprColor();
         mprColor.setBohrHoriz_distance_line(getColor(R.color.draw_sky_blue));
+        mprColor.setCutting_distance_line(getColor(R.color.draw_orange));
     }
 
 }

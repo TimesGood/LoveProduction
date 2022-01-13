@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 2.2.71
 # min_api: 24
-# pg_map_id: 4dc16fd
+# pg_map_id: 1b715a1
 # common_typos_disable
 android.support.v4.media.MediaBrowserCompat$CustomActionResultReceiver -> android.support.v4.media.MediaBrowserCompat$CustomActionResultReceiver:
     void onReceiveResult(int,android.os.Bundle) -> a
@@ -10716,7 +10716,7 @@ com.aige.loveproduction.action.StatusAction -> d.a.a.b.g:
     com.aige.loveproduction.ui.customui.StatusLayout getStatusLayout() -> h
     1:1:void showLoadings(int):0:0 -> l
     1:1:void showLoadings():0 -> l
-    void showComplete() -> u
+    void showComplete() -> v
 com.aige.loveproduction.action.TitleBarAction -> d.a.a.b.h:
 com.aige.loveproduction.animation.AnimationInterpolator$JellyInterpolator -> d.a.a.c.a:
 com.aige.loveproduction.animation.BaseAnimation -> d.a.a.c.b:
@@ -11054,6 +11054,7 @@ com.aige.loveproduction.mpr.MprColor -> com.aige.loveproduction.mpr.i:
     int getMaster() -> g
     int getMaster_distance_line() -> h
     void setBohrHoriz_distance_line(int) -> i
+    void setCutting_distance_line(int) -> j
 com.aige.loveproduction.mpr.MprCuttingData -> com.aige.loveproduction.mpr.j:
     java.util.Map map -> b
     com.aige.loveproduction.mpr.MprMaster master -> a
@@ -11251,14 +11252,14 @@ com.aige.loveproduction.mvp.contract.CreateTaskContract$View -> d.a.a.e.a.a:
     void onSubmitPrintSuccess() -> I
     void onGetEntityByBarcodeSuccess(com.aige.loveproduction.bean.PrintBean) -> p
 com.aige.loveproduction.mvp.contract.FactorySettingContract$View -> d.a.a.e.a.b:
-    void onGetMachineSuccess(java.util.List) -> v
-    void onGetWorkgroupSuccess(java.util.List) -> w
-    void onGetHandlerSuccess(java.util.List) -> z
+    void onGetHandlerSuccess(java.util.List) -> A
+    void onGetMachineSuccess(java.util.List) -> w
+    void onGetWorkgroupSuccess(java.util.List) -> x
 com.aige.loveproduction.mvp.contract.InStorageContract$View -> d.a.a.e.a.c:
     void onGetScanPackageSuccess(com.aige.loveproduction.base.BaseBean) -> a
     void onGetBinFindSuccess(com.aige.loveproduction.base.BaseBean) -> b
 com.aige.loveproduction.mvp.contract.LoginContract$View -> d.a.a.e.a.d:
-    void onGetUserSuccess(com.aige.loveproduction.base.BaseBean) -> B
+    void onLoginSuccess(com.aige.loveproduction.base.BaseBean) -> s
 com.aige.loveproduction.mvp.contract.MixedLotContract$View -> d.a.a.e.a.e:
     void onGetMessageByWonoSuccess(com.aige.loveproduction.base.BaseBean) -> e
     void onGetHunPiByBatchNoSuccess(java.util.List) -> j
@@ -11268,7 +11269,7 @@ com.aige.loveproduction.mvp.contract.MoveStorageContract$View -> d.a.a.e.a.f:
 com.aige.loveproduction.mvp.contract.MprContract$View -> d.a.a.e.a.g:
     void onGetMPRByBatchNoSuccess(java.util.List) -> o
     void onGetFileSuccess(okhttp3.ResponseBody) -> r
-    void onGetMPRByBatchNoV2Success(java.util.List) -> y
+    void onGetMPRByBatchNoV2Success(java.util.List) -> z
 com.aige.loveproduction.mvp.contract.OutStorageContract$View -> d.a.a.e.a.h:
     void onGetScanPackageSuccess(com.aige.loveproduction.base.BaseBean) -> a
     void onGetBinFindSuccess(com.aige.loveproduction.base.BaseBean) -> b
@@ -11277,12 +11278,12 @@ com.aige.loveproduction.mvp.contract.PlanNoScanContract$View -> d.a.a.e.a.i:
 com.aige.loveproduction.mvp.contract.PlateFindContract$View -> d.a.a.e.a.j:
     void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateWrapBean) -> i
 com.aige.loveproduction.mvp.contract.ReportContract$View -> d.a.a.e.a.k:
-    void onReportChannelOneSuccess(java.util.List) -> A
+    void onReportChannelOneSuccess(java.util.List) -> B
     void onReportRefundMonthSuccess(java.util.List) -> D
     void onReportOrderMonthSuccess(java.util.List) -> g
     void onReportDirectlyMonthSuccess(java.util.List) -> m
     void onReportChannelTwoSuccess(java.util.List) -> n
-    void onReportOrderDaySuccess(java.util.List) -> x
+    void onReportOrderDaySuccess(java.util.List) -> y
 com.aige.loveproduction.mvp.contract.SendOutContract$View -> d.a.a.e.a.l:
     void onGetScanPackageSuccess(com.aige.loveproduction.base.BaseBean) -> a
 com.aige.loveproduction.mvp.contract.SendOutVerifyContract$View -> d.a.a.e.a.m:
@@ -11291,12 +11292,12 @@ com.aige.loveproduction.mvp.contract.SpecialShapedContract$View -> d.a.a.e.a.n:
     void onGetSpecialBar(com.aige.loveproduction.base.BaseBean) -> f
     void submitShowLoading() -> k
     void submitHideLoading() -> q
-    void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean) -> t
+    void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean) -> u
 com.aige.loveproduction.mvp.contract.StorageFindContract$View -> d.a.a.e.a.o:
     void onGetScanPackageSuccess(com.aige.loveproduction.base.BaseBean) -> a
 com.aige.loveproduction.mvp.contract.ToFillInContract$View -> d.a.a.e.a.p:
     void onSubmitDataSuccess() -> F
-    void onGetToFillInDataSuccess(com.aige.loveproduction.bean.ToFillInBean) -> s
+    void onGetToFillInDataSuccess(com.aige.loveproduction.bean.ToFillInBean) -> t
 com.aige.loveproduction.mvp.contract.TransferContract$View -> d.a.a.e.a.q:
     void onGetMessageByWonoSuccess(java.util.List) -> d
 com.aige.loveproduction.mvp.contract.TransferVerifyContract$View -> d.a.a.e.a.r:
@@ -11434,19 +11435,19 @@ com.aige.loveproduction.mvp.presenter.LoginPresenter -> com.aige.loveproduction.
     com.aige.loveproduction.base.IBaseView access$100(com.aige.loveproduction.mvp.presenter.LoginPresenter) -> b
     com.aige.loveproduction.base.IBaseView access$200(com.aige.loveproduction.mvp.presenter.LoginPresenter) -> c
     com.aige.loveproduction.base.IBaseView access$300(com.aige.loveproduction.mvp.presenter.LoginPresenter) -> d
-    1:1:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.getUser(java.lang.String,java.lang.String):0:0 -> getUser
-    1:1:void getUser(java.lang.String,java.lang.String):0 -> getUser
-    2:2:java.lang.String com.aige.loveproduction.util.MD5Utils.md5(java.lang.String):0:0 -> getUser
-    2:2:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.getUser(java.lang.String,java.lang.String):0 -> getUser
-    2:2:void getUser(java.lang.String,java.lang.String):0 -> getUser
-    3:3:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.getUser(java.lang.String,java.lang.String):0:0 -> getUser
-    3:3:void getUser(java.lang.String,java.lang.String):0 -> getUser
-    4:4:okhttp3.MediaType okhttp3.MediaType.parse(java.lang.String):0:0 -> getUser
-    4:4:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.getUser(java.lang.String,java.lang.String):0 -> getUser
-    4:4:void getUser(java.lang.String,java.lang.String):0 -> getUser
-    5:5:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.getUser(java.lang.String,java.lang.String):0:0 -> getUser
-    5:5:void getUser(java.lang.String,java.lang.String):0 -> getUser
-    6:6:void getUser(java.lang.String,java.lang.String):0:0 -> getUser
+    1:1:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.login(java.lang.String,java.lang.String):0:0 -> login
+    1:1:void login(java.lang.String,java.lang.String):0 -> login
+    2:2:java.lang.String com.aige.loveproduction.util.MD5Utils.md5(java.lang.String):0:0 -> login
+    2:2:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.login(java.lang.String,java.lang.String):0 -> login
+    2:2:void login(java.lang.String,java.lang.String):0 -> login
+    3:3:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.login(java.lang.String,java.lang.String):0:0 -> login
+    3:3:void login(java.lang.String,java.lang.String):0 -> login
+    4:4:okhttp3.MediaType okhttp3.MediaType.parse(java.lang.String):0:0 -> login
+    4:4:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.login(java.lang.String,java.lang.String):0 -> login
+    4:4:void login(java.lang.String,java.lang.String):0 -> login
+    5:5:io.reactivex.rxjava3.core.Observable com.aige.loveproduction.mvp.model.LoginModel.login(java.lang.String,java.lang.String):0:0 -> login
+    5:5:void login(java.lang.String,java.lang.String):0 -> login
+    6:6:void login(java.lang.String,java.lang.String):0:0 -> login
 com.aige.loveproduction.mvp.presenter.LoginPresenter$1 -> com.aige.loveproduction.mvp.presenter.LoginPresenter$1:
     com.aige.loveproduction.mvp.presenter.LoginPresenter this$0 -> c
 com.aige.loveproduction.mvp.presenter.MixedLotPresenter -> com.aige.loveproduction.mvp.presenter.MixedLotPresenter:
@@ -11844,12 +11845,12 @@ com.aige.loveproduction.net.APIService -> d.a.a.f.a:
     io.reactivex.rxjava3.core.Observable getReportOrderMonth(okhttp3.RequestBody) -> C
     io.reactivex.rxjava3.core.Observable getFile(java.lang.String) -> D
     io.reactivex.rxjava3.core.Observable transportScan(okhttp3.RequestBody) -> a
-    io.reactivex.rxjava3.core.Observable getMachine() -> b
-    io.reactivex.rxjava3.core.Observable getWonoByPackageCode(okhttp3.RequestBody) -> c
-    io.reactivex.rxjava3.core.Observable getWonoByBatchNo(okhttp3.RequestBody) -> d
-    io.reactivex.rxjava3.core.Observable getWorkgroupByMachineId(okhttp3.RequestBody) -> e
-    io.reactivex.rxjava3.core.Observable getSpecialBar(com.aige.loveproduction.bean.SpeciaBarAsk) -> f
-    io.reactivex.rxjava3.core.Observable getUser(okhttp3.RequestBody) -> g
+    io.reactivex.rxjava3.core.Observable login(okhttp3.RequestBody) -> b
+    io.reactivex.rxjava3.core.Observable getMachine() -> c
+    io.reactivex.rxjava3.core.Observable getWonoByPackageCode(okhttp3.RequestBody) -> d
+    io.reactivex.rxjava3.core.Observable getWonoByBatchNo(okhttp3.RequestBody) -> e
+    io.reactivex.rxjava3.core.Observable getWorkgroupByMachineId(okhttp3.RequestBody) -> f
+    io.reactivex.rxjava3.core.Observable getSpecialBar(com.aige.loveproduction.bean.SpeciaBarAsk) -> g
     io.reactivex.rxjava3.core.Observable getScanPackageCode(okhttp3.RequestBody) -> h
     io.reactivex.rxjava3.core.Observable getBinFind(okhttp3.RequestBody) -> i
     io.reactivex.rxjava3.core.Observable getPlateListByPackageCode(okhttp3.RequestBody) -> j
@@ -11991,16 +11992,10 @@ com.aige.loveproduction.ui.activity.-$$Lambda$FactorySettingsActivity$nqXBW54RyU
     2:2:void com.aige.loveproduction.ui.activity.FactorySettingsActivity.lambda$saveSettings$3(android.widget.RadioButton,com.aige.loveproduction.bean.MachineBean):0:0 -> accept
     2:2:void com.aige.loveproduction.ui.activity.FactorySettingsActivity.lambda$saveSettings$3$FactorySettingsActivity(android.widget.RadioButton,com.aige.loveproduction.bean.MachineBean):0 -> accept
     2:2:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$HistoryLogActivity$s1BzznAXDjqbLL4zyc1Cf5ubsvk -> com.aige.loveproduction.ui.activity.i:
-# {"id":"sourceFile","fileName":"lambda"}
-    com.aige.loveproduction.ui.activity.HistoryLogActivity f$0 -> c
-    1:1:void com.aige.loveproduction.ui.activity.HistoryLogActivity.lambda$initUI$0(android.view.View):0:0 -> onClick
-    1:1:void com.aige.loveproduction.ui.activity.HistoryLogActivity.lambda$initUI$0$HistoryLogActivity(android.view.View):0 -> onClick
-    1:1:void onClick(android.view.View):0 -> onClick
-com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$2tYEXCBDASEGHWx5NflyMRTeCa8 -> com.aige.loveproduction.ui.activity.j:
+com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$2tYEXCBDASEGHWx5NflyMRTeCa8 -> com.aige.loveproduction.ui.activity.i:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ImageSelectActivity f$0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$NRBeJJwV75EaZwnmiGvvmB4SbCU -> com.aige.loveproduction.ui.activity.k:
+com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$NRBeJJwV75EaZwnmiGvvmB4SbCU -> com.aige.loveproduction.ui.activity.j:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ImageSelectActivity f$0 -> c
     1:1:void com.aige.loveproduction.ui.activity.ImageSelectActivity.lambda$null$1$ImageSelectActivity():0:0 -> run
@@ -12008,19 +12003,19 @@ com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$NRBeJJwV75EaZw
     2:2:void com.aige.loveproduction.ui.activity.ImageSelectActivity.lambda$null$1():0:0 -> run
     2:2:void com.aige.loveproduction.ui.activity.ImageSelectActivity.lambda$null$1$ImageSelectActivity():0 -> run
     2:2:void run():0 -> run
-com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$RyRZic4xvG4SZHSTouvLPbrOOCU -> com.aige.loveproduction.ui.activity.l:
+com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$RyRZic4xvG4SZHSTouvLPbrOOCU -> com.aige.loveproduction.ui.activity.k:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ImageSelectActivity f$0 -> c
-com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$UsG77F1kZl8l3sQmIv4vLBzFBiA -> com.aige.loveproduction.ui.activity.m:
+com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$UsG77F1kZl8l3sQmIv4vLBzFBiA -> com.aige.loveproduction.ui.activity.l:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ImageSelectActivity f$0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$VS8ahZQvJlrxdcZudNAAy_FaEkY -> com.aige.loveproduction.ui.activity.n:
+com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$VS8ahZQvJlrxdcZudNAAy_FaEkY -> com.aige.loveproduction.ui.activity.m:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ImageSelectActivity f$0 -> c
-com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$lCBYkX-G5UfkUWuZHKfKbHndLwM -> com.aige.loveproduction.ui.activity.o:
+com.aige.loveproduction.ui.activity.-$$Lambda$ImageSelectActivity$lCBYkX-G5UfkUWuZHKfKbHndLwM -> com.aige.loveproduction.ui.activity.n:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ImageSelectActivity f$0 -> c
-com.aige.loveproduction.ui.activity.-$$Lambda$InStorageActivity$2pbJruwc4Vx3ZgFQbvkMlEETrQU -> com.aige.loveproduction.ui.activity.p:
+com.aige.loveproduction.ui.activity.-$$Lambda$InStorageActivity$2pbJruwc4Vx3ZgFQbvkMlEETrQU -> com.aige.loveproduction.ui.activity.o:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.InStorageActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.InStorageActivity.lambda$onRequestPermissionsResult$0$InStorageActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12028,15 +12023,15 @@ com.aige.loveproduction.ui.activity.-$$Lambda$InStorageActivity$2pbJruwc4Vx3ZgFQ
     2:2:void com.aige.loveproduction.ui.activity.InStorageActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.InStorageActivity.lambda$onRequestPermissionsResult$0$InStorageActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$InStorageActivity$sWAb-INNUKQQZOneHEPhxY_Sjc8 -> com.aige.loveproduction.ui.activity.q:
+com.aige.loveproduction.ui.activity.-$$Lambda$InStorageActivity$sWAb-INNUKQQZOneHEPhxY_Sjc8 -> com.aige.loveproduction.ui.activity.p:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$InStorageActivity$sWAb-INNUKQQZOneHEPhxY_Sjc8 INSTANCE -> a
     1:1:void com.aige.loveproduction.ui.activity.InStorageActivity.lambda$setAdapterData$1(com.aige.loveproduction.bean.StorageBean):0:0 -> accept
     1:1:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$MainActivity$7u7UlAn8ymp7XepSW-_UGEQiwgY -> com.aige.loveproduction.ui.activity.r:
+com.aige.loveproduction.ui.activity.-$$Lambda$MainActivity$7u7UlAn8ymp7XepSW-_UGEQiwgY -> com.aige.loveproduction.ui.activity.q:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$MainActivity$7u7UlAn8ymp7XepSW-_UGEQiwgY INSTANCE -> c
-com.aige.loveproduction.ui.activity.-$$Lambda$MixedLotActivity$OwIDIRkINmr8D8gDykTcxJV7Wvw -> com.aige.loveproduction.ui.activity.s:
+com.aige.loveproduction.ui.activity.-$$Lambda$MixedLotActivity$OwIDIRkINmr8D8gDykTcxJV7Wvw -> com.aige.loveproduction.ui.activity.r:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.MixedLotActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.MixedLotActivity.lambda$onRequestPermissionsResult$0$MixedLotActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12044,7 +12039,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$MixedLotActivity$OwIDIRkINmr8D8gDy
     2:2:void com.aige.loveproduction.ui.activity.MixedLotActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.MixedLotActivity.lambda$onRequestPermissionsResult$0$MixedLotActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$30enkRQldlcd7MHkE7S4r08wLwU -> com.aige.loveproduction.ui.activity.t:
+com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$30enkRQldlcd7MHkE7S4r08wLwU -> com.aige.loveproduction.ui.activity.s:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.MoveStorageActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.MoveStorageActivity.lambda$onRequestPermissionsResult$0$MoveStorageActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12052,22 +12047,22 @@ com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$30enkRQldlcd7M
     2:2:void com.aige.loveproduction.ui.activity.MoveStorageActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.MoveStorageActivity.lambda$onRequestPermissionsResult$0$MoveStorageActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$_QBM6i_ukky9VzUnqTzE0P5a1vg -> com.aige.loveproduction.ui.activity.u:
+com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$_QBM6i_ukky9VzUnqTzE0P5a1vg -> com.aige.loveproduction.ui.activity.t:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$_QBM6i_ukky9VzUnqTzE0P5a1vg INSTANCE -> a
     1:1:void com.aige.loveproduction.ui.activity.MoveStorageActivity.lambda$setAdapterData$2(com.aige.loveproduction.bean.StorageBean):0:0 -> accept
     1:1:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$yVf2nbqThVwhtm_B5KdmWzEaivI -> com.aige.loveproduction.ui.activity.v:
+com.aige.loveproduction.ui.activity.-$$Lambda$MoveStorageActivity$yVf2nbqThVwhtm_B5KdmWzEaivI -> com.aige.loveproduction.ui.activity.u:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.MoveStorageActivity f$0 -> a
     java.lang.String f$2 -> c
     java.lang.String f$1 -> b
     java.lang.String f$3 -> d
     void onConfirm(com.aige.loveproduction.base.BaseDialog) -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$MprActivity$3FtCrrqCQctbqaj5a4sj-SMqXAs -> com.aige.loveproduction.ui.activity.w:
+com.aige.loveproduction.ui.activity.-$$Lambda$MprActivity$3FtCrrqCQctbqaj5a4sj-SMqXAs -> com.aige.loveproduction.ui.activity.v:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.MprActivity f$0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$MprActivity$7Cc3Q7MWS9-u3QAFnxEr6BkXhVw -> com.aige.loveproduction.ui.activity.x:
+com.aige.loveproduction.ui.activity.-$$Lambda$MprActivity$7Cc3Q7MWS9-u3QAFnxEr6BkXhVw -> com.aige.loveproduction.ui.activity.w:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.MprActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.MprActivity.lambda$onRequestPermissionsResult$1$MprActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12075,7 +12070,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$MprActivity$7Cc3Q7MWS9-u3QAFnxEr6B
     2:2:void com.aige.loveproduction.ui.activity.MprActivity.lambda$onRequestPermissionsResult$1(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.MprActivity.lambda$onRequestPermissionsResult$1$MprActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$OutStorageActivity$rZ1QTMJLE13-BKSpFvTEz_7PEQA -> com.aige.loveproduction.ui.activity.y:
+com.aige.loveproduction.ui.activity.-$$Lambda$OutStorageActivity$rZ1QTMJLE13-BKSpFvTEz_7PEQA -> com.aige.loveproduction.ui.activity.x:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.OutStorageActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.OutStorageActivity.lambda$onRequestPermissionsResult$0$OutStorageActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12083,12 +12078,12 @@ com.aige.loveproduction.ui.activity.-$$Lambda$OutStorageActivity$rZ1QTMJLE13-BKS
     2:2:void com.aige.loveproduction.ui.activity.OutStorageActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.OutStorageActivity.lambda$onRequestPermissionsResult$0$OutStorageActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$OutStorageActivity$xWmDxikj29bP21oLVEDeE3Hek_I -> com.aige.loveproduction.ui.activity.z:
+com.aige.loveproduction.ui.activity.-$$Lambda$OutStorageActivity$xWmDxikj29bP21oLVEDeE3Hek_I -> com.aige.loveproduction.ui.activity.y:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$OutStorageActivity$xWmDxikj29bP21oLVEDeE3Hek_I INSTANCE -> a
     1:1:void com.aige.loveproduction.ui.activity.OutStorageActivity.lambda$setAdapterData$1(com.aige.loveproduction.bean.StorageBean):0:0 -> accept
     1:1:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$PlanNoScanActivity$lrOVWg19TYHowxuGvDYo9wUgS4A -> com.aige.loveproduction.ui.activity.a0:
+com.aige.loveproduction.ui.activity.-$$Lambda$PlanNoScanActivity$lrOVWg19TYHowxuGvDYo9wUgS4A -> com.aige.loveproduction.ui.activity.z:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.PlanNoScanActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.PlanNoScanActivity.lambda$onRequestPermissionsResult$0$PlanNoScanActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12096,7 +12091,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$PlanNoScanActivity$lrOVWg19TYHowxu
     2:2:void com.aige.loveproduction.ui.activity.PlanNoScanActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.PlanNoScanActivity.lambda$onRequestPermissionsResult$0$PlanNoScanActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$PlateFindActivity$VSnkeb7f7wj7Tkg_ya9xLmgSWCk -> com.aige.loveproduction.ui.activity.b0:
+com.aige.loveproduction.ui.activity.-$$Lambda$PlateFindActivity$VSnkeb7f7wj7Tkg_ya9xLmgSWCk -> com.aige.loveproduction.ui.activity.a0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.PlateFindActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.PlateFindActivity.lambda$onRequestPermissionsResult$0$PlateFindActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12104,7 +12099,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$PlateFindActivity$VSnkeb7f7wj7Tkg_
     2:2:void com.aige.loveproduction.ui.activity.PlateFindActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.PlateFindActivity.lambda$onRequestPermissionsResult$0$PlateFindActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$SendOutActivity$9O3aCDv-ZsDnyFE6VvKQpfaYp7U -> com.aige.loveproduction.ui.activity.c0:
+com.aige.loveproduction.ui.activity.-$$Lambda$SendOutActivity$9O3aCDv-ZsDnyFE6VvKQpfaYp7U -> com.aige.loveproduction.ui.activity.b0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.SendOutActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.SendOutActivity.lambda$onRequestPermissionsResult$0$SendOutActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12112,17 +12107,17 @@ com.aige.loveproduction.ui.activity.-$$Lambda$SendOutActivity$9O3aCDv-ZsDnyFE6Vv
     2:2:void com.aige.loveproduction.ui.activity.SendOutActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.SendOutActivity.lambda$onRequestPermissionsResult$0$SendOutActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$SendOutActivity$lTU2MyArtPuYxuux30Pcj3ieSr8 -> com.aige.loveproduction.ui.activity.d0:
+com.aige.loveproduction.ui.activity.-$$Lambda$SendOutActivity$lTU2MyArtPuYxuux30Pcj3ieSr8 -> com.aige.loveproduction.ui.activity.c0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$SendOutActivity$lTU2MyArtPuYxuux30Pcj3ieSr8 INSTANCE -> a
     1:1:void com.aige.loveproduction.ui.activity.SendOutActivity.lambda$setAdapterData$1(com.aige.loveproduction.bean.StorageBean):0:0 -> accept
     1:1:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$SendOutVerifyActivity$CwOD7WE7FD1bv4kTTKq9xlPxUXk -> com.aige.loveproduction.ui.activity.e0:
+com.aige.loveproduction.ui.activity.-$$Lambda$SendOutVerifyActivity$CwOD7WE7FD1bv4kTTKq9xlPxUXk -> com.aige.loveproduction.ui.activity.d0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$SendOutVerifyActivity$CwOD7WE7FD1bv4kTTKq9xlPxUXk INSTANCE -> a
     1:1:void com.aige.loveproduction.ui.activity.SendOutVerifyActivity.lambda$onGetSendOutVerifySuccess$1(com.aige.loveproduction.bean.StorageBean):0:0 -> accept
     1:1:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$SendOutVerifyActivity$QnYhao-oucwlbsQejrDYL1ZzyHE -> com.aige.loveproduction.ui.activity.f0:
+com.aige.loveproduction.ui.activity.-$$Lambda$SendOutVerifyActivity$QnYhao-oucwlbsQejrDYL1ZzyHE -> com.aige.loveproduction.ui.activity.e0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.SendOutVerifyActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.SendOutVerifyActivity.lambda$onRequestPermissionsResult$0$SendOutVerifyActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12130,7 +12125,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$SendOutVerifyActivity$QnYhao-oucwl
     2:2:void com.aige.loveproduction.ui.activity.SendOutVerifyActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.SendOutVerifyActivity.lambda$onRequestPermissionsResult$0$SendOutVerifyActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$SpecialShapedActivity$-L7FHcZvRNPMjlLVxolOuXx9C7w -> com.aige.loveproduction.ui.activity.g0:
+com.aige.loveproduction.ui.activity.-$$Lambda$SpecialShapedActivity$-L7FHcZvRNPMjlLVxolOuXx9C7w -> com.aige.loveproduction.ui.activity.f0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.SpecialShapedActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.SpecialShapedActivity.lambda$onRequestPermissionsResult$0$SpecialShapedActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12138,12 +12133,12 @@ com.aige.loveproduction.ui.activity.-$$Lambda$SpecialShapedActivity$-L7FHcZvRNPM
     2:2:void com.aige.loveproduction.ui.activity.SpecialShapedActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.SpecialShapedActivity.lambda$onRequestPermissionsResult$0$SpecialShapedActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$StorageFindActivity$4gBzmuG-BSaCioLK7W6PiwFo0sw -> com.aige.loveproduction.ui.activity.h0:
+com.aige.loveproduction.ui.activity.-$$Lambda$StorageFindActivity$4gBzmuG-BSaCioLK7W6PiwFo0sw -> com.aige.loveproduction.ui.activity.g0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.-$$Lambda$StorageFindActivity$4gBzmuG-BSaCioLK7W6PiwFo0sw INSTANCE -> a
     1:1:void com.aige.loveproduction.ui.activity.StorageFindActivity.lambda$setAdapterData$1(com.aige.loveproduction.bean.StorageBean):0:0 -> accept
     1:1:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$StorageFindActivity$aAJbhUzvT1tzXaooyGVhMSlOzSQ -> com.aige.loveproduction.ui.activity.i0:
+com.aige.loveproduction.ui.activity.-$$Lambda$StorageFindActivity$aAJbhUzvT1tzXaooyGVhMSlOzSQ -> com.aige.loveproduction.ui.activity.h0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.StorageFindActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.StorageFindActivity.lambda$onRequestPermissionsResult$0$StorageFindActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12151,7 +12146,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$StorageFindActivity$aAJbhUzvT1tzXa
     2:2:void com.aige.loveproduction.ui.activity.StorageFindActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.StorageFindActivity.lambda$onRequestPermissionsResult$0$StorageFindActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$ToFillInActivity$AM_6DBevTdPxQbUdPJg1bwL7tKo -> com.aige.loveproduction.ui.activity.j0:
+com.aige.loveproduction.ui.activity.-$$Lambda$ToFillInActivity$AM_6DBevTdPxQbUdPJg1bwL7tKo -> com.aige.loveproduction.ui.activity.i0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.ToFillInActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.ToFillInActivity.lambda$onRequestPermissionsResult$0$ToFillInActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12159,7 +12154,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$ToFillInActivity$AM_6DBevTdPxQbUdP
     2:2:void com.aige.loveproduction.ui.activity.ToFillInActivity.lambda$onRequestPermissionsResult$0(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.ToFillInActivity.lambda$onRequestPermissionsResult$0$ToFillInActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$ToFillInActivity$oxlOesl8pw1L8qm6SDr12qbMP_M -> com.aige.loveproduction.ui.activity.k0:
+com.aige.loveproduction.ui.activity.-$$Lambda$ToFillInActivity$oxlOesl8pw1L8qm6SDr12qbMP_M -> com.aige.loveproduction.ui.activity.j0:
 # {"id":"sourceFile","fileName":"lambda"}
     java.util.ArrayList f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.ToFillInActivity.lambda$getAsk$1(java.util.ArrayList,java.lang.String):0:0 -> accept
@@ -12172,7 +12167,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$ToFillInActivity$oxlOesl8pw1L8qm6S
     4:4:java.lang.String com.aige.loveproduction.util.IOUtil.imageToBase64(java.lang.String):0:0 -> accept
     4:4:void com.aige.loveproduction.ui.activity.ToFillInActivity.lambda$getAsk$1(java.util.ArrayList,java.lang.String):0 -> accept
     4:4:void accept(java.lang.Object):0 -> accept
-com.aige.loveproduction.ui.activity.-$$Lambda$TransferActivity$K4gApUsDpImn_h4HmGSGjWu5hBo -> com.aige.loveproduction.ui.activity.l0:
+com.aige.loveproduction.ui.activity.-$$Lambda$TransferActivity$K4gApUsDpImn_h4HmGSGjWu5hBo -> com.aige.loveproduction.ui.activity.k0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.TransferActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.TransferActivity.lambda$onRequestPermissionsResult$1$TransferActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12180,13 +12175,13 @@ com.aige.loveproduction.ui.activity.-$$Lambda$TransferActivity$K4gApUsDpImn_h4Hm
     2:2:void com.aige.loveproduction.ui.activity.TransferActivity.lambda$onRequestPermissionsResult$1(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.TransferActivity.lambda$onRequestPermissionsResult$1$TransferActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$TransferActivity$sYs8rB2-TE2inx3YPwVpKhkA-xE -> com.aige.loveproduction.ui.activity.m0:
+com.aige.loveproduction.ui.activity.-$$Lambda$TransferActivity$sYs8rB2-TE2inx3YPwVpKhkA-xE -> com.aige.loveproduction.ui.activity.l0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.TransferActivity f$0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$TransferVerifyActivity$0n8jtqkvrVrHEm0H6ET0D1cUCGk -> com.aige.loveproduction.ui.activity.n0:
+com.aige.loveproduction.ui.activity.-$$Lambda$TransferVerifyActivity$0n8jtqkvrVrHEm0H6ET0D1cUCGk -> com.aige.loveproduction.ui.activity.m0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.TransferVerifyActivity f$0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$TransferVerifyActivity$IGQPWMNtyViZK4Kl__zLqfSs8HA -> com.aige.loveproduction.ui.activity.o0:
+com.aige.loveproduction.ui.activity.-$$Lambda$TransferVerifyActivity$IGQPWMNtyViZK4Kl__zLqfSs8HA -> com.aige.loveproduction.ui.activity.n0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.TransferVerifyActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.TransferVerifyActivity.lambda$onRequestPermissionsResult$1$TransferVerifyActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12194,7 +12189,7 @@ com.aige.loveproduction.ui.activity.-$$Lambda$TransferVerifyActivity$IGQPWMNtyVi
     2:2:void com.aige.loveproduction.ui.activity.TransferVerifyActivity.lambda$onRequestPermissionsResult$1(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.TransferVerifyActivity.lambda$onRequestPermissionsResult$1$TransferVerifyActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$TransfersActivity$QXlBBkUZzN7q7RPdS3U7KTEDNd8 -> com.aige.loveproduction.ui.activity.p0:
+com.aige.loveproduction.ui.activity.-$$Lambda$TransfersActivity$QXlBBkUZzN7q7RPdS3U7KTEDNd8 -> com.aige.loveproduction.ui.activity.o0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.TransfersActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.TransfersActivity.lambda$onRequestPermissionsResult$1$TransfersActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12202,10 +12197,10 @@ com.aige.loveproduction.ui.activity.-$$Lambda$TransfersActivity$QXlBBkUZzN7q7RPd
     2:2:void com.aige.loveproduction.ui.activity.TransfersActivity.lambda$onRequestPermissionsResult$1(com.aige.loveproduction.base.BaseDialog):0:0 -> a
     2:2:void com.aige.loveproduction.ui.activity.TransfersActivity.lambda$onRequestPermissionsResult$1$TransfersActivity(com.aige.loveproduction.base.BaseDialog):0 -> a
     2:2:void onConfirm(com.aige.loveproduction.base.BaseDialog):0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$TransfersActivity$zzYlaGqG0wX_UORJrJVRRq8uino -> com.aige.loveproduction.ui.activity.q0:
+com.aige.loveproduction.ui.activity.-$$Lambda$TransfersActivity$zzYlaGqG0wX_UORJrJVRRq8uino -> com.aige.loveproduction.ui.activity.p0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.TransfersActivity f$0 -> a
-com.aige.loveproduction.ui.activity.-$$Lambda$WorkScanActivity$CiwtHblI37dr08YtWA7eV3RS4mk -> com.aige.loveproduction.ui.activity.r0:
+com.aige.loveproduction.ui.activity.-$$Lambda$WorkScanActivity$CiwtHblI37dr08YtWA7eV3RS4mk -> com.aige.loveproduction.ui.activity.q0:
 # {"id":"sourceFile","fileName":"lambda"}
     com.aige.loveproduction.ui.activity.WorkScanActivity f$0 -> a
     1:1:void com.aige.loveproduction.ui.activity.WorkScanActivity.lambda$onRequestPermissionsResult$0$WorkScanActivity(com.aige.loveproduction.base.BaseDialog):0:0 -> a
@@ -12262,9 +12257,9 @@ com.aige.loveproduction.ui.activity.ExamineActivity -> com.aige.loveproduction.u
     2:2:void initData():0 -> initData
     3:3:void initData():0:0 -> initData
 com.aige.loveproduction.ui.activity.ExamineActivity$1 -> com.aige.loveproduction.ui.activity.ExamineActivity$a:
-    com.aige.loveproduction.ui.activity.ExamineActivity this$0 -> a
+    com.aige.loveproduction.ui.activity.ExamineActivity this$0 -> c
 com.aige.loveproduction.ui.activity.ExamineActivity$2 -> com.aige.loveproduction.ui.activity.ExamineActivity$b:
-    com.aige.loveproduction.ui.activity.ExamineActivity this$0 -> a
+    com.aige.loveproduction.ui.activity.ExamineActivity this$0 -> c
 com.aige.loveproduction.ui.activity.FactorySettingsActivity -> com.aige.loveproduction.ui.activity.FactorySettingsActivity:
     java.util.List handlerData -> q
     android.view.MenuItem item -> k
@@ -12282,6 +12277,12 @@ com.aige.loveproduction.ui.activity.FactorySettingsActivity -> com.aige.loveprod
     android.widget.RadioGroup machineRadio -> c
     android.widget.GridLayout handlerRadio -> e
     java.util.List machineDatas -> n
+    1:1:android.graphics.drawable.Drawable androidx.core.content.ContextCompat.getDrawable(android.content.Context,int):0:0 -> A
+    1:1:void onGetHandlerSuccess(java.util.List):0 -> A
+    2:2:void onGetHandlerSuccess(java.util.List):0:0 -> A
+    3:3:boolean com.aige.loveproduction.util.SharedPreferencesUtils.getBoolean(android.content.Context,java.lang.String,java.lang.String):0:0 -> A
+    3:3:void onGetHandlerSuccess(java.util.List):0 -> A
+    4:4:void onGetHandlerSuccess(java.util.List):0:0 -> A
     com.aige.loveproduction.base.BasePresenter access$000(com.aige.loveproduction.ui.activity.FactorySettingsActivity) -> J
     java.lang.String access$100(com.aige.loveproduction.ui.activity.FactorySettingsActivity) -> K
     com.aige.loveproduction.base.BasePresenter access$200(com.aige.loveproduction.ui.activity.FactorySettingsActivity) -> L
@@ -12309,14 +12310,8 @@ com.aige.loveproduction.ui.activity.FactorySettingsActivity -> com.aige.loveprod
     1:1:boolean saveSettings():0:0 -> onOptionsItemSelected
     1:1:boolean onOptionsItemSelected(android.view.MenuItem):0 -> onOptionsItemSelected
     2:2:boolean onOptionsItemSelected(android.view.MenuItem):0:0 -> onOptionsItemSelected
-    void onGetMachineSuccess(java.util.List) -> v
-    void onGetWorkgroupSuccess(java.util.List) -> w
-    1:1:android.graphics.drawable.Drawable androidx.core.content.ContextCompat.getDrawable(android.content.Context,int):0:0 -> z
-    1:1:void onGetHandlerSuccess(java.util.List):0 -> z
-    2:2:void onGetHandlerSuccess(java.util.List):0:0 -> z
-    3:3:boolean com.aige.loveproduction.util.SharedPreferencesUtils.getBoolean(android.content.Context,java.lang.String,java.lang.String):0:0 -> z
-    3:3:void onGetHandlerSuccess(java.util.List):0 -> z
-    4:4:void onGetHandlerSuccess(java.util.List):0:0 -> z
+    void onGetMachineSuccess(java.util.List) -> w
+    void onGetWorkgroupSuccess(java.util.List) -> x
 com.aige.loveproduction.ui.activity.FactorySettingsActivity$1 -> com.aige.loveproduction.ui.activity.FactorySettingsActivity$a:
     com.aige.loveproduction.ui.activity.FactorySettingsActivity this$0 -> a
     void onConfirm(com.aige.loveproduction.base.BaseDialog) -> a
@@ -12326,18 +12321,6 @@ com.aige.loveproduction.ui.activity.FactorySettingsActivity$2 -> com.aige.lovepr
 com.aige.loveproduction.ui.activity.FactorySettingsActivity$3 -> com.aige.loveproduction.ui.activity.FactorySettingsActivity$c:
     com.aige.loveproduction.ui.activity.FactorySettingsActivity this$0 -> a
     void onConfirm(com.aige.loveproduction.base.BaseDialog) -> a
-com.aige.loveproduction.ui.activity.HistoryLogActivity -> com.aige.loveproduction.ui.activity.HistoryLogActivity:
-    android.widget.TextView toolbar_text -> c
-    androidx.appcompat.widget.Toolbar toolbar_title -> d
-    1:1:void bindViews():0:0 -> onCreate
-    1:1:void onCreate(android.os.Bundle):0 -> onCreate
-    2:2:void initUI():0:0 -> onCreate
-    2:2:void onCreate(android.os.Bundle):0 -> onCreate
-    3:3:android.graphics.drawable.Drawable androidx.core.content.ContextCompat.getDrawable(android.content.Context,int):0:0 -> onCreate
-    3:3:void initUI():0 -> onCreate
-    3:3:void onCreate(android.os.Bundle):0 -> onCreate
-    4:4:void initUI():0:0 -> onCreate
-    4:4:void onCreate(android.os.Bundle):0 -> onCreate
 com.aige.loveproduction.ui.activity.ImagePreviewActivity -> com.aige.loveproduction.ui.activity.ImagePreviewActivity:
     com.aige.loveproduction.ui.adapter.ImagePreviewAdapter mAdapter -> d
     androidx.viewpager.widget.ViewPager mViewPager -> c
@@ -12420,9 +12403,6 @@ com.aige.loveproduction.ui.activity.LoginActivity -> com.aige.loveproduction.ui.
     android.widget.Button loginBtn -> e
     android.widget.LinearLayout login_layout -> f
     com.aige.loveproduction.animation.BaseAnimation baseAnimation -> h
-    1:1:void com.aige.loveproduction.ui.activity.MainActivity.start(android.content.Context,java.lang.Class):0:0 -> B
-    1:1:void onGetUserSuccess(com.aige.loveproduction.base.BaseBean):0 -> B
-    2:2:void onGetUserSuccess(com.aige.loveproduction.base.BaseBean):0:0 -> B
     android.widget.EditText access$000(com.aige.loveproduction.ui.activity.LoginActivity) -> J
     android.widget.EditText access$100(com.aige.loveproduction.ui.activity.LoginActivity) -> K
     com.aige.loveproduction.base.BasePresenter access$200(com.aige.loveproduction.ui.activity.LoginActivity) -> L
@@ -12438,11 +12418,14 @@ com.aige.loveproduction.ui.activity.LoginActivity -> com.aige.loveproduction.ui.
     3:3:android.graphics.drawable.Drawable androidx.core.content.ContextCompat.getDrawable(android.content.Context,int):0:0 -> initData
     3:3:void initData():0 -> initData
     4:4:void initData():0:0 -> initData
+    1:1:void com.aige.loveproduction.ui.activity.MainActivity.start(android.content.Context,java.lang.Class):0:0 -> s
+    1:1:void onLoginSuccess(com.aige.loveproduction.base.BaseBean):0 -> s
+    2:2:void onLoginSuccess(com.aige.loveproduction.base.BaseBean):0:0 -> s
     1:1:void startScaleAnimation(android.view.View):0:0 -> showLoading
     1:1:void showLoading():0 -> showLoading
 com.aige.loveproduction.ui.activity.LoginActivity$1 -> com.aige.loveproduction.ui.activity.LoginActivity$a:
     com.aige.loveproduction.ui.activity.LoginActivity this$0 -> c
-com.aige.loveproduction.ui.activity.LoginActivity$2 -> com.aige.loveproduction.ui.activity.s0:
+com.aige.loveproduction.ui.activity.LoginActivity$2 -> com.aige.loveproduction.ui.activity.r0:
     com.aige.loveproduction.ui.activity.LoginActivity this$0 -> b
     android.view.View val$view -> a
     void AnimationStart(android.animation.Animator) -> a
@@ -12488,7 +12471,7 @@ com.aige.loveproduction.ui.activity.MixedLotActivity -> com.aige.loveproduction.
     void onGetHunPiByBatchNoSuccess(java.util.List) -> j
 com.aige.loveproduction.ui.activity.MixedLotActivity$1 -> com.aige.loveproduction.ui.activity.MixedLotActivity$a:
     com.aige.loveproduction.ui.activity.MixedLotActivity this$0 -> a
-com.aige.loveproduction.ui.activity.MixedLotActivity$2 -> com.aige.loveproduction.ui.activity.t0:
+com.aige.loveproduction.ui.activity.MixedLotActivity$2 -> com.aige.loveproduction.ui.activity.s0:
     com.aige.loveproduction.ui.activity.MixedLotActivity this$0 -> d
     java.lang.String[] val$type -> c
 com.aige.loveproduction.ui.activity.MixedLotActivity$3 -> com.aige.loveproduction.ui.activity.MixedLotActivity$b:
@@ -12554,7 +12537,7 @@ com.aige.loveproduction.ui.activity.MprActivity -> com.aige.loveproduction.ui.ac
     4:4:void initData():0:0 -> initData
     void onGetMPRByBatchNoSuccess(java.util.List) -> o
     void onGetFileSuccess(okhttp3.ResponseBody) -> r
-    void onGetMPRByBatchNoV2Success(java.util.List) -> y
+    void onGetMPRByBatchNoV2Success(java.util.List) -> z
 com.aige.loveproduction.ui.activity.MprActivity$1 -> com.aige.loveproduction.ui.activity.MprActivity$a:
     com.aige.loveproduction.ui.activity.MprActivity this$0 -> a
     void onConfirm(com.aige.loveproduction.base.BaseDialog) -> a
@@ -12664,7 +12647,7 @@ com.aige.loveproduction.ui.activity.QrCodeActivity -> com.aige.loveproduction.ui
 com.aige.loveproduction.ui.activity.ReportChannelOneActivity -> com.aige.loveproduction.ui.activity.ReportChannelOneActivity:
     com.github.mikephil.charting.charts.CombinedChart combinedChart -> d
     com.aige.loveproduction.manager.MPAndroidChartManager chartManager -> c
-    void onReportChannelOneSuccess(java.util.List) -> A
+    void onReportChannelOneSuccess(java.util.List) -> B
     1:1:com.aige.loveproduction.mvp.presenter.ReportPresenter createPresenter():0:0 -> createPresenter
     1:1:com.aige.loveproduction.base.BasePresenter createPresenter():0 -> createPresenter
     com.aige.loveproduction.ui.customui.StatusLayout getStatusLayout() -> h
@@ -12700,7 +12683,7 @@ com.aige.loveproduction.ui.activity.ReportOrderDayActivity -> com.aige.loveprodu
     1:1:java.lang.String com.aige.loveproduction.util.SharedPreferencesUtils.getValue(android.content.Context,java.lang.String,java.lang.String):0:0 -> initData
     1:1:void initData():0 -> initData
     2:2:void initData():0:0 -> initData
-    void onReportOrderDaySuccess(java.util.List) -> x
+    void onReportOrderDaySuccess(java.util.List) -> y
 com.aige.loveproduction.ui.activity.ReportOrderMonthActivity -> com.aige.loveproduction.ui.activity.ReportOrderMonthActivity:
     com.github.mikephil.charting.charts.LineChart lineChart -> d
     com.aige.loveproduction.manager.MPAndroidChartManager chartManager -> c
@@ -12741,7 +12724,7 @@ com.aige.loveproduction.ui.activity.SSSettingActivity -> com.aige.loveproduction
     6:6:void initData():0 -> initData
     7:7:void initRadio():0:0 -> initData
     7:7:void initData():0 -> initData
-com.aige.loveproduction.ui.activity.SSSettingActivity$1 -> com.aige.loveproduction.ui.activity.u0:
+com.aige.loveproduction.ui.activity.SSSettingActivity$1 -> com.aige.loveproduction.ui.activity.t0:
     com.aige.loveproduction.ui.activity.SSSettingActivity this$0 -> a
 com.aige.loveproduction.ui.activity.SendOutActivity -> com.aige.loveproduction.ui.activity.SendOutActivity:
     android.widget.RelativeLayout re_layout_body -> m
@@ -12822,12 +12805,12 @@ com.aige.loveproduction.ui.activity.SpecialShapedActivity -> com.aige.loveproduc
     com.aige.loveproduction.ui.customui.StatusLayout getStatusLayout() -> h
     void submitShowLoading() -> k
     void submitHideLoading() -> q
-    1:1:java.lang.String com.aige.loveproduction.util.SharedPreferencesUtils.getValue(android.content.Context,java.lang.String,java.lang.String):0:0 -> t
-    1:1:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0 -> t
-    2:2:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0:0 -> t
-    3:3:void getGridView(java.util.List):0:0 -> t
-    3:3:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0 -> t
-    4:4:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0:0 -> t
+    1:1:java.lang.String com.aige.loveproduction.util.SharedPreferencesUtils.getValue(android.content.Context,java.lang.String,java.lang.String):0:0 -> u
+    1:1:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0 -> u
+    2:2:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0:0 -> u
+    3:3:void getGridView(java.util.List):0:0 -> u
+    3:3:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0 -> u
+    4:4:void onGetPlateListByPackageCodeSuccess(com.aige.loveproduction.bean.PlateBean):0:0 -> u
 com.aige.loveproduction.ui.activity.SpecialShapedActivity$1 -> com.aige.loveproduction.ui.activity.SpecialShapedActivity$a:
     com.aige.loveproduction.ui.activity.SpecialShapedActivity this$0 -> a
 com.aige.loveproduction.ui.activity.SpecialShapedActivity$2 -> com.aige.loveproduction.ui.activity.SpecialShapedActivity$b:
@@ -12839,7 +12822,7 @@ com.aige.loveproduction.ui.activity.SpecialShapedActivity$3 -> com.aige.loveprod
 com.aige.loveproduction.ui.activity.SplashActivity -> com.aige.loveproduction.ui.activity.SplashActivity:
     1:1:void init():0:0 -> onCreate
     1:1:void onCreate(android.os.Bundle):0 -> onCreate
-com.aige.loveproduction.ui.activity.SplashActivity$1 -> com.aige.loveproduction.ui.activity.v0:
+com.aige.loveproduction.ui.activity.SplashActivity$1 -> com.aige.loveproduction.ui.activity.u0:
     com.aige.loveproduction.ui.activity.SplashActivity this$0 -> c
 com.aige.loveproduction.ui.activity.StorageFindActivity -> com.aige.loveproduction.ui.activity.StorageFindActivity:
     java.lang.String temporary_find_edit -> q
@@ -12917,7 +12900,7 @@ com.aige.loveproduction.ui.activity.ToFillInActivity -> com.aige.loveproduction.
     1:1:com.aige.loveproduction.bean.ToFillInAsk getAsk():0:0 -> onClick
     1:1:void onClick(android.view.View):0 -> onClick
     2:2:void onClick(android.view.View):0:0 -> onClick
-    void onGetToFillInDataSuccess(com.aige.loveproduction.bean.ToFillInBean) -> s
+    void onGetToFillInDataSuccess(com.aige.loveproduction.bean.ToFillInBean) -> t
 com.aige.loveproduction.ui.activity.ToFillInActivity$1 -> com.aige.loveproduction.ui.activity.ToFillInActivity$a:
     com.aige.loveproduction.ui.activity.ToFillInActivity this$0 -> a
 com.aige.loveproduction.ui.activity.ToFillInActivity$2 -> com.aige.loveproduction.ui.activity.ToFillInActivity$b:
@@ -13100,48 +13083,43 @@ com.aige.loveproduction.ui.adapter.ImageSelectAdapter$ViewHolder -> d.a.a.h.a.d$
     android.widget.ImageView mImageView -> c
     1:1:void <init>(com.aige.loveproduction.ui.adapter.ImageSelectAdapter,int):0:0 -> <init>
     1:1:void <init>(com.aige.loveproduction.ui.adapter.ImageSelectAdapter,int,com.aige.loveproduction.ui.adapter.ImageSelectAdapter$1):0 -> <init>
-com.aige.loveproduction.ui.adapter.LogAdapter -> d.a.a.h.a.e:
-    android.content.Context context -> a
-com.aige.loveproduction.ui.adapter.LogAdapter$1 -> d.a.a.h.a.e$a:
-com.aige.loveproduction.ui.adapter.LogAdapter$ViewHolder -> d.a.a.h.a.e$b:
-    android.widget.TextView log_text -> a
-com.aige.loveproduction.ui.adapter.MprSettingAdapter -> d.a.a.h.a.f:
+com.aige.loveproduction.ui.adapter.MprSettingAdapter -> d.a.a.h.a.e:
     com.aige.loveproduction.mpr.MprView mprView -> a
     com.aige.loveproduction.mpr.MprView access$000(com.aige.loveproduction.ui.adapter.MprSettingAdapter) -> a
     void setMprView(com.aige.loveproduction.mpr.MprView) -> b
     1:1:com.aige.loveproduction.ui.adapter.MprSettingAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.MprSettingAdapter$ViewHolder -> d.a.a.h.a.f$a:
+com.aige.loveproduction.ui.adapter.MprSettingAdapter$ViewHolder -> d.a.a.h.a.e$a:
     android.widget.TextView open_describe -> c
     androidx.appcompat.widget.SwitchCompat open_switch -> d
     com.aige.loveproduction.ui.adapter.MprSettingAdapter this$0 -> e
-com.aige.loveproduction.ui.adapter.PlateAdapter -> d.a.a.h.a.g:
+com.aige.loveproduction.ui.adapter.PlateAdapter -> d.a.a.h.a.f:
     1:1:com.aige.loveproduction.base.BaseAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.PlateAdapter$HeaderHolder -> d.a.a.h.a.g$a:
+com.aige.loveproduction.ui.adapter.PlateAdapter$HeaderHolder -> d.a.a.h.a.f$a:
     android.widget.TextView plate_item_title -> c
     com.aige.loveproduction.ui.adapter.PlateAdapter this$0 -> f
     android.widget.TextView head_plan_data -> e
     android.widget.TextView head_planNo_text -> d
-com.aige.loveproduction.ui.adapter.PlateAdapter$InnerHolder -> d.a.a.h.a.g$b:
+com.aige.loveproduction.ui.adapter.PlateAdapter$InnerHolder -> d.a.a.h.a.f$b:
     com.aige.loveproduction.ui.adapter.PlateAdapter this$0 -> g
     android.widget.TextView opname -> c
     android.widget.TextView operation_name -> e
     android.widget.TextView operation_date -> d
     android.widget.TextView operation_group -> f
-com.aige.loveproduction.ui.adapter.RecyclerPagerAdapter -> d.a.a.h.a.h:
+com.aige.loveproduction.ui.adapter.RecyclerPagerAdapter -> d.a.a.h.a.g:
     androidx.recyclerview.widget.RecyclerView$Adapter mAdapter -> c
     void destroyItem(android.view.ViewGroup,int,java.lang.Object) -> a
     int getCount() -> c
     java.lang.Object instantiateItem(android.view.ViewGroup,int) -> e
     boolean isViewFromObject(android.view.View,java.lang.Object) -> f
     androidx.recyclerview.widget.RecyclerView$Adapter access$000(com.aige.loveproduction.ui.adapter.RecyclerPagerAdapter) -> o
-com.aige.loveproduction.ui.adapter.RecyclerPagerAdapter$1 -> d.a.a.h.a.h$a:
+com.aige.loveproduction.ui.adapter.RecyclerPagerAdapter$1 -> d.a.a.h.a.g$a:
     com.aige.loveproduction.ui.adapter.RecyclerPagerAdapter this$0 -> a
-com.aige.loveproduction.ui.adapter.SendVerifyAdapter -> d.a.a.h.a.i:
+com.aige.loveproduction.ui.adapter.SendVerifyAdapter -> d.a.a.h.a.h:
     1:1:com.aige.loveproduction.ui.adapter.SendVerifyAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.SendVerifyAdapter$ViewHolder -> d.a.a.h.a.i$a:
+com.aige.loveproduction.ui.adapter.SendVerifyAdapter$ViewHolder -> d.a.a.h.a.h$a:
     android.widget.TextView solution_name -> c
     com.aige.loveproduction.ui.adapter.SendVerifyAdapter this$0 -> j
     android.widget.TextView not_pack -> e
@@ -13150,30 +13128,30 @@ com.aige.loveproduction.ui.adapter.SendVerifyAdapter$ViewHolder -> d.a.a.h.a.i$a
     android.widget.TextView not_in_storage -> f
     android.widget.TextView bin_name -> i
     android.widget.TextView not_send -> h
-com.aige.loveproduction.ui.adapter.StorageAdapter -> d.a.a.h.a.j:
+com.aige.loveproduction.ui.adapter.StorageAdapter -> d.a.a.h.a.i:
     1:1:com.aige.loveproduction.base.BaseAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.StorageAdapter$InnerHolder -> d.a.a.h.a.j$a:
+com.aige.loveproduction.ui.adapter.StorageAdapter$InnerHolder -> d.a.a.h.a.i$a:
     com.aige.loveproduction.ui.adapter.StorageAdapter this$0 -> h
     android.widget.TextView solution_name -> c
     android.widget.TextView storage_ok -> e
     android.widget.TextView package_count -> d
     android.widget.TextView bin_name -> g
     android.widget.TextView storage_no -> f
-com.aige.loveproduction.ui.adapter.TransportAdapter -> d.a.a.h.a.k:
+com.aige.loveproduction.ui.adapter.TransportAdapter -> d.a.a.h.a.j:
     int Type -> a
     int access$000(com.aige.loveproduction.ui.adapter.TransportAdapter) -> a
     void setType(int) -> b
     1:1:com.aige.loveproduction.ui.adapter.TransportAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.TransportAdapter$ViewHolder -> d.a.a.h.a.k$a:
+com.aige.loveproduction.ui.adapter.TransportAdapter$ViewHolder -> d.a.a.h.a.j$a:
     android.widget.TextView packageCode -> c
     android.widget.TextView packageDate -> d
     com.aige.loveproduction.ui.adapter.TransportAdapter this$0 -> e
-com.aige.loveproduction.ui.adapter.UserCenterAdapter -> d.a.a.h.a.l:
+com.aige.loveproduction.ui.adapter.UserCenterAdapter -> d.a.a.h.a.k:
     1:1:com.aige.loveproduction.ui.adapter.UserCenterAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.UserCenterAdapter$ViewHolder -> d.a.a.h.a.l$a:
+com.aige.loveproduction.ui.adapter.UserCenterAdapter$ViewHolder -> d.a.a.h.a.k$a:
     android.widget.RelativeLayout user_select -> c
     android.widget.TextView select_text -> f
     com.aige.loveproduction.ui.adapter.UserCenterAdapter this$0 -> g
@@ -13185,10 +13163,10 @@ com.aige.loveproduction.ui.adapter.UserCenterAdapter$ViewHolder -> d.a.a.h.a.l$a
     3:3:android.graphics.drawable.Drawable androidx.core.content.ContextCompat.getDrawable(android.content.Context,int):0:0 -> onBindView
     3:3:void onBindView(int):0 -> onBindView
     4:4:void onBindView(int):0:0 -> onBindView
-com.aige.loveproduction.ui.adapter.WorkScanAdapter -> d.a.a.h.a.m:
+com.aige.loveproduction.ui.adapter.WorkScanAdapter -> d.a.a.h.a.l:
     1:1:com.aige.loveproduction.base.BaseAdapter$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0:0 -> onCreateViewHolder
     1:1:androidx.recyclerview.widget.RecyclerView$ViewHolder onCreateViewHolder(android.view.ViewGroup,int):0 -> onCreateViewHolder
-com.aige.loveproduction.ui.adapter.WorkScanAdapter$InnerHolder -> d.a.a.h.a.m$a:
+com.aige.loveproduction.ui.adapter.WorkScanAdapter$InnerHolder -> d.a.a.h.a.l$a:
     com.aige.loveproduction.ui.adapter.WorkScanAdapter this$0 -> k
     android.widget.TextView work_order_text -> c
     android.widget.TextView yesScan_text -> e
@@ -19566,7 +19544,7 @@ com.bumptech.glide.manager.SupportRequestManagerFragment -> com.bumptech.glide.m
     1:1:androidx.fragment.app.FragmentManager getRootFragmentManager(androidx.fragment.app.Fragment):0:0 -> onAttach
     1:1:void onAttach(android.content.Context):0 -> onAttach
     2:2:void onAttach(android.content.Context):0:0 -> onAttach
-    com.bumptech.glide.RequestManager getRequestManager() -> u
+    com.bumptech.glide.RequestManager getRequestManager() -> v
 com.bumptech.glide.manager.SupportRequestManagerFragment$SupportFragmentRequestManagerTreeNode -> com.bumptech.glide.m.s$a:
     com.bumptech.glide.manager.SupportRequestManagerFragment this$0 -> a
 com.bumptech.glide.manager.TargetTracker -> com.bumptech.glide.m.t:

@@ -21,9 +21,9 @@
     <color name="draw_brown">#855814</color>
     <color name="draw_green">#00FF00</color>
     <color name="draw_brown1">#CC8F33</color>
-    <color name="draw_sky_blue">#77FFFF</color>
+    <color name="draw_sky_blue">#00FFFF</color>
     <color name="draw_silvery">#CCCCCC</color>
     <color name="draw_gray">#919191</color>
     <color name="marker_black">#50222222</color>
-    <color name="draw_orange">#FF9900</color>
+    <color name="draw_orange">#FF6633</color>
 </resources>

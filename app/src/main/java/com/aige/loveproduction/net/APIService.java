@@ -41,7 +41,7 @@ public interface APIService {
 
     //登录
     @POST("/api/UserLogin")
-    Observable<BaseBean<UserBean>> getUser(@Body RequestBody body);
+    Observable<BaseBean<UserBean>> login(@Body RequestBody body);
 
     //获取所有机器列表
     @POST("/api/FactorySettings/GetMachineList")
@@ -87,6 +87,7 @@ public interface APIService {
     //异形板件扫描
     @POST("/api/ScanQRcode/Scan_BOM_ItemDetailByBarcodeV2")
     Observable<BaseBean<PlateBean>> getPlateByPackageCode(@Body RequestBody body);
+
     //提交异形板件数据
     @POST("/api/ReckonSalary/SpecialBar/CreateSpecialBar")
     Observable<BaseBean> getSpecialBar(@Body SpeciaBarAsk ask);
@@ -126,8 +127,6 @@ public interface APIService {
     //内改补数据采集
     @GET("/api/Examine/ic/InnerChange/QueryBOMItemDetailModelByBarcore")
     Observable<BaseBean<ToFillInBean>> getToFillInData(@Query("Barcode") String barcode);
-//    @POST("/api/Examine/ic/InnerChange/CreateInnerChange")
-//    Observable<BaseBean> submitData(@Body ToFillInAsk ask);
     @Headers({HostType.BASE_URL+":"+ApiConstants.base_url_one})
     @POST("/api/ExamineOrder/InnerChange/Create")
     Observable<BaseBean> submitData(@Body ToFillInAsk ask);

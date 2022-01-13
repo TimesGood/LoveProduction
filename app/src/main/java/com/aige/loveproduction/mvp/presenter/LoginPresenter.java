@@ -23,9 +23,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>
     }
 
     @Override
-    public void getUser(String username, String password) {
+    public void login(String username, String password) {
         checkViewAttached();
-        mModel.getUser(username, password).compose(RxScheduler.Obs_io_main())
+        mModel.login(username, password).compose(RxScheduler.Obs_io_main())
                 .to(mView.bindAutoDispose())
                 .subscribe(new Observer<BaseBean<UserBean>>() {
                     @Override
@@ -35,7 +35,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View,LoginModel>
 
                     @Override
                     public void onNext(@NonNull BaseBean<UserBean> bean) {
-                        mView.onGetUserSuccess(bean);
+                        mView.onLoginSuccess(bean);
                     }
 
                     @Override

@@ -174,7 +174,7 @@ public class MprView extends View implements ResourcesAction {
                 MprBohrData mprData = data.getMprBohrVertData(i);
                 initPaint();
                 mPaint.setColor(mprColor.getBohrVert());
-                drawText(canvas, mprData.getCoordText(), extraData.getTextSize(), mprData.getXA(), mprData.getYA(), 0f, mprData.getDU(),mpr_bohrcoord_describe);
+                drawText(canvas, mprData.getCoordText(), extraData.getTextSize(), mprData.getXA(), mprData.getYA(), 0f, -mprData.getDU(),mpr_bohrcoord_describe);
                 drawArc(canvas,0,360,mprData.getDU(),mprData.getXA(), mprData.getYA());
             }
         }
@@ -184,7 +184,7 @@ public class MprView extends View implements ResourcesAction {
                 MprBohrData mprData = data.getMprBohrVertCrossData(i);
                 initPaint();
                 mPaint.setColor(mprColor.getBohrVert());
-                drawText(canvas, mprData.getCoordText(), extraData.getTextSize(), mprData.getXA(), mprData.getYA(), 0f, mprData.getDU(),mpr_bohrcoord_describe);
+                drawText(canvas, mprData.getCoordText(), extraData.getTextSize(), mprData.getXA(), mprData.getYA(), 0f, -mprData.getDU(),mpr_bohrcoord_describe);
                 drawArc(canvas,0,360,mprData.getDU(),mprData.getXA(), mprData.getYA());
                 mPaint.setStyle(Paint.Style.STROKE);
                 mPaint.setStrokeWidth(1f);
@@ -536,6 +536,7 @@ public class MprView extends View implements ResourcesAction {
             } else if(x != 0 && y == 0 || (x == 0 && y == 0)) {
                 drawText(canvas,mprData.getCoordText(i),size,x,y,0,-offsetY,showXY);
             }
+
         }
         //是否填充所画路径
         if(isFill) {

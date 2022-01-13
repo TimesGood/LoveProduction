@@ -3,17 +3,14 @@ package com.aige.loveproduction.ui.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.content.ContextCompat;
 
 import com.aige.loveproduction.R;
 import com.aige.loveproduction.base.AppAdapter;
-import com.aige.loveproduction.bean.HomeBean;
 import com.aige.loveproduction.mpr.MprView;
 import com.aige.loveproduction.util.SharedPreferencesUtils;
 
@@ -41,15 +38,14 @@ public class MprSettingAdapter extends AppAdapter<String>{
         return new ViewHolder(R.layout.open_inclue);
     }
 
-
-    private final class ViewHolder extends AppAdapter<?>.ViewHolder {
+    private final class ViewHolder extends AppAdapter<?>.ViewHolder implements CompoundButton.OnCheckedChangeListener{
         private final TextView open_describe;
         private final SwitchCompat open_switch;
         public ViewHolder(int id) {
             super(id);
             open_describe = findViewById(R.id.open_describe);
             open_switch = findViewById(R.id.open_switch);
-            open_switch.setOnClickListener(this);
+            open_switch.setOnCheckedChangeListener(this);
         }
 
 
@@ -69,22 +65,16 @@ public class MprSettingAdapter extends AppAdapter<String>{
         }
 
         @Override
-        public void onClick(View v) {
-            super.onClick(v);
-            int id = v.getId();
-            if(v instanceof SwitchCompat) {
-                SwitchCompat switchView = (SwitchCompat) v;
-                boolean checked = switchView.isChecked();
-                if(id == 0) {
-                    SharedPreferencesUtils.saveSetting(getContext(),"mprSettings","mpr_bohrcoord_describe",checked);
-                }else if(id == 1) {
-                    SharedPreferencesUtils.saveSetting(getContext(),"mprSettings","mpr_distance_line",checked);
-                }else if(id == 2) {
-                    SharedPreferencesUtils.saveSetting(getContext(),"mprSettings","mpr_cuttingcoord_describe",checked);
-                }
-                mprView.initSetting();
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            int id = buttonView.getId();
+            if(id == 0) {
+                SharedPreferencesUtils.saveSetting(getContext(),"mprSettings","mpr_bohrcoord_describe",isChecked);
+            }else if(id == 1) {
+                SharedPreferencesUtils.saveSetting(getContext(),"mprSettings","mpr_distance_line",isChecked);
+            }else if(id == 2) {
+                SharedPreferencesUtils.saveSetting(getContext(),"mprSettings","mpr_cuttingcoord_describe",isChecked);
             }
-
+            mprView.initSetting();
         }
     }
 

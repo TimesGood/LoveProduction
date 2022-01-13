@@ -20,12 +20,12 @@ public class LoginModel implements LoginContract.Model {
         return new LoginModel();
     }
     @Override
-    public Observable<BaseBean<UserBean>> getUser(String username, String password) {
+    public Observable<BaseBean<UserBean>> login(String username, String password) {
         String sign = MD5Utils.md5("LoveProduction2021" + username);
         Map<String,String> map = new HashMap<>();
         map.put("userName",username);
         map.put("password",password);
         RequestBody body = RequestBody.Companion.create(gson.toJson(map), MediaType.parse("application/json;charset=utf-8"));
-        return getApi().getUser(body);
+        return getApi().login(body);
     }
 }
