@@ -13,7 +13,7 @@ public class MprDataWrap {
     private List<MprData> bohrVert;
     private List<MprData> bohrVertCross;
     private List<MprData> cutting;
-    private MprExtraData extraModul = new MprExtraData();
+    private MprExtraData extraData = new MprExtraData();
     private final float[] xy = new float[2];
 
 
@@ -107,41 +107,25 @@ public class MprDataWrap {
     /**全体缩放*/
     public void scale(float scale) {
         this.master.setScale(scale);
-        this.bohrHoriz.forEach(v -> {
-            v.setScale(scale);
-        });
-        this.bohrVert.forEach(v -> {
-            v.setScale(scale);
-        });
-        this.bohrVertCross.forEach(v -> {
-            v.setScale(scale);
-        });
-        this.cutting.forEach(v -> {
-            v.setScale(scale);
-        });
-        this.extraModul.setScale(scale);
+        this.bohrHoriz.forEach(v -> v.setScale(scale));
+        this.bohrVert.forEach(v -> v.setScale(scale));
+        this.bohrVertCross.forEach(v -> v.setScale(scale));
+        this.cutting.forEach(v -> v.setScale(scale));
+        this.extraData.setScale(scale);
     }
     /**克隆一个全新的数据*/
     public MprDataWrap cloneData(){
         MprDataWrap clone = new MprDataWrap();
         MprMaster master = (MprMaster) this.master.cloneData(null);
         List<MprData> bohrHoriz = new ArrayList<>();
-        this.bohrHoriz.forEach(v -> {
-            bohrHoriz.add(v.cloneData(master));
-        });
+        this.bohrHoriz.forEach(v -> bohrHoriz.add(v.cloneData(master)));
         List<MprData> bohrVert = new ArrayList<>();
-        this.bohrVert.forEach(v -> {
-            bohrVert.add(v.cloneData(master));
-        });
+        this.bohrVert.forEach(v -> bohrVert.add(v.cloneData(master)));
         List<MprData> bohrVertCross = new ArrayList<>();
-        this.bohrVertCross.forEach(v -> {
-            bohrVertCross.add(v.cloneData(master));
-        });
+        this.bohrVertCross.forEach(v -> bohrVertCross.add(v.cloneData(master)));
         List<MprData> cutting = new ArrayList<>();
-        this.cutting.forEach(v -> {
-            cutting.add(v.cloneData(master));
-        });
-        MprExtraData extraModul = (MprExtraData)this.extraModul.cloneData(null);
+        this.cutting.forEach(v -> cutting.add(v.cloneData(master)));
+        MprExtraData extraModul = (MprExtraData)this.extraData.cloneData(null);
         clone.setMaster(master);
         clone.setBohrHoriz(bohrHoriz);
         clone.setBohrVert(bohrVert);
@@ -165,7 +149,7 @@ public class MprDataWrap {
     }
     /**获取水平钉子数量*/
     public int getBohrHorizSize(){
-        return bohrHoriz == null?0:bohrHoriz.size();
+        return bohrHoriz == null ? 0:bohrHoriz.size();
     }
     //*****************************************get、set*************************************************
     public MprMaster getMaster() {
@@ -181,7 +165,6 @@ public class MprDataWrap {
     }
 
     public void setBohrHoriz(List<MprData> bohrHoriz) {
-//        bohrHoriz.forEach(v -> v.parsePosition());
         this.bohrHoriz = bohrHoriz;
     }
 
@@ -190,7 +173,6 @@ public class MprDataWrap {
     }
 
     public void setBohrVert(List<MprData> bohrVert) {
-//        bohrVert.forEach(v -> v.parsePosition());
         this.bohrVert = bohrVert;
     }
 
@@ -199,7 +181,6 @@ public class MprDataWrap {
     }
 
     public void setBohrVertCross(List<MprData> bohrVertCross) {
-//        bohrVertCross.forEach(v -> v.parsePosition());
         this.bohrVertCross = bohrVertCross;
     }
 
@@ -212,11 +193,11 @@ public class MprDataWrap {
     }
 
     public MprExtraData getExtraModul() {
-        return extraModul;
+        return extraData;
     }
 
     public void setExtraModul(MprExtraData extraModul) {
-        this.extraModul = extraModul;
+        this.extraData = extraModul;
     }
 
     @Override
